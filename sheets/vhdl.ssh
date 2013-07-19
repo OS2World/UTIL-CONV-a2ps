@@ -1,0 +1,92 @@
+# Style sheet for VHDL
+# Copyright (c) 1998-2000 Thomas Parmelan, Akim Demaille, Miguel Santana
+#
+
+#
+# This file is part of a2ps.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
+#
+
+style VHDL is
+written by "Thomas Parmelan <Thomas.Parmelan@efrei.fr>"
+version is 1.4
+requires a2ps version 4.13
+
+documentation is
+   "Non-textual operators are not highlighted."
+   "Some logical operators are printed as graphical symbols"
+   "in the second level of pretty-printing."
+end documentation
+
+alphabets are
+   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
+
+keywords in Keyword_strong are
+   abs, access, after, alias, all, and, architecture, array, assert,
+   attribute, begin, block, body, buffer, bus, "case", component,
+   configuration, constant, disconnect, downto, else, elsif, "end",
+   exit, file, for, generate, generic, guarded, if,
+   inout, "in", "is", label, library, linkage, loop, map, mod, nand,
+   new, next, nor, not, null, of, on, open, or, others, out, package,
+   port, process, range, record, register, rem, report,
+   return, select, severity, signal, subtype, then, to, transport,
+   type, units, until, use, variable, wait, when, while, with, xor
+end keywords
+
+operators are
+  # Handling of Ada-like character literals
+  (/'(.)'/ "'" Plain, \1 String, "'" Plain)
+end operators
+
+keywords in Keyword are
+   std_ulogic, std_ulogic_vector, signed, unsigned
+end keywords
+
+optional keywords are
+   not \not,
+   or \vee,
+   and \wedge,
+   implies \Rightarrow
+end keywords
+
+# Some important declarations
+operators are
+  (/\\b(entity|architecture|function|procedure)\\b/
+   \1 Keyword_strong),
+  (/(entity|architecture|function|procedure)/
+   /([ \t]+)/
+   /([a-zA-Z_][a-zA-Z_0-9]*)/
+   \1 Keyword_strong, \2 Plain, \3 Label)
+end operators
+
+sequences are
+    -- Comment,
+
+    # Strings (escaping is a` la ada, not as in C)
+    "\"" Plain String "\"" Plain
+       exceptions are
+          "\"\""
+       end exceptions,
+
+    # Protect the << ' >> of the attributes
+    /'[a-z][a-z_]*/ Plain /[^a-z_]/ Plain,
+
+    # Libraries
+    /library[ 	]+/ Keyword_strong Label /[ 	]*;/ Plain
+end sequences
+
+end style

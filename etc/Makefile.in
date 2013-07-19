@@ -1,0 +1,309 @@
+# Makefile.in generated automatically by automake 1.4a from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_STRIP_FLAG =
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+
+@SET_MAKE@
+host_alias = @host_alias@
+host_triplet = @host@
+AMDEP = @AMDEP@
+AMTAR = @AMTAR@
+AS = @AS@
+AWK = @AWK@
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+COM_ = @COM_@
+COM_DISPLAY = @COM_DISPLAY@
+COM_LATEX = @COM_LATEX@
+COM_PS2PDF = @COM_PS2PDF@
+COM_PSUTILS = @COM_PSUTILS@
+COM_TEXI = @COM_TEXI@
+COM_acroread4 = @COM_acroread4@
+CPP = @CPP@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+DATADIRNAME = @DATADIRNAME@
+DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
+ECHO_C = @ECHO_C@
+ECHO_N = @ECHO_N@
+EMACS = @EMACS@
+ENCODING = @ENCODING@
+EXEEXT = @EXEEXT@
+EXTRA_CFLAGS = @EXTRA_CFLAGS@
+FILE_LINK = @FILE_LINK@
+GENCAT = @GENCAT@
+GMOFILES = @GMOFILES@
+GMSGFMT = @GMSGFMT@
+GNU_PACKAGE = @GNU_PACKAGE@
+GPERF = @GPERF@
+GT_NO = @GT_NO@
+GT_YES = @GT_YES@
+INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
+INSTOBJEXT = @INSTOBJEXT@
+INTLDEPS = @INTLDEPS@
+INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBOBJS = @LIBOBJS@
+LIBTOOL = @LIBTOOL@
+LIBVERSION = @LIBVERSION@
+LN_S = @LN_S@
+LPR = @LPR@
+LPR_QUEUE_OPTION = @LPR_QUEUE_OPTION@
+LTALLOCA = @LTALLOCA@
+LTLIBOBJS = @LTLIBOBJS@
+MAKEINFO = @MAKEINFO@
+MEDIUM = @MEDIUM@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+MSGFMT = @MSGFMT@
+OBJDUMP = @OBJDUMP@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+POFILES = @POFILES@
+POSUB = @POSUB@
+PSFONT_PATH = @PSFONT_PATH@
+RANLIB = @RANLIB@
+U = @U@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+USE_NLS = @USE_NLS@
+VERSION = @VERSION@
+YACC = @YACC@
+file_prog = @file_prog@
+l = @l@
+lispdir = @lispdir@
+
+
+ogonkifydir = $(datadir)/ogonkify
+libpath = $(pkgdatadir)/sheets:$(pkgdatadir)/ps:$(pkgdatadir)/encoding:$(pkgdatadir)/afm:$(ogonkifydir)/afm:$(pkgdatadir)/ppd:$(pkgdatadir)/fonts:$(ogonkifydir)/fonts:$(pkgdatadir)
+
+pkgdata_DATA = README
+
+dsysconf = $(DESTDIR)$(sysconfdir)
+
+EXTRA_DIST = README.in
+
+DISTCLEANFILES = a2ps.cfg README
+subdir = etc
+mkinstalldirs = $(SHELL) $(top_srcdir)/auxdir/mkinstalldirs
+CONFIG_HEADER = ../config.h
+CONFIG_CLEAN_FILES =  a2ps_cfg a2ps-site.cfg
+DIST_SOURCES = 
+DATA =  $(pkgdata_DATA)
+
+DIST_COMMON =  README $(pkgdata_DATA) Makefile.am Makefile.in \
+a2ps-site.cfg.in a2ps_cfg.in
+
+
+DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+
+GZIP_ENV = --best
+all: all-redirect
+.SUFFIXES:
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu etc/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+a2ps_cfg: $(top_builddir)/config.status a2ps_cfg.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+a2ps-site.cfg: $(top_builddir)/config.status a2ps-site.cfg.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+install-pkgdataDATA: $(pkgdata_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	@list='$(pkgdata_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(pkgdatadir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(pkgdatadir)/$$f; \
+	done
+
+uninstall-pkgdataDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(pkgdata_DATA)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(pkgdatadir)/$$f"; \
+	  rm -f $(DESTDIR)$(pkgdatadir)/$$f; \
+	done
+tags: TAGS
+TAGS:
+
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pR $$d/$$file $(distdir); \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am:
+install-exec: install-exec-am
+
+install-data-am: install-pkgdataDATA install-data-local
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-pkgdataDATA uninstall-local
+uninstall: uninstall-am
+all-am: Makefile $(DATA) all-local
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(pkgdatadir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
+
+maintainer-clean-generic:
+	-rm -f Makefile.in
+mostlyclean-am:  mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-generic distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: uninstall-pkgdataDATA install-pkgdataDATA tags distdir info-am \
+info dvi-am dvi check check-am installcheck-am installcheck \
+install-exec-am install-exec install-data-local install-data-am \
+install-data install-am install uninstall-local uninstall-am uninstall \
+all-local all-redirect all-am all install-strip installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+all-local: a2ps.cfg
+
+install-data-local: a2ps.cfg
+	$(mkinstalldirs) $(dsysconf)
+	@if test -r $(dsysconf)/$(PACKAGE).cfg; then \
+	  if cmp $(dsysconf)/$(PACKAGE).cfg $(top_builddir)/etc/$(PACKAGE).cfg 2> /dev/null ; then \
+	     echo "$(dsysconf)/$(PACKAGE).cfg has not changed"; \
+	  else \
+	     echo;	\
+	     echo "*******************";	\
+	     echo "* Warning: $(dsysconf)/$(PACKAGE).cfg exist."; \
+	     echo "* It has been moved as $(dsysconf)/$(PACKAGE).cfg.old"; \
+	     echo "*******************";	\
+	     echo; \
+	     mv $(dsysconf)/$(PACKAGE).cfg $(dsysconf)/$(PACKAGE).cfg.old; \
+	     $(INSTALL_DATA) $(top_builddir)/etc/$(PACKAGE).cfg $(dsysconf)/$(PACKAGE).cfg ; \
+	  fi \
+	else \
+	  $(INSTALL_DATA) $(top_builddir)/etc/$(PACKAGE).cfg $(dsysconf)/$(PACKAGE).cfg; \
+	fi
+	@test -r $(dsysconf)/a2ps-site.cfg || \
+	  $(INSTALL_DATA) $(top_builddir)/etc/a2ps-site.cfg $(dsysconf)/a2ps-site.cfg ;
+
+uninstall-local:
+	rm -f $(sysconfdir)/$(PACKAGE).cfg $(sysconfdir)/$(PACKAGE)-site.cfg
+
+# Building the correct a2ps.cfg
+a2ps.cfg: a2ps_cfg Makefile
+	sed "s!@libpath@!$(libpath)!" a2ps_cfg > a2ps.cfg
+
+# Building a time stamp to know the version.
+README: README.in Makefile
+	sed "s!@date@!`date`!g;s!@version@!$(VERSION)!g"	\
+	$(srcdir)/README.in > README
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

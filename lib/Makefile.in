@@ -1,0 +1,883 @@
+# Makefile.in generated automatically by automake 1.4a from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_STRIP_FLAG =
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+
+@SET_MAKE@
+host_alias = @host_alias@
+host_triplet = @host@
+AMDEP = @AMDEP@
+AMTAR = @AMTAR@
+AS = @AS@
+AWK = @AWK@
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+COM_ = @COM_@
+COM_DISPLAY = @COM_DISPLAY@
+COM_LATEX = @COM_LATEX@
+COM_PS2PDF = @COM_PS2PDF@
+COM_PSUTILS = @COM_PSUTILS@
+COM_TEXI = @COM_TEXI@
+COM_acroread4 = @COM_acroread4@
+CPP = @CPP@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+DATADIRNAME = @DATADIRNAME@
+DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
+ECHO_C = @ECHO_C@
+ECHO_N = @ECHO_N@
+EMACS = @EMACS@
+ENCODING = @ENCODING@
+EXEEXT = @EXEEXT@
+EXTRA_CFLAGS = @EXTRA_CFLAGS@
+FILE_LINK = @FILE_LINK@
+GENCAT = @GENCAT@
+GMOFILES = @GMOFILES@
+GMSGFMT = @GMSGFMT@
+GNU_PACKAGE = @GNU_PACKAGE@
+GPERF = @GPERF@
+GT_NO = @GT_NO@
+GT_YES = @GT_YES@
+INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
+INSTOBJEXT = @INSTOBJEXT@
+INTLDEPS = @INTLDEPS@
+INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBOBJS = @LIBOBJS@
+LIBTOOL = @LIBTOOL@
+LIBVERSION = @LIBVERSION@
+LN_S = @LN_S@
+LPR = @LPR@
+LPR_QUEUE_OPTION = @LPR_QUEUE_OPTION@
+LTALLOCA = @LTALLOCA@
+LTLIBOBJS = @LTLIBOBJS@
+MAKEINFO = @MAKEINFO@
+MEDIUM = @MEDIUM@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+MSGFMT = @MSGFMT@
+OBJDUMP = @OBJDUMP@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+POFILES = @POFILES@
+POSUB = @POSUB@
+PSFONT_PATH = @PSFONT_PATH@
+RANLIB = @RANLIB@
+U = @U@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+USE_NLS = @USE_NLS@
+VERSION = @VERSION@
+YACC = @YACC@
+file_prog = @file_prog@
+l = @l@
+lispdir = @lispdir@
+
+# -*- Makefile -*-
+
+
+AUTOMAKE_OPTIONS = $(top_builddir)/lib/ansi2knr
+
+#
+# Definition of the local target
+#
+lib_LTLIBRARIES = liba2ps.la
+
+INCLUDES = -I$(top_builddir) -I$(top_builddir)/intl -I$(srcdir)
+DEFS = @DEFS@ -DLOCALEDIR=\"$(datadir)/locale\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\"
+# --debug, --defines, --verbose
+YFLAGS = -dtv
+# Use a struct, handle duplicates, produce ANSI-C
+GPERFFLAGS = -t -D -L ANSI-C
+BUILT_SOURCES = parseppd.h liba2ps.h confg.c
+
+liba2ps_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
+liba2ps_la_LDFLAGS = -version-info @LIBVERSION@
+
+liba2psheaders = encoding.h media.h jobs.h output.h		\
+routines.h psgen.h prolog.h faces.h confg.h useropt.h		\
+gen.h printers.h psstat.h caret.h metaseq.h options.h		\
+dsc.h fonts.h ppd.h prange.h stream.h document.h		\
+fjobs.h	common.h madir.h filalign.h lexppd.h			\
+system.h a2ps.h liba2ps.h yy2ppd.h
+
+
+liba2pssources = encoding.c media.c jobs.c output.c		\
+routines.c psgen.c prolog.c faces.c confg.c useropt.c		\
+gen.c printers.c psstat.c caret.c metaseq.c options.c		\
+dsc.c fonts.l ppd.c prange.c stream.c document.c		\
+fjobs.c common.c madir.c filalign.c lexppd.l			\
+parseppd.y
+
+
+mylibitheaders = msg.h msg.c message.h xstrrpl.h getshline.h pathwalk.h	\
+darray.h dstring.h printlen.h pair_ht.h filtdir.h str_ht.h		\
+title.h xbackupfile.h getnum.h tterm.h lister.h userdata.h
+
+
+mylibitsources = message.c xstrrpl.c getshline.c pathwalk.c		\
+darray.c dstring.c printlen.c pair_ht.c filtdir.c str_ht.c		\
+title.c xbackupfile.c getnum.c tterm.c lister.c userdata.c
+
+
+# Libit stuff
+libitpureheaders = \
+fnmatch.h pathmax.h stpncpy.h  xdirent.h		\
+xfnmatch.h xobstack.h
+
+
+libitpuresources = \
+addext.c basename.c getopt1.c isdir.c xgetcwd.c xgethostname.c xstrdup.c
+
+
+libitheaders = \
+argmatch.h argv.h backupfile.h dirname.h getopt.h hashtab.h		\
+path-concat.h quotearg.h signame.h strverscmp.h xalloc.h		\
+xstrtol.h closeout.h
+
+
+libitsources = \
+argmatch.c argv.c backupfile.c dirname.c getopt.c hashtab.c		\
+path-concat.c quotearg.c signame.c strverscmp.c xmalloc.c		\
+xstrtol.c closeout.c
+
+
+noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)   \
+$(libitpureheaders)
+
+
+liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources) \
+$(libitpuresources)
+
+
+#
+# Building the header for using liba2ps
+#
+include_HEADERS = liba2ps.h
+liba2ps_h_sources = liba2ps.h.in liba2ps.h.extract
+
+liba2ps_h_extract_sources = faces.h gen.h jobs.h confg.h
+
+EXTRA_DIST = liba2ps.h $(liba2ps_h_sources) strtol.c $(BUILT_SOURCES) confg.gperf
+subdir = lib
+mkinstalldirs = $(SHELL) $(top_srcdir)/auxdir/mkinstalldirs
+CONFIG_HEADER = ../config.h
+CONFIG_CLEAN_FILES = 
+LTLIBRARIES =  $(lib_LTLIBRARIES)
+
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+ANSI2KNR = $(top_builddir)/lib/ansi2knr
+liba2ps_la_DEPENDENCIES =  @LTALLOCA@ @LTLIBOBJS@
+am_liba2ps_la_OBJECTS =  encoding$U.lo media$U.lo jobs$U.lo output$U.lo \
+routines$U.lo psgen$U.lo prolog$U.lo faces$U.lo confg$U.lo useropt$U.lo \
+gen$U.lo printers$U.lo psstat$U.lo caret$U.lo metaseq$U.lo options$U.lo \
+dsc$U.lo fonts$U.lo ppd$U.lo prange$U.lo stream$U.lo document$U.lo \
+fjobs$U.lo common$U.lo madir$U.lo filalign$U.lo lexppd$U.lo \
+parseppd$U.lo argmatch$U.lo argv$U.lo backupfile$U.lo dirname$U.lo \
+getopt$U.lo hashtab$U.lo path-concat$U.lo quotearg$U.lo signame$U.lo \
+strverscmp$U.lo xmalloc$U.lo xstrtol$U.lo closeout$U.lo message$U.lo \
+xstrrpl$U.lo getshline$U.lo pathwalk$U.lo darray$U.lo dstring$U.lo \
+printlen$U.lo pair_ht$U.lo filtdir$U.lo str_ht$U.lo title$U.lo \
+xbackupfile$U.lo getnum$U.lo tterm$U.lo lister$U.lo userdata$U.lo \
+addext$U.lo basename$U.lo getopt1$U.lo isdir$U.lo xgetcwd$U.lo \
+xgethostname$U.lo xstrdup$U.lo
+liba2ps_la_OBJECTS =  $(am_liba2ps_la_OBJECTS)
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CFLAGS = @CFLAGS@
+LEXLIB = @LEXLIB@
+YLWRAP = $(top_srcdir)/auxdir/ylwrap
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+DIST_SOURCES =  $(liba2ps_la_SOURCES)
+HEADERS =  $(include_HEADERS) $(noinst_HEADERS)
+
+DIST_COMMON =  README $(include_HEADERS) $(noinst_HEADERS) Makefile.am \
+Makefile.in alloca.c ansi2knr.1 ansi2knr.c atexit.c error.c error.h \
+fnmatch.c fonts.c gethostname.c getuid.c lexppd.c malloc.c memcpy.c \
+memset.c mktime.c obstack.c obstack.h parseppd.c realloc.c rename.c \
+stpcpy.c stpncpy.c strcasecmp.c strftime.c strncasecmp.c strtoul.c \
+strtoull.c strtoumax.c
+
+
+DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+
+GZIP_ENV = --best
+depcomp = $(SHELL) $(top_srcdir)/auxdir/depcomp
+DEP_FILES =  @AMDEP@ $(DEPDIR)/addext$U.Plo $(DEPDIR)/alloca.Plo \
+$(DEPDIR)/argmatch$U.Plo $(DEPDIR)/argv$U.Plo $(DEPDIR)/atexit.Plo \
+$(DEPDIR)/backupfile$U.Plo $(DEPDIR)/basename$U.Plo \
+$(DEPDIR)/caret$U.Plo $(DEPDIR)/closeout$U.Plo $(DEPDIR)/common$U.Plo \
+$(DEPDIR)/confg$U.Plo $(DEPDIR)/darray$U.Plo $(DEPDIR)/dirname$U.Plo \
+$(DEPDIR)/document$U.Plo $(DEPDIR)/dsc$U.Plo $(DEPDIR)/dstring$U.Plo \
+$(DEPDIR)/encoding$U.Plo $(DEPDIR)/error.Plo $(DEPDIR)/faces$U.Plo \
+$(DEPDIR)/filalign$U.Plo $(DEPDIR)/filtdir$U.Plo $(DEPDIR)/fjobs$U.Plo \
+$(DEPDIR)/fnmatch.Plo $(DEPDIR)/fonts$U.Plo $(DEPDIR)/gen$U.Plo \
+$(DEPDIR)/gethostname.Plo $(DEPDIR)/getnum$U.Plo $(DEPDIR)/getopt$U.Plo \
+$(DEPDIR)/getopt1$U.Plo $(DEPDIR)/getshline$U.Plo $(DEPDIR)/getuid.Plo \
+$(DEPDIR)/hashtab$U.Plo $(DEPDIR)/isdir$U.Plo $(DEPDIR)/jobs$U.Plo \
+$(DEPDIR)/lexppd$U.Plo $(DEPDIR)/lister$U.Plo $(DEPDIR)/madir$U.Plo \
+$(DEPDIR)/malloc.Plo $(DEPDIR)/media$U.Plo $(DEPDIR)/memcpy.Plo \
+$(DEPDIR)/memset.Plo $(DEPDIR)/message$U.Plo $(DEPDIR)/metaseq$U.Plo \
+$(DEPDIR)/mktime.Plo $(DEPDIR)/obstack.Plo $(DEPDIR)/options$U.Plo \
+$(DEPDIR)/output$U.Plo $(DEPDIR)/pair_ht$U.Plo $(DEPDIR)/parseppd$U.Plo \
+$(DEPDIR)/path-concat$U.Plo $(DEPDIR)/pathwalk$U.Plo \
+$(DEPDIR)/ppd$U.Plo $(DEPDIR)/prange$U.Plo $(DEPDIR)/printers$U.Plo \
+$(DEPDIR)/printlen$U.Plo $(DEPDIR)/prolog$U.Plo $(DEPDIR)/psgen$U.Plo \
+$(DEPDIR)/psstat$U.Plo $(DEPDIR)/quotearg$U.Plo $(DEPDIR)/realloc.Plo \
+$(DEPDIR)/rename.Plo $(DEPDIR)/routines$U.Plo $(DEPDIR)/signame$U.Plo \
+$(DEPDIR)/stpcpy.Plo $(DEPDIR)/stpncpy.Plo $(DEPDIR)/str_ht$U.Plo \
+$(DEPDIR)/strcasecmp.Plo $(DEPDIR)/stream$U.Plo $(DEPDIR)/strftime.Plo \
+$(DEPDIR)/strncasecmp.Plo $(DEPDIR)/strtoul.Plo $(DEPDIR)/strtoull.Plo \
+$(DEPDIR)/strtoumax.Plo $(DEPDIR)/strverscmp$U.Plo \
+$(DEPDIR)/title$U.Plo $(DEPDIR)/tterm$U.Plo $(DEPDIR)/userdata$U.Plo \
+$(DEPDIR)/useropt$U.Plo $(DEPDIR)/xbackupfile$U.Plo \
+$(DEPDIR)/xgetcwd$U.Plo $(DEPDIR)/xgethostname$U.Plo \
+$(DEPDIR)/xmalloc$U.Plo $(DEPDIR)/xstrdup$U.Plo $(DEPDIR)/xstrrpl$U.Plo \
+$(DEPDIR)/xstrtol$U.Plo
+SOURCES = $(liba2ps_la_SOURCES)
+OBJECTS = $(am_liba2ps_la_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .c .l .lo .o .y
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu lib/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-libLTLIBRARIES:
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+
+distclean-libLTLIBRARIES:
+
+maintainer-clean-libLTLIBRARIES:
+
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(LIBTOOL)  --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  echo " $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p"; \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+$(top_builddir)/lib/ansi2knr: $(top_builddir)/lib/ansi2knr.o
+	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) ansi2knr
+
+$(top_builddir)/lib/ansi2knr.o:
+	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) ansi2knr.o
+
+
+mostlyclean-kr:
+	-rm -f *_.c
+
+clean-kr:
+
+distclean-kr:
+
+maintainer-clean-kr:
+
+liba2ps.la: $(liba2ps_la_OBJECTS) $(liba2ps_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(liba2ps_la_LDFLAGS) $(liba2ps_la_OBJECTS) $(liba2ps_la_LIBADD) $(LIBS)
+addext_.c: addext.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/addext.c; then echo $(srcdir)/addext.c; else echo addext.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > addext_.c
+alloca_.c: alloca.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/alloca.c; then echo $(srcdir)/alloca.c; else echo alloca.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > alloca_.c
+argmatch_.c: argmatch.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/argmatch.c; then echo $(srcdir)/argmatch.c; else echo argmatch.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > argmatch_.c
+argv_.c: argv.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/argv.c; then echo $(srcdir)/argv.c; else echo argv.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > argv_.c
+atexit_.c: atexit.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/atexit.c; then echo $(srcdir)/atexit.c; else echo atexit.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > atexit_.c
+backupfile_.c: backupfile.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/backupfile.c; then echo $(srcdir)/backupfile.c; else echo backupfile.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > backupfile_.c
+basename_.c: basename.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/basename.c; then echo $(srcdir)/basename.c; else echo basename.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > basename_.c
+caret_.c: caret.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/caret.c; then echo $(srcdir)/caret.c; else echo caret.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > caret_.c
+closeout_.c: closeout.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/closeout.c; then echo $(srcdir)/closeout.c; else echo closeout.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > closeout_.c
+common_.c: common.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/common.c; then echo $(srcdir)/common.c; else echo common.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > common_.c
+confg_.c: confg.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/confg.c; then echo $(srcdir)/confg.c; else echo confg.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > confg_.c
+darray_.c: darray.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/darray.c; then echo $(srcdir)/darray.c; else echo darray.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > darray_.c
+dirname_.c: dirname.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/dirname.c; then echo $(srcdir)/dirname.c; else echo dirname.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > dirname_.c
+document_.c: document.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/document.c; then echo $(srcdir)/document.c; else echo document.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > document_.c
+dsc_.c: dsc.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/dsc.c; then echo $(srcdir)/dsc.c; else echo dsc.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > dsc_.c
+dstring_.c: dstring.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/dstring.c; then echo $(srcdir)/dstring.c; else echo dstring.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > dstring_.c
+encoding_.c: encoding.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/encoding.c; then echo $(srcdir)/encoding.c; else echo encoding.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > encoding_.c
+error_.c: error.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/error.c; then echo $(srcdir)/error.c; else echo error.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > error_.c
+faces_.c: faces.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/faces.c; then echo $(srcdir)/faces.c; else echo faces.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > faces_.c
+filalign_.c: filalign.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/filalign.c; then echo $(srcdir)/filalign.c; else echo filalign.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > filalign_.c
+filtdir_.c: filtdir.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/filtdir.c; then echo $(srcdir)/filtdir.c; else echo filtdir.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > filtdir_.c
+fjobs_.c: fjobs.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/fjobs.c; then echo $(srcdir)/fjobs.c; else echo fjobs.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > fjobs_.c
+fnmatch_.c: fnmatch.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/fnmatch.c; then echo $(srcdir)/fnmatch.c; else echo fnmatch.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > fnmatch_.c
+fonts_.c: fonts.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/fonts.c; then echo $(srcdir)/fonts.c; else echo fonts.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > fonts_.c
+gen_.c: gen.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/gen.c; then echo $(srcdir)/gen.c; else echo gen.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > gen_.c
+gethostname_.c: gethostname.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/gethostname.c; then echo $(srcdir)/gethostname.c; else echo gethostname.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > gethostname_.c
+getnum_.c: getnum.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/getnum.c; then echo $(srcdir)/getnum.c; else echo getnum.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > getnum_.c
+getopt_.c: getopt.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/getopt.c; then echo $(srcdir)/getopt.c; else echo getopt.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > getopt_.c
+getopt1_.c: getopt1.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/getopt1.c; then echo $(srcdir)/getopt1.c; else echo getopt1.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > getopt1_.c
+getshline_.c: getshline.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/getshline.c; then echo $(srcdir)/getshline.c; else echo getshline.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > getshline_.c
+getuid_.c: getuid.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/getuid.c; then echo $(srcdir)/getuid.c; else echo getuid.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > getuid_.c
+hashtab_.c: hashtab.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/hashtab.c; then echo $(srcdir)/hashtab.c; else echo hashtab.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > hashtab_.c
+isdir_.c: isdir.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/isdir.c; then echo $(srcdir)/isdir.c; else echo isdir.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > isdir_.c
+jobs_.c: jobs.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/jobs.c; then echo $(srcdir)/jobs.c; else echo jobs.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > jobs_.c
+lexppd_.c: lexppd.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/lexppd.c; then echo $(srcdir)/lexppd.c; else echo lexppd.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > lexppd_.c
+lister_.c: lister.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/lister.c; then echo $(srcdir)/lister.c; else echo lister.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > lister_.c
+madir_.c: madir.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/madir.c; then echo $(srcdir)/madir.c; else echo madir.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > madir_.c
+malloc_.c: malloc.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/malloc.c; then echo $(srcdir)/malloc.c; else echo malloc.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > malloc_.c
+media_.c: media.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/media.c; then echo $(srcdir)/media.c; else echo media.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > media_.c
+memcpy_.c: memcpy.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/memcpy.c; then echo $(srcdir)/memcpy.c; else echo memcpy.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > memcpy_.c
+memset_.c: memset.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/memset.c; then echo $(srcdir)/memset.c; else echo memset.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > memset_.c
+message_.c: message.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/message.c; then echo $(srcdir)/message.c; else echo message.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > message_.c
+metaseq_.c: metaseq.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/metaseq.c; then echo $(srcdir)/metaseq.c; else echo metaseq.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > metaseq_.c
+mktime_.c: mktime.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/mktime.c; then echo $(srcdir)/mktime.c; else echo mktime.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > mktime_.c
+obstack_.c: obstack.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/obstack.c; then echo $(srcdir)/obstack.c; else echo obstack.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > obstack_.c
+options_.c: options.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/options.c; then echo $(srcdir)/options.c; else echo options.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > options_.c
+output_.c: output.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/output.c; then echo $(srcdir)/output.c; else echo output.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > output_.c
+pair_ht_.c: pair_ht.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/pair_ht.c; then echo $(srcdir)/pair_ht.c; else echo pair_ht.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > pair_ht_.c
+parseppd_.c: parseppd.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/parseppd.c; then echo $(srcdir)/parseppd.c; else echo parseppd.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > parseppd_.c
+path-concat_.c: path-concat.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/path-concat.c; then echo $(srcdir)/path-concat.c; else echo path-concat.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > path-concat_.c
+pathwalk_.c: pathwalk.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/pathwalk.c; then echo $(srcdir)/pathwalk.c; else echo pathwalk.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > pathwalk_.c
+ppd_.c: ppd.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/ppd.c; then echo $(srcdir)/ppd.c; else echo ppd.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > ppd_.c
+prange_.c: prange.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/prange.c; then echo $(srcdir)/prange.c; else echo prange.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > prange_.c
+printers_.c: printers.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/printers.c; then echo $(srcdir)/printers.c; else echo printers.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > printers_.c
+printlen_.c: printlen.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/printlen.c; then echo $(srcdir)/printlen.c; else echo printlen.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > printlen_.c
+prolog_.c: prolog.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/prolog.c; then echo $(srcdir)/prolog.c; else echo prolog.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > prolog_.c
+psgen_.c: psgen.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/psgen.c; then echo $(srcdir)/psgen.c; else echo psgen.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > psgen_.c
+psstat_.c: psstat.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/psstat.c; then echo $(srcdir)/psstat.c; else echo psstat.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > psstat_.c
+quotearg_.c: quotearg.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/quotearg.c; then echo $(srcdir)/quotearg.c; else echo quotearg.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > quotearg_.c
+realloc_.c: realloc.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/realloc.c; then echo $(srcdir)/realloc.c; else echo realloc.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > realloc_.c
+rename_.c: rename.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/rename.c; then echo $(srcdir)/rename.c; else echo rename.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > rename_.c
+routines_.c: routines.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/routines.c; then echo $(srcdir)/routines.c; else echo routines.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > routines_.c
+signame_.c: signame.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/signame.c; then echo $(srcdir)/signame.c; else echo signame.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > signame_.c
+stpcpy_.c: stpcpy.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/stpcpy.c; then echo $(srcdir)/stpcpy.c; else echo stpcpy.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > stpcpy_.c
+stpncpy_.c: stpncpy.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/stpncpy.c; then echo $(srcdir)/stpncpy.c; else echo stpncpy.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > stpncpy_.c
+str_ht_.c: str_ht.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/str_ht.c; then echo $(srcdir)/str_ht.c; else echo str_ht.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > str_ht_.c
+strcasecmp_.c: strcasecmp.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strcasecmp.c; then echo $(srcdir)/strcasecmp.c; else echo strcasecmp.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strcasecmp_.c
+stream_.c: stream.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/stream.c; then echo $(srcdir)/stream.c; else echo stream.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > stream_.c
+strftime_.c: strftime.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strftime.c; then echo $(srcdir)/strftime.c; else echo strftime.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strftime_.c
+strncasecmp_.c: strncasecmp.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strncasecmp.c; then echo $(srcdir)/strncasecmp.c; else echo strncasecmp.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strncasecmp_.c
+strtoul_.c: strtoul.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strtoul.c; then echo $(srcdir)/strtoul.c; else echo strtoul.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strtoul_.c
+strtoull_.c: strtoull.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strtoull.c; then echo $(srcdir)/strtoull.c; else echo strtoull.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strtoull_.c
+strtoumax_.c: strtoumax.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strtoumax.c; then echo $(srcdir)/strtoumax.c; else echo strtoumax.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strtoumax_.c
+strverscmp_.c: strverscmp.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/strverscmp.c; then echo $(srcdir)/strverscmp.c; else echo strverscmp.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > strverscmp_.c
+title_.c: title.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/title.c; then echo $(srcdir)/title.c; else echo title.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > title_.c
+tterm_.c: tterm.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/tterm.c; then echo $(srcdir)/tterm.c; else echo tterm.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > tterm_.c
+userdata_.c: userdata.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/userdata.c; then echo $(srcdir)/userdata.c; else echo userdata.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > userdata_.c
+useropt_.c: useropt.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/useropt.c; then echo $(srcdir)/useropt.c; else echo useropt.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > useropt_.c
+xbackupfile_.c: xbackupfile.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xbackupfile.c; then echo $(srcdir)/xbackupfile.c; else echo xbackupfile.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xbackupfile_.c
+xgetcwd_.c: xgetcwd.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xgetcwd.c; then echo $(srcdir)/xgetcwd.c; else echo xgetcwd.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xgetcwd_.c
+xgethostname_.c: xgethostname.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xgethostname.c; then echo $(srcdir)/xgethostname.c; else echo xgethostname.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xgethostname_.c
+xmalloc_.c: xmalloc.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xmalloc.c; then echo $(srcdir)/xmalloc.c; else echo xmalloc.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xmalloc_.c
+xstrdup_.c: xstrdup.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xstrdup.c; then echo $(srcdir)/xstrdup.c; else echo xstrdup.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xstrdup_.c
+xstrrpl_.c: xstrrpl.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xstrrpl.c; then echo $(srcdir)/xstrrpl.c; else echo xstrrpl.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xstrrpl_.c
+xstrtol_.c: xstrtol.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/xstrtol.c; then echo $(srcdir)/xstrtol.c; else echo xstrtol.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > xstrtol_.c
+addext_.o addext_.lo alloca_.o alloca_.lo argmatch_.o argmatch_.lo \
+argv_.o argv_.lo atexit_.o atexit_.lo backupfile_.o backupfile_.lo \
+basename_.o basename_.lo caret_.o caret_.lo closeout_.o closeout_.lo \
+common_.o common_.lo confg_.o confg_.lo darray_.o darray_.lo dirname_.o \
+dirname_.lo document_.o document_.lo dsc_.o dsc_.lo dstring_.o \
+dstring_.lo encoding_.o encoding_.lo error_.o error_.lo faces_.o \
+faces_.lo filalign_.o filalign_.lo filtdir_.o filtdir_.lo fjobs_.o \
+fjobs_.lo fnmatch_.o fnmatch_.lo fonts_.o fonts_.lo gen_.o gen_.lo \
+gethostname_.o gethostname_.lo getnum_.o getnum_.lo getopt_.o \
+getopt_.lo getopt1_.o getopt1_.lo getshline_.o getshline_.lo getuid_.o \
+getuid_.lo hashtab_.o hashtab_.lo isdir_.o isdir_.lo jobs_.o jobs_.lo \
+lexppd_.o lexppd_.lo lister_.o lister_.lo madir_.o madir_.lo malloc_.o \
+malloc_.lo media_.o media_.lo memcpy_.o memcpy_.lo memset_.o memset_.lo \
+message_.o message_.lo metaseq_.o metaseq_.lo mktime_.o mktime_.lo \
+obstack_.o obstack_.lo options_.o options_.lo output_.o output_.lo \
+pair_ht_.o pair_ht_.lo parseppd_.o parseppd_.lo path-concat_.o \
+path-concat_.lo pathwalk_.o pathwalk_.lo ppd_.o ppd_.lo prange_.o \
+prange_.lo printers_.o printers_.lo printlen_.o printlen_.lo prolog_.o \
+prolog_.lo psgen_.o psgen_.lo psstat_.o psstat_.lo quotearg_.o \
+quotearg_.lo realloc_.o realloc_.lo rename_.o rename_.lo routines_.o \
+routines_.lo signame_.o signame_.lo stpcpy_.o stpcpy_.lo stpncpy_.o \
+stpncpy_.lo str_ht_.o str_ht_.lo strcasecmp_.o strcasecmp_.lo stream_.o \
+stream_.lo strftime_.o strftime_.lo strncasecmp_.o strncasecmp_.lo \
+strtoul_.o strtoul_.lo strtoull_.o strtoull_.lo strtoumax_.o \
+strtoumax_.lo strverscmp_.o strverscmp_.lo title_.o title_.lo tterm_.o \
+tterm_.lo userdata_.o userdata_.lo useropt_.o useropt_.lo \
+xbackupfile_.o xbackupfile_.lo xgetcwd_.o xgetcwd_.lo xgethostname_.o \
+xgethostname_.lo xmalloc_.o xmalloc_.lo xstrdup_.o xstrdup_.lo \
+xstrrpl_.o xstrrpl_.lo xstrtol_.o xstrtol_.lo : $(ANSI2KNR)
+.l.c:
+	$(SHELL) $(YLWRAP) "$(LEX)" $< $(LEX_OUTPUT_ROOT).c $@ -- $(AM_LFLAGS) $(LFLAGS)
+.y.c:
+	$(YACC) $(AM_YFLAGS) $(YFLAGS) $< && mv y.tab.c $*.c
+	if test -f y.tab.h; then \
+	if cmp -s y.tab.h $*.h; then rm -f y.tab.h; else mv y.tab.h $*.h; fi; \
+	else :; fi
+
+
+install-includeHEADERS: $(include_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(includedir)
+	@list='$(include_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(includedir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(includedir)/$$f; \
+	done
+
+uninstall-includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(include_HEADERS)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(includedir)/$$f"; \
+	  rm -f $(DESTDIR)$(includedir)/$$f; \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
+	list='$(SOURCES) $(HEADERS) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+		$(TAGS_FILES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || etags $(ETAGS_ARGS) $$tags  $$unique $(LISP)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pR $$d/$$file $(distdir); \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+@AMDEP@include $(DEPDIR)/addext$U.Plo
+@AMDEP@include $(DEPDIR)/alloca.Plo
+@AMDEP@include $(DEPDIR)/argmatch$U.Plo
+@AMDEP@include $(DEPDIR)/argv$U.Plo
+@AMDEP@include $(DEPDIR)/atexit.Plo
+@AMDEP@include $(DEPDIR)/backupfile$U.Plo
+@AMDEP@include $(DEPDIR)/basename$U.Plo
+@AMDEP@include $(DEPDIR)/caret$U.Plo
+@AMDEP@include $(DEPDIR)/closeout$U.Plo
+@AMDEP@include $(DEPDIR)/common$U.Plo
+@AMDEP@include $(DEPDIR)/confg$U.Plo
+@AMDEP@include $(DEPDIR)/darray$U.Plo
+@AMDEP@include $(DEPDIR)/dirname$U.Plo
+@AMDEP@include $(DEPDIR)/document$U.Plo
+@AMDEP@include $(DEPDIR)/dsc$U.Plo
+@AMDEP@include $(DEPDIR)/dstring$U.Plo
+@AMDEP@include $(DEPDIR)/encoding$U.Plo
+@AMDEP@include $(DEPDIR)/error.Plo
+@AMDEP@include $(DEPDIR)/faces$U.Plo
+@AMDEP@include $(DEPDIR)/filalign$U.Plo
+@AMDEP@include $(DEPDIR)/filtdir$U.Plo
+@AMDEP@include $(DEPDIR)/fjobs$U.Plo
+@AMDEP@include $(DEPDIR)/fnmatch.Plo
+@AMDEP@include $(DEPDIR)/fonts$U.Plo
+@AMDEP@include $(DEPDIR)/gen$U.Plo
+@AMDEP@include $(DEPDIR)/gethostname.Plo
+@AMDEP@include $(DEPDIR)/getnum$U.Plo
+@AMDEP@include $(DEPDIR)/getopt$U.Plo
+@AMDEP@include $(DEPDIR)/getopt1$U.Plo
+@AMDEP@include $(DEPDIR)/getshline$U.Plo
+@AMDEP@include $(DEPDIR)/getuid.Plo
+@AMDEP@include $(DEPDIR)/hashtab$U.Plo
+@AMDEP@include $(DEPDIR)/isdir$U.Plo
+@AMDEP@include $(DEPDIR)/jobs$U.Plo
+@AMDEP@include $(DEPDIR)/lexppd$U.Plo
+@AMDEP@include $(DEPDIR)/lister$U.Plo
+@AMDEP@include $(DEPDIR)/madir$U.Plo
+@AMDEP@include $(DEPDIR)/malloc.Plo
+@AMDEP@include $(DEPDIR)/media$U.Plo
+@AMDEP@include $(DEPDIR)/memcpy.Plo
+@AMDEP@include $(DEPDIR)/memset.Plo
+@AMDEP@include $(DEPDIR)/message$U.Plo
+@AMDEP@include $(DEPDIR)/metaseq$U.Plo
+@AMDEP@include $(DEPDIR)/mktime.Plo
+@AMDEP@include $(DEPDIR)/obstack.Plo
+@AMDEP@include $(DEPDIR)/options$U.Plo
+@AMDEP@include $(DEPDIR)/output$U.Plo
+@AMDEP@include $(DEPDIR)/pair_ht$U.Plo
+@AMDEP@include $(DEPDIR)/parseppd$U.Plo
+@AMDEP@include $(DEPDIR)/path-concat$U.Plo
+@AMDEP@include $(DEPDIR)/pathwalk$U.Plo
+@AMDEP@include $(DEPDIR)/ppd$U.Plo
+@AMDEP@include $(DEPDIR)/prange$U.Plo
+@AMDEP@include $(DEPDIR)/printers$U.Plo
+@AMDEP@include $(DEPDIR)/printlen$U.Plo
+@AMDEP@include $(DEPDIR)/prolog$U.Plo
+@AMDEP@include $(DEPDIR)/psgen$U.Plo
+@AMDEP@include $(DEPDIR)/psstat$U.Plo
+@AMDEP@include $(DEPDIR)/quotearg$U.Plo
+@AMDEP@include $(DEPDIR)/realloc.Plo
+@AMDEP@include $(DEPDIR)/rename.Plo
+@AMDEP@include $(DEPDIR)/routines$U.Plo
+@AMDEP@include $(DEPDIR)/signame$U.Plo
+@AMDEP@include $(DEPDIR)/stpcpy.Plo
+@AMDEP@include $(DEPDIR)/stpncpy.Plo
+@AMDEP@include $(DEPDIR)/str_ht$U.Plo
+@AMDEP@include $(DEPDIR)/strcasecmp.Plo
+@AMDEP@include $(DEPDIR)/stream$U.Plo
+@AMDEP@include $(DEPDIR)/strftime.Plo
+@AMDEP@include $(DEPDIR)/strncasecmp.Plo
+@AMDEP@include $(DEPDIR)/strtoul.Plo
+@AMDEP@include $(DEPDIR)/strtoull.Plo
+@AMDEP@include $(DEPDIR)/strtoumax.Plo
+@AMDEP@include $(DEPDIR)/strverscmp$U.Plo
+@AMDEP@include $(DEPDIR)/title$U.Plo
+@AMDEP@include $(DEPDIR)/tterm$U.Plo
+@AMDEP@include $(DEPDIR)/userdata$U.Plo
+@AMDEP@include $(DEPDIR)/useropt$U.Plo
+@AMDEP@include $(DEPDIR)/xbackupfile$U.Plo
+@AMDEP@include $(DEPDIR)/xgetcwd$U.Plo
+@AMDEP@include $(DEPDIR)/xgethostname$U.Plo
+@AMDEP@include $(DEPDIR)/xmalloc$U.Plo
+@AMDEP@include $(DEPDIR)/xstrdup$U.Plo
+@AMDEP@include $(DEPDIR)/xstrrpl$U.Plo
+@AMDEP@include $(DEPDIR)/xstrtol$U.Plo
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf $(DEPDIR)
+
+maintainer-clean-depend:
+
+@AMDEP@CCDEPMODE = @CCDEPMODE@
+
+.c.o:
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(COMPILE) -c -o $@ $<
+
+.c.lo:
+@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LTCOMPILE) -c -o $@ $<
+
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am: install-libLTLIBRARIES
+install-exec: install-exec-am
+
+install-data-am: install-includeHEADERS
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-libLTLIBRARIES uninstall-includeHEADERS
+uninstall: uninstall-am
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(includedir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+	-rm -f Makefile.in
+	-test -z "fonts.clexppd.cparseppd.c$(BUILT_SOURCES)" || rm -f fonts.c lexppd.c parseppd.c $(BUILT_SOURCES)
+mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-kr mostlyclean-tags \
+		mostlyclean-depend mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool clean-kr \
+		clean-tags clean-depend clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-libLTLIBRARIES distclean-compile \
+		distclean-libtool distclean-kr distclean-tags \
+		distclean-depend distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-kr maintainer-clean-tags \
+		maintainer-clean-depend maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
+distclean-compile clean-compile maintainer-clean-compile \
+mostlyclean-libtool distclean-libtool clean-libtool \
+maintainer-clean-libtool mostlyclean-kr distclean-kr clean-kr \
+maintainer-clean-kr uninstall-includeHEADERS install-includeHEADERS \
+tags mostlyclean-tags distclean-tags clean-tags maintainer-clean-tags \
+distdir mostlyclean-depend distclean-depend clean-depend \
+maintainer-clean-depend info-am info dvi-am dvi check check-am \
+installcheck-am installcheck install-exec-am install-exec \
+install-data-am install-data install-am install uninstall-am uninstall \
+all-redirect all-am all install-strip installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
+
+
+#
+# Handling the Gperf code
+#
+# We change `signed char' to short, because `signed char' is ANSI,
+# hence not portable.  We could have produced KnR C with gperf, but
+# since prototypes would have been missing, there are many warnings
+# with modern compilers.  And many warnings means many complains from
+# user.
+confg.c: confg.gperf
+	$(GPERF) $(GPERFFLAGS) confg.gperf | \
+	  sed -e 's/ signed char/ short/g' > confg.c-tmp
+	mv confg.c-tmp confg.c
+
+liba2ps.h.extract: $(liba2ps_h_extract_sources) Makefile.am
+	@echo "Extracting liba2ps.h info"
+	@rm -rf liba2ps.h.extract 2> /dev/null
+	@for f in $(liba2ps_h_extract_sources);			\
+	do							\
+	  $(AWK) '/liba2ps.h:begin/, /liba2ps.h:end/' $(srcdir)/$$f	\
+	     | sed -e 's/uchar/unsigned char/g'			\
+	     | sed -e "s|/\* liba2ps.h:begin.*$$|/* From $$f */|g"	\
+	     | sed -e "s|/\* liba2ps.h:end.*$$||g"		\
+	     >> liba2ps.h.extract;				\
+	done
+
+liba2ps.h: $(liba2ps_h_sources)
+	@echo "Building liba2ps.h";					\
+	files=`grep liba2ps.h:include: liba2ps.h.in	\
+	       | sed -e 's/^.*liba2ps.h:include:\([^ ]*\).*$$/\1/'`;	\
+	cp $(srcdir)/liba2ps.h.in liba2ps.h.tmp1;			\
+	for f in $$files;						\
+	do								\
+	  echo "Inlining file $$f";					\
+	  ff=`echo $$f | sed -e 's#/#\\\\/#g'`;				\
+	  cat liba2ps.h.tmp1						\
+	    | sed -e "/liba2ps.h:include:$$ff/r $(srcdir)/$$f"		\
+	    | sed -e "s|^.*liba2ps.h:include:$$f.*$$|\/* File $$ff *\/|g"\
+		> liba2ps.h.tmp2;					\
+	  mv liba2ps.h.tmp2 liba2ps.h.tmp1;				\
+	done;								\
+	mv liba2ps.h.tmp1 liba2ps.h
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

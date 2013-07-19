@@ -1,0 +1,698 @@
+%%Page: (1) 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.431713 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (#! /bin/sh) c n
+0 T (# -*- ksh -*-) N
+0 T () N
+0 T (# psmandup --- produce a version of a PS file to print in manual Duplex.) N
+(5) # () N
+0 T (# Copyright \(c\) 1988, 89, 90, 91, 92, 93 Miguel Santana) N
+0 T (# Copyright \(c\) 1995, 96, 97, 98 Akim Demaille, Miguel Santana) N
+0 T () N
+0 T (# This program is free software; you can redistribute it and/or modify) N
+(10) # (# it under the terms of the GNU General Public License as published by) N
+0 T (# the Free Software Foundation; either version 2, or \(at your option\)) N
+0 T (# any later version.) N
+0 T (#) N
+0 T (# This program is distributed in the hope that it will be useful,) N
+(15) # (# but WITHOUT ANY WARRANTY; without even the implied warranty of) N
+0 T (# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the) N
+0 T (# GNU General Public License for more details.) N
+0 T (#) N
+0 T (# You should have received a copy of the GNU General Public License) N
+(20) # (# along with this program; if not, you can either send email to this) N
+0 T (# program's maintainer or write to: The Free Software Foundation,) N
+0 T (# Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.) N
+0 T () N
+0 T (# Commentary:) N
+(25) # () N
+0 T (# Author: Akim Demaille <demaille@inf.enst.fr>) N
+0 T () N
+0 T (# In the interest of general portability, some common bourne shell) N
+0 T (# constructs were avoided because they weren't guaranteed to be available) N
+(30) # (# in some earlier implementations.  I've tried to make this program as) N
+0 T (# portable as possible.  Welcome to unix, where the lowest common) N
+0 T (# denominator is rapidly diminishing.) N
+0 T (#) N
+0 T (# Among the more interesting lossages I noticed with some bourne shells) N
+(35) # (# are:) N
+0 T (#     * No shell functions.) N
+0 T (#     * No `unset' builtin.) N
+0 T (#     * `shift' cannot take a numeric argument, and signals an error if) N
+0 T (#       there are no arguments to shift.) N
+(40) # () N
+0 T (# Todo:) N
+0 T (# Maybe rewrite in perl.  It would help to handle \(Begin|End\)Document) N
+0 T (# which allows several Trailers etc.) N
+0 T () N
+(45) # (# Code:) N
+0 T () N
+0 T (# Minimal path.  It must be able to see the psutils.) N
+0 T () S
+(PATH=/usr/local/bin:$PATH) p n
+0 T () S
+(export) K
+( PATH) p n
+(50) # () N
+0 T () S
+(# Get the name of the program) c n
+0 T () S
+(program=`) p
+(echo) K
+( $0 | sed ') p
+(s#.*/##g) str
+('`) p n
+0 T () N
+0 T () S
+(# Local vars) c n
+(55) # () S
+(debug=) p n
+0 T (file=) N
+0 T (output=) N
+0 T (psfix=${PSFIX:-psfix}) N
+0 T (tmpdir=/tmp/$program.$$) N
+(60) # (verbose=) S
+(echo) K n
+0 T () N
+0 T () N
+0 T () S
+(# The version/usage strings) c n
+0 T () S
+(version=") p
+(psmandup 0.8 \(a2ps 4.9.9k\)) str n
+(65) # () N
+0 T (Copyright \(c\) 1988, 89, 90, 91, 92, 93 Miguel Santana) N
+0 T (Copyright \(c\) 1995, 96, 97, 98 Akim Demaille, Miguel Santana) N
+0 T (This is free software; see the source for copying conditions.  There is NO) N
+0 T (warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.) N
+(70) # () N
+(psmandup) (right) (1) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (1) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (2) 2
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.431713 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (Written by <Akim.Demaille@inf.enst.fr> and <Miguel.Santana@st.com>) str n
+0 T (News, updates and documentation: visit http://www.inf.enst.fr/a2ps/) S
+(") p n
+0 T () N
+0 T (usage=") S
+(\\) str n
+(75) # (Usage: $program FILE) N
+0 T (Tries to produce a version of the PostScript FILE to print in manual) N
+0 T (Duplex.) N
+0 T () N
+0 T (Options:) N
+(80) # ( -h, --help           display this help and exit) N
+0 T ( -v, --version        display version information and exit) N
+0 T ( -q, --quiet          don't print informational messages) N
+0 T ( -o, --output=FILE    save result in FILE.  If FILE is \\`-', send to stdout) N
+0 T ( -f, --no-fix         don't call psfix to fix PS problems in FILE) N
+(85) # () N
+0 T (Produced output is meant for PS level 2 printers which don't support) N
+0 T (Duplex printing, but support Manual Feed.  Once the first set of pages) N
+0 T (is printed \(odd pages\), manual feed is asked: introduce the odd pages) N
+0 T (to print the even pages on the other side.) N
+(90) # () N
+0 T (Report bugs to <a2ps-bugs@inf.enst.fr>) S
+(") p n
+0 T () N
+0 T (help=") S
+(Try \\`$program --help' for more information.) str
+(") p n
+0 T () N
+(95) # () S
+(# The PostScript line to ask manual feed) c n
+0 T (# We go and pick up setpagedevice because the psutils \(here psselect\)) N
+0 T (# define an ineffective setpagedevice.) N
+0 T (# I hope setpagedevice is always in systemdict...) N
+0 T () S
+(psmanualfeed=') p
+(% Pagedevice definitions:) str n
+(100) # (countdictstack [{) N
+0 T (%%BeginFeature: *ManualFeed True) N
+0 T (  \(<<\) cvx exec /ManualFeed true \(>>\) cvx exec) N
+0 T (  systemdict /setpagedevice get exec) N
+0 T (%%EndFeature) N
+(105) # (} stopped) N
+0 T (cleartomark) N
+0 T (countdictstack exch sub dup 0 gt) N
+0 T ({) N
+0 T (  { end } repeat) N
+(110) # (}{) N
+0 T (  pop) N
+0 T (} ifelse) S
+(') p n
+0 T () N
+0 T () S
+(# Don't leave really new lines in it) c n
+(115) # () S
+(psmanualfeed=") p
+(`echo ) str
+("$psmanualfeed") p
+( | tr '\\n' ') str n
+0 T ('`) S
+(") p n
+0 T () N
+0 T () S
+(# Parse our command line options once, thoroughly.) c n
+0 T () S
+(while) K
+( ) p
+(test) K
+( $# -gt 0) p n
+(120) # () S
+(do) K n
+0 T () S
+(  arg=") p
+($1) str
+(") p n
+0 T (  ) S
+(shift) K n
+0 T () S
+(  ) p n
+0 T (  ) S
+(case) K
+( ") p
+($arg) str
+(" ) p
+(in) K n
+(125) # () S
+(    -*=*\) optarg=`) p
+(echo) K
+( ") p
+($arg) str
+(" | sed ') p
+(s/[-_a-zA-Z0-9]*=//) str
+('` ;;) p n
+0 T (    *\) optarg= ;;) N
+0 T (  ) S
+(esac) K n
+0 T () S
+(  ) p n
+0 T (  ) S
+(# If the previous option needs an argument, assign it.) c n
+(130) # () S
+(  ) p
+(if) K
+( ) p
+(test) K
+( -n ") p
+($prevopt) str
+("; ) p
+(then) K n
+0 T () S
+(    optarg=") p
+($arg) str
+(") p n
+0 T (    arg=") S
+($prevopt=) str
+(") p n
+0 T (    prevopt=) N
+0 T (  ) S
+(fi) K n
+(135) # () S
+(  ) p n
+0 T (  ) S
+(# Have we seen a non-optional argument yet?) c n
+0 T () S
+(  ) p
+(case) K
+( ") p
+($arg) str
+(" ) p
+(in) K n
+0 T () S
+(    --help|-h\)) p n
+0 T (      ) S
+(echo) K
+( ") p
+($usage) str
+(") p n
+(140) # (      ) S
+(exit) K
+( 0) p n
+(psmandup) (right) (2) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (2) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3) 3
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.431713 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (      ;;) p n
+0 T (    ) N
+0 T (    --version|-v\)) N
+0 T (      ) S
+(echo) K
+( ") p
+($version) str
+(") p n
+(145) # (      ) S
+(exit) K
+( 0) p n
+0 T (      ;;) N
+0 T (    ) N
+0 T (    -s|-q|--quiet|--silent\) verbose=: ;;) N
+0 T (    ) S
+(# Delay debugging so that options parsing does not appear) c n
+(150) # () S
+(    -D|--debug\) debug=: ;;) p n
+0 T (    ) N
+0 T (    --output|-o\) prevopt=") S
+(--output) str
+(" ;;) p n
+0 T (    --output=*\) output=$optarg ;;) N
+0 T (    ) N
+(155) # (    -n|--no-fix\) psfix= ;;) N
+0 T () N
+0 T (    -\) ) S
+(# We are working with stdin) c n
+0 T () S
+(       nonopt=") p
+($nonopt $arg) str
+(") p n
+0 T (       ;;) N
+(160) # () N
+0 T (    -*\)) N
+0 T (      ) S
+(case) K
+( ") p
+($arg) str
+(" ) p
+(in) K n
+0 T () S
+(        --*=* \) arg=`) p
+(echo) K
+( ") p
+($arg) str
+(" | sed -e ') p
+(s/=.*//) str
+('` ;;) p n
+0 T (      ) S
+(esac) K n
+(165) # () S
+(      ) p
+(exec) K
+( 1>&2) p n
+0 T (      ) S
+(echo) K
+( ") p
+($program: Unknown or ambiguous option \\`$arg'.) str
+(") p n
+0 T (      ) S
+(echo) K
+( ") p
+($program: Try \\`--help' for more information.) str
+(") p n
+0 T (      ) S
+(exit) K
+( 1) p n
+0 T (      ;;) N
+(170) # (    ) N
+0 T (    *\)) N
+0 T (      nonopt=") S
+($nonopt $arg) str
+(") p n
+0 T (    ;;) N
+0 T (  ) S
+(esac) K n
+(175) # (done) N
+0 T () N
+0 T (if) S
+( ) p
+(test) K
+( -n ") p
+($prevopt) str
+("; ) p
+(then) K n
+0 T () S
+(  ) p
+(echo) K
+( ") p
+($program: option \\`$prevopt' requires an argument) str
+(" 1>&2) p n
+0 T (  ) S
+(echo) K
+( ") p
+($help) str
+(" 1>&2) p n
+(180) # (  ) S
+(exit) K
+( 1) p n
+0 T () S
+(fi) K n
+0 T () N
+0 T (case) S
+( `) p
+(echo) K
+( ") p
+($nonopt) str
+(" | wc -w | sed -e ') p
+(s/[\\t ]//g) str
+('` ) p
+(in) K n
+0 T () S
+(  0\)  file=-;;) p n
+(185) # (  1\)  file=$nonopt;;) N
+0 T (  *\)  ) S
+(echo) K
+( ") p
+($program: too many arguments) str
+(" 1>&2) p n
+0 T (      ) S
+(echo) K
+( ") p
+($help) str
+("  1>&2) p n
+0 T (      ) S
+(exit) K
+( 1;;) p n
+0 T () S
+(esac) K n
+(190) # () N
+0 T () S
+(# Set -x now if debugging) c n
+0 T () S
+(test) K
+( $debug && ) p
+(set) K
+( -x) p n
+0 T () N
+0 T () S
+(# Temp dir.  Get ready not to leave junk \(if not debugging\)) c n
+(195) # () S
+(test) K
+( $debug || ) p
+(trap) K
+( ") p
+(/bin/rm -rf $tmpdir) str
+(" 0 1 2 3 13 14 15) p n
+0 T (mkdir $tmpdir) N
+0 T () N
+0 T () S
+(# If printing from stdin, save into a tmp file) c n
+0 T () S
+(if) K
+( ) p
+(test) K
+( $file = ') p
+(-) str
+('; ) p
+(then) K n
+(200) # () S
+(  file=$tmpdir/stdin.ps) p n
+0 T (  cat > $file) N
+0 T () S
+(fi) K n
+0 T () N
+0 T () S
+(# Fix the file) c n
+(205) # () S
+(if) K
+( ) p
+(test) K
+( -n ") p
+($psfix) str
+("; ) p
+(then) K n
+0 T () S
+(  $psfix $file -o $tmpdir/fixed.ps `) p
+(test) K
+( $verbose = ") p
+(:) str
+(" && ) p
+(echo) K
+( ") p
+(-q) str
+("` \\) p n
+0 T (    || ) S
+(exit) K
+( 1) p n
+0 T (  file=$tmpdir/fixed.ps) N
+0 T () S
+(fi) K n
+(210) # () N
+(psmandup) (right) (3) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (3) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (4) 4
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.431713 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (# Get the number of pages of the document) c n
+0 T () S
+(pagenum=`grep ') p
+(^%%Pages: ) str
+(' $file | sed -e ') p
+(s/%%Pages: \\\\\([0-9]*\\\\\).*$/\\\\1/g) str
+('`) p n
+0 T () N
+0 T () S
+(# Add padding to make sure to have an even number of pages) c n
+(215) # (# and fix the trailer of the file) N
+0 T () S
+(case) K
+( $pagenum ) p
+(in) K n
+0 T () S
+(  *0|*2|*4|*6|*8\)) p n
+0 T (    ) S
+(# No padding needed) c n
+0 T () S
+(    ;;) p n
+(220) # () N
+0 T (  *\)) N
+0 T (    ) S
+(# One sheet needed) c n
+0 T () S
+(    pagenum=`) p
+(echo) K
+( ") p
+($pagenum + 1) str
+(" | bc`) p n
+0 T (    ) S
+(# Put it before %%Trailer) c n
+(225) # () S
+(    sed -e ") p
+(s/%%Trailer/%%Page: $pagenum) str n
+0 T (showpage) N
+0 T (%%Trailer/g;\\) N
+0 T (     s/%%Pages: .*/%%Pages: $pagenum/g) S
+(" $file | tr ') p n
+0 T (' ') S
+(\\n) str
+(' \\) p n
+(230) # (     > $tmpdir/padded.ps) N
+0 T (    file=$tmpdir/padded.ps) N
+0 T (    ;;) N
+0 T () S
+(esac) K n
+0 T () N
+(235) # () S
+(psselectarg=") p
+(1) str
+(") p n
+0 T (i=3) N
+0 T () S
+(# Build the string to give to psselect) c n
+0 T () S
+(while) K
+( ) p
+(test) K
+( $i -le $pagenum;) p n
+0 T () S
+(do) K n
+(240) # () S
+(  psselectarg=") p
+($psselectarg,$i) str
+(") p n
+0 T (  i=`) S
+(echo) K
+( ") p
+($i + 2) str
+(" | bc`) p n
+0 T () S
+(done) K n
+0 T () N
+0 T () S
+(i=$pagenum) p n
+(245) # () S
+(while) K
+( ) p
+(test) K
+( $i != 0;) p n
+0 T () S
+(do) K n
+0 T () S
+(  psselectarg=") p
+($psselectarg,$i) str
+(") p n
+0 T (  i=`) S
+(echo) K
+( ") p
+($i - 2) str
+(" | bc`) p n
+0 T () S
+(done) K n
+(250) # () N
+0 T () S
+(# Get odd pages in order, and then) c n
+0 T (# even pages in reversed order) N
+0 T () S
+(psselect -q $psselectarg $file > $tmpdir/ordered.ps || ) p
+(exit) K
+( 1) p n
+0 T () N
+(255) # () S
+(# Insert the manual feed request at the first page of the second half) c n
+0 T (# This page has as page num, half of $PAGENUM \(which is odd, so no) N
+0 T (# worry\)) N
+0 T () S
+(midpagenum=`) p
+(echo) K
+( ") p
+(\($pagenum / 2\) + 1) str
+(" | bc`) p n
+0 T () N
+(260) # () S
+(# Insert the manual feed request at the first page of the second half) c n
+0 T (# This page has as page num, $MIDPAGENUM.  ) N
+0 T (# Make sure to skip human readable page number.) N
+0 T () S
+(if) K
+( ) p
+(test) K
+( ") p
+($output) str
+(" && ) p
+(test) K
+( ") p
+($output) str
+(" != ') p
+(-) str
+('; ) p
+(then) K n
+0 T () S
+(  sed -e ") p
+(s#^%%Page:\\\(.* $midpagenum[ \\t]*\\\)\\$#%%Page:\\1) str n
+(265) # ($psmanualfeed#g) S
+(" \\) p n
+0 T (     $tmpdir/ordered.ps | tr ') N
+0 T (' ') S
+(\\n) str
+(' > $output || ) p
+(exit) K
+( 1) p n
+0 T () S
+(else) K n
+0 T () S
+(  sed -e ") p
+(s#^%%Page:\\\(.* $midpagenum[ \\t]*\\\)\\$#%%Page:\\1) str n
+(270) # ($psmanualfeed#g) S
+(" \\) p n
+0 T (     $tmpdir/ordered.ps | tr ') N
+0 T (' ') S
+(\\n) str
+(' || ) p
+(exit) K
+( 1) p n
+0 T () S
+(fi) K n
+0 T () N
+(275) # () S
+(# Don't remove files if debugging) c n
+0 T () S
+(test) K
+( $debug || /bin/rm -rf $tmpdir) p n
+0 T () N
+0 T ($verbose ") S
+(Once the first half of the file printed, insert the sheets) str
+(" 1>&2) p n
+0 T ($verbose ") S
+(stack into the manual feed tray to print the second half.) str
+(" 1>&2) p n
+(280) # () S
+(exit) K
+( 0) p n
+(psmandup) (right) (4) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (4) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (5) 5
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.431713 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T () p n
+(psmandup) (right) (5) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (5) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

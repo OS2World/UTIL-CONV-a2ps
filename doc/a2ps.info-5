@@ -1,0 +1,1473 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+File: a2ps.info,  Node: a2ps PostScript Files,  Next: Designing PostScript Prologues,  Prev: Colors in PostScript,  Up: PostScript
+
+a2ps PostScript Files
+=====================
+
+   a2ps uses several types of PostScript files.  Some are standards,
+such as font files, and others are meant for a2ps only.
+
+   All a2ps files have two parts, one being the comments, and the other
+being the content, separated by the following line:
+     % code follows this line
+
+
+File: a2ps.info,  Node: Designing PostScript Prologues,  Prev: a2ps PostScript Files,  Up: PostScript
+
+Designing PostScript Prologues
+==============================
+
+   It is pretty known that satisfying the various human tastes is an
+NEXPTIME-hard problem, so a2ps offers ways to customize its output
+through the "prologue files".  But since the authors feel a little
+small against NEXPTIME, they agreed on the fact that *you* are the one
+who will design the look you like.
+
+   Hence in this section, you will find what you need to know to be
+able to customize a2ps output.
+
+   Basically, a2ps uses "faces" which are associated to their "meaning"
+in the text.  a2ps let's you change the way the faces look.
+
+* Menu:
+
+* Definition of the faces::     What goes in a characters style
+* Prologue File Format::        Including documentation
+* A prologue example::          A step by step example
+
+
+File: a2ps.info,  Node: Definition of the faces,  Next: Prologue File Format,  Prev: Designing PostScript Prologues,  Up: Designing PostScript Prologues
+
+Definition of the faces
+-----------------------
+
+   There are three things that define a face:
+_Its font_
+     You should never call the font by yourself, because sometimes
+     a2ps may decide that another font would be better.  This is what
+     happens for instance if a font does not support the encoding you
+     use.
+
+     Hence, never set the font by yourself, but ask a2ps to do it.
+     This is done through a line:
+          %Face: FACE REAL-FONT-NAME SIZE
+
+     This line tells a2ps that the font of FACE is REAL-FONT-NAME.  It
+     will replace this line by the correct PostScript line to call the
+     needed font, and will do everything needed to set up the font.
+
+     The size of the text body is `bfs'.
+
+_Its background color_
+     There are two cases:
+       1. You want a background color, then give the "RGB" (*note
+          Colors in PostScript::) ratio and `true' to `BG':
+               0.8 0.8 0 true BG
+
+       2. You don't want a background color, then call `BG' with
+          `false':
+               false BG
+
+_Its foreground color_
+     As `BG', call `FG' with an "RGB" ratio:
+          0 0.5 0 FG
+
+_Its underlining_
+     `UL' requires a boolean argument, depending whether you want or
+     not the current face to be underlined.
+          true UL
+
+_Its boxing_
+     Requiring a boolean, `BX' let's a face have a box drawn around.
+
+
+File: a2ps.info,  Node: Prologue File Format,  Next: A prologue example,  Prev: Definition of the faces,  Up: Designing PostScript Prologues
+
+Prologue File Format
+--------------------
+
+   Prologue files for a2ps must have `pro' as suffix.  Documentation
+(reported with `--list-prologues') can be included in the comment part:
+     Documentation
+     This prologue is the same as the prologue code(pb)code, but using
+     the bold version of the fonts.
+     EndDocumentation
+     % code follows this line
+   *Note Documentation Format::, for more on the format.
+
+
+File: a2ps.info,  Node: A prologue example,  Prev: Prologue File Format,  Up: Designing PostScript Prologues
+
+A step by step example
+----------------------
+
+   We strongly suggest our readers not to start from scratch, but to
+copy one of the available styles (see the result of `a2ps
+--list=prologues'), to drop it in one of a2ps directories (say
+`$HOME/.a2ps', and to patch it until you like it.
+
+   Here, we will start from `color.pro', trying to give it a funky look.
+
+   Say you want the keywords to be in Helvetica, drawn in a flashy pink
+on a light green.  And strong keywords, in Times Bold Italic in brown
+on a soft Hawaiian sea green (you are definitely a fine art _amateur_).
+
+   Then you need to look for `k' and `K':
+     /k {
+       false BG
+       0 0 0.9 FG
+     %Face: Keyword Courier bfs
+       Show
+     } bind def
+     
+     /K {
+       false BG
+       0 0 0.8 FG
+     %Face: Keyword_strong Courier-Bold bfs
+       Show
+     } bind def
+
+and turn it into:
+     /k {
+       0.2 1 0.2 true BG
+       1 0.2 1 FG
+     %Face: Keyword Helvetica bfs
+       Show
+     } bind def
+     
+     /K {
+       0.4 0.2 0 true BG
+       0.5 1 1 FG
+     %Face: Keyword_strong Times-BoldItalic bfs
+       Show
+     } bind def
+
+   Waouh!  It looks great!
+
+   A bit trickier: let change the way the line numbers are printed.
+
+   First, let's look for the font definition:
+     %%BeginSetup
+     % The font for line numbering
+     /f# /Helvetica findfont bfs .6 mul scalefont def
+     %%EndSetup
+
+   Let it be in Times, twice bigger than the body font.
+     %%BeginSetup
+     % The font for line numbering
+     /f# /Times-Roman findfont bfs 2 mul scalefont def
+     %%EndSetup
+
+   How about its foreground color?
+     % Function print line number (<string> # -)
+     /# {
+       gsave
+         sx cw mul 2 div neg 0 rmoveto
+         f# setfont
+         0.8 0.1 0.1 FG
+         c-show
+       grestore
+     } bind def
+
+   Let it be blue.  Now you know the process: just put `0 0 1' as `FG'
+arguments.
+
+
+File: a2ps.info,  Node: Contributions,  Next: FAQ,  Prev: PostScript,  Up: Top
+
+Contributions
+*************
+
+   This chapter documents the various shell scripts or other tools that
+are distributed with the a2ps package, but are not a2ps itself.  The
+reader should also look at the documentation of `Ogonkify' (*note
+Overview: (ogonkify)top.), written by Juliusz Chroboczek.
+
+* Menu:
+
+* card::                        Printing Reference Cards
+* fixps::                       Fixing Some Ill Designed PostScript Files
+* fixnt::                       Fixing Microsoft NT PostScript Files
+* pdiff::                       Produce Pretty Comparison of Files
+* psmandup::                    Printing Duplex on Simplex Printers
+* psset::                       Inserting calls to setpagedevice
+
+
+File: a2ps.info,  Node: card,  Next: fixps,  Prev: Contributions,  Up: Contributions
+
+`card'
+======
+
+   Many users of a2ps have asked for a reference card, presenting a
+summary of the options.  In fact, something closely related to the
+output of `a2ps --help'.
+
+   The first version of this reference card was a PreScript file (*note
+PreScript::) to be printed by a2ps.  Very soon a much better scheme was
+found: using a style sheet to pretty print directly the output of `a2ps
+--help'!  A first advantage is then that the reference cards can be
+printed in the tongue you choose.
+
+   A second was that this treatment could be applied to any application
+supporting a `--help'-like option.
+
+* Menu:
+
+* Invoking card::               Command Line Interface
+* Caution when Using card::     card runs commands
+
+
+File: a2ps.info,  Node: Invoking card,  Next: Caution when Using card,  Prev: card,  Up: card
+
+Invoking `card'
+---------------
+
+     card [OPTIONS] APPLICATIONS [-- A2PS-OPTIONS]
+
+`card' is a shell script which tries to guess how to get your
+APPLICATIONS' help message (typically by the options `--help' or `-h'),
+and pretty prints it thanks to a2ps (or the content of the environment
+variable `A2PS' if it is set).  A2PS-OPTIONS are passed to a2ps.
+
+   Supported options are:
+
+ - Option: -h
+ - Option: --help
+     print a short help message and exit successfully.
+
+ - Option: -V
+ - Option: --version
+     report the version and exit successfully.
+
+ - Option: -q
+ - Option: --quiet
+ - Option: --silent
+     Run silently.
+
+ - Option: -D
+ - Option: --debug
+     enter in debug mode.
+
+ - Option: -l LANGUAGE
+ - Option: --language=LANGUAGE
+     specify the language in which the reference card should be printed.
+     LANGUAGE should be the symbol used by `LC_ALL' etc.  (such as
+     `fr', `it' etc.).
+
+     If the APPLICATIONS don't support internationalization, English
+     will be used.
+
+ - Option: --command=COMMAND
+     Don't try to guess the APPLICATIONS' way to report their help
+     message, but rather use the call COMMAND.  A typical example is
+          card --command="cc -flags"
+
+   It is possible to give options to a2ps (*note Options::) by
+specifying them after `--'.  For instance
+     card gmake gtar --command="cc -flags" -- -Pdisplay
+
+builds the reference card of `GNU make', `GNU tar' (automatic detection
+of `--help' support), and `cc' thanks to `-flags'.
+
+
+File: a2ps.info,  Node: Caution when Using card,  Prev: Invoking card,  Up: card
+
+Caution when Using `card'
+-------------------------
+
+   Remember that `card' runs the programs you give it, and the commands
+you supplied.  Hence if there is a silly programs that has a weird
+behavior given the option `-h' etc., beware of the result.
+
+   It is even clearer using `--command': avoid running `card
+--command="rm -rf *"', because the result will be exactly what you think
+it will be!
+
+
+File: a2ps.info,  Node: fixps,  Next: fixnt,  Prev: card,  Up: Contributions
+
+`fixps'
+=======
+
+   The shell script `fixps' tries its best to fix common problems in
+PostScript files that may prevent post processing.  It makes heavy use
+of the `psutils'.  It is a good idea to use `fixps' in the PostScript
+delegations.
+
+   It first tries to make simple fixes, but some really broken files may
+require a much deeper treatment.  If `fixps' feels the need for such a
+major surgery act, it may give up local changes and ask `Ghostscript'
+for a global rewriting.
+
+* Menu:
+
+* Invoking fixps::              Command Line Interface
+
+
+File: a2ps.info,  Node: Invoking fixps,  Prev: fixps,  Up: fixps
+
+Invoking `fixps'
+----------------
+
+     fixps [OPTIONS] [FILE]
+
+sanitize the PostScript FILE (or of the standard input if no FILE is
+given, or if FILE is `-').
+
+   Supported options are:
+
+ - Option: -h
+ - Option: --help
+     Print a short help message and a list of the fixes that are
+     performed.  Exit successfully.
+
+ - Option: -V
+ - Option: --version
+     report the version and exit successfully.
+
+ - Option: -D
+ - Option: --debug
+     enter in debug mode.
+
+ - Option: -q
+ - Option: --quiet
+ - Option: --silent
+     Run silently.
+
+ - Option: -o FILE
+ - Option: --output=FILE
+     specify the FILE in which is saved the output.
+
+ - Option: -n
+ - Option: --no-fix
+     Don't actually fix the FILE but still honor all of the other
+     options.  In particular, `fixps -qn FILE' is equivalent to `cat
+     FILE'.
+
+ - Option: -c
+ - Option: --check
+ - Option: --dry-run
+     Don't actually fix the FILE: just report the diagnostics.
+     Contrary to the option `fixps -qc' does absolutely nothing (while
+     it does take some time to do it nicely).
+
+ - Option: -f
+ - Option: --force
+     Ask `ghoscript' for a full rewrite of the FILE.  The output file
+     is really sane, but can be much longer than the original.  For this
+     reason and others, it is not always a good idea to make a full
+     rewrite.  This option should be used only for files that give
+     major problems.
+
+
+File: a2ps.info,  Node: fixnt,  Next: pdiff,  Prev: fixps,  Up: Contributions
+
+`fixnt'
+=======
+
+   `fixnt' (see its
+`http://www.itsm.uni-stuttgart.de/~bauer/fixnt.html', home page) is
+maintained by Holger Bauer <bauer@itsm.uni-stuttgart.de> and Michael
+Rath <rath@itsm.uni-stuttgart.de>.  It is meant to fix the problems of
+the PostScript files generated by the Microsoft PostScript driver under
+Windows NT (3.5 and 4.0).
+
+   `fixps' is aware of the cases where `fixnt' should be used, hence
+you should not worry of when to use `fixnt'.
+
+* Menu:
+
+* Invoking fixnt::              Command Line Interface
+
+
+File: a2ps.info,  Node: Invoking fixnt,  Prev: fixnt,  Up: fixnt
+
+Invoking `fixnt'
+----------------
+
+     fixnt < `file.ps'
+
+sanitize the PostScript file FILE.PS and produce the result on the
+standard output.
+
+
+File: a2ps.info,  Node: pdiff,  Next: psmandup,  Prev: fixnt,  Up: Contributions
+
+`pdiff'
+=======
+
+   The shell script `pdiff' aims to pretty print diffs between files.
+It basically uses GNU `diff' (*note Overview: (diff)diff.) or GNU
+`wdiff' (*note The word difference finder: (wdiff)wdiff.) to extract
+the diff, then calls a2ps with the correct settings to get a nice,
+printed contextual diff.
+
+* Menu:
+
+* Invoking pdiff::              Command Line Interface
+
+
+File: a2ps.info,  Node: Invoking pdiff,  Prev: pdiff,  Up: pdiff
+
+Invoking `pdiff'
+----------------
+
+     pdiff [OPTIONS] FILE-1 FILE-2 [-- A2PS-OPTIONS]
+
+make a pretty comparison between FILE-1 and FILE-2.  A2PS-OPTIONS are
+passed to a2ps.
+
+   Supported options are:
+
+ - Option: -h
+ - Option: --help
+     print a short help message and exit successfully.
+
+ - Option: -V
+ - Option: --version
+     report the version and exit successfully.
+
+ - Option: -q
+ - Option: --quiet
+ - Option: --silent
+     Run silently.
+
+ - Option: -D
+ - Option: --debug
+     enter in debug mode.
+
+ - Option: -w
+ - Option: --words
+     Look for words differences (default).  White space differences are
+     not considered.
+
+ - Option: -l
+ - Option: --lines
+     Look for lines differences.
+
+   It is possible to give options to a2ps (*note Options::) by
+specifying them after `--'.  For instance
+     pdiff COPYING COPYING.LIB -- -1 -P display
+
+Compares the files `COPYING' and `COPYING.LIB', and prints it on the
+printer `display' (usually `Ghostview' or `gv').
+
+
+File: a2ps.info,  Node: psmandup,  Next: psset,  Prev: pdiff,  Up: Contributions
+
+`psmandup'
+==========
+
+   I personally hate to print documents of hundreds of pages on a single
+sided printer.  Too bad, here there are no Duplex printers.  The idea is
+then simply first to print the odd pages, then the even in reversed
+order.  To make sure one flips the page in the meanwhile, the second
+half should be printed from the manual feed tray.
+
+   Make a shell script that automates this, and you get `psmandup'.
+
+* Menu:
+
+* Invoking psmandup::           Command Line Interface
+
+
+File: a2ps.info,  Node: Invoking psmandup,  Prev: psmandup,  Up: psmandup
+
+Invoking `psmandup'
+-------------------
+
+     psmandup [OPTIONS] [FILE]
+
+produce a manual duplex version of the PostScript FILE (or of the
+standard input if no FILE is given, or if FILE is `-'). Once the first
+half is printed, put the sheet stack in the manual feed tray for the
+second half(1).
+
+   Be aware that there is a time out for manually fed jobs, usually
+short, hence do not miss the moment when the printer asks for the
+stack.  If ever you missed that moment, see option `--back' to recover
+the second half.
+
+   Supported options are:
+
+ - Option: -h
+ - Option: --help
+     print a short help message and exit successfully.
+
+ - Option: -V
+ - Option: --version
+     report the version and exit successfully.
+
+ - Option: -q
+ - Option: --quiet
+ - Option: --silent
+     Run silently.
+
+ - Option: -D
+ - Option: --debug
+     enter in debug mode.
+
+ - Option: -o FILE
+ - Option: --output=FILE
+     specify the FILE in which is saved the output.
+
+ - Option: -n
+ - Option: --no-fix
+     `psmandup' will fail on ill designed PostScript (well, actually the
+     psutils will).  To avoid this, by default the PostScript file is
+     sanitized by `fixps'.
+
+     When given this option, don't run `fixps'.  This is meant to be
+     used when `fixps' has already been used higher in the processing
+     chain.
+
+ - Option: -f
+ - Option: --front
+     Output only the front pages, with no special PostScript feature
+     request.
+
+ - Option: -b
+ - Option: --back
+     Output only the back pages, with a manual feed request.
+
+     This option is especially useful when the manual feed time out
+     expired before you could insert back the stack in the manual feed
+     tray.
+
+   `psmandup' assumes the printer is Level 2, and supports manual
+feeding.  The FILE should be reasonably sane, otherwise `psmandup'
+fails miserably.
+
+   Typical use is
+     psmandup file.ps | lp
+
+or can be put into a2ps' printer commands (*note Your Printers::).
+
+   ---------- Footnotes ----------
+
+   (1) Many people seem to ignore that you can insert *several* sheets
+in the manual feed tray.  Try at least once, it will save you from
+hours spent feeding page per page by hand!
+
+
+File: a2ps.info,  Node: psset,  Prev: psmandup,  Up: Contributions
+
+`psset'
+=======
+
+   The shell script `psset' inserts calls to `setpagedevice' in a
+PostScript file.  This is useful for instance to add Tumble or Manual
+feed request.  Actually, `psmandup' uses `psset'.
+
+   You should know nevertheless that a2ps is able to make the calls to
+`setpagedevice' by itself, i.e., you can run `a2ps -SManualFeed foo' to
+print `foo' onto the manually fed tray, or run `a2ps -s2 foo' to print
+Duplex.  There are no need of `psset' from a2ps.
+
+* Menu:
+
+* Invoking psset::              Command Line Interface
+
+
+File: a2ps.info,  Node: Invoking psset,  Prev: psset,  Up: psset
+
+Invoking `psset'
+----------------
+
+     psset [OPTIONS] [FILE]
+
+produce a version of the PostScript FILE (or of the standard input if
+no FILE is given, or if FILE is `-') that makes protected calls to the
+PostScript operator `setpagedevice'.  Typical use is making FILE print
+duplex, or on the manual tray etc.
+
+   The call is protected so that the resulting file is safe, i.e., will
+still be portable, even with requests such as `-Sfoo:bar'.
+
+   It is safe to run `psset' with no feature requests.  Depending upon
+the option `--no-fix', it is either equivalent to doing nothing, or to
+running `fixps' (*note fixps::).
+
+   Supported options are:
+
+ - Option: -h
+ - Option: --help
+     Print a short help message and exit successfully.
+
+ - Option: -V
+ - Option: --version
+     report the version and exit successfully.
+
+ - Option: -D
+ - Option: --debug
+     enter in debug mode.
+
+ - Option: -q
+ - Option: --quiet
+ - Option: --silent
+     Run silently.
+
+ - Option: -o FILE
+ - Option: --output=FILE
+     specify the FILE in which is saved the output.
+
+ - Option: -n
+ - Option: --no-fix
+     `psset' will fail on ill designed PostScript.  Actually it is the
+     psutils that fail.  To avoid this, by default the PostScript file
+     is sanitized by `fixps'.
+
+     When given this option, don't run `fixps'.  This is meant to be
+     used when `fixps' has already been used higher in the processing
+     chain.
+
+ - Option: -S KEY:VALUE
+ - Option: --setpagedevice=KEY:VALUE
+     Insert a `setpagedevice' call setting KEY to VALUE.  Multiple
+     values accumulate.  Lists of requests separated with `;' are valid
+     (e.g., `-SDuplex:true;Tumble:false').
+
+ - Option: -a PAGE
+ - Option: --at=PAGE
+     Specify the page where the `setpagedevice' call should be done.
+     The PAGE 0, which is the default, corresponds to the `Setup'
+     section of the document.  More precisely, the insertion is
+     performed at the end of the `Setup' section, so that if there are
+     multiple calls to `psset' on the same document (which is of
+     course, a bad idea), the last call is winning.
+
+     In a typical use you should not change the PAGE.
+
+ - Option: -m
+ - Option: --manualfeed
+     Alias for `-SManualFeed:true', i.e., the request to print using the
+     manual feed tray.
+
+ - Option: -s
+ - Option: --simplex
+     Alias for `-SDuplex:false', i.e., force simplex printing.
+
+ - Option: -d
+ - Option: --duplex
+     Alias for `-SDuplex:true;Tumble:false', i.e., the request to print
+     in duplex mode, binding along the long edge of the paper.
+
+ - Option: -t
+ - Option: --tumble
+     Alias for `-SDuplex:true;Tumble:true', i.e., duplex printing such
+     that binding should happen on the short edge of the medium.
+
+
+File: a2ps.info,  Node: FAQ,  Next: Glossary,  Prev: Contributions,  Up: Top
+
+Frequently asked questions
+**************************
+
+   Please, before sending us mail, make sure the problem you have is not
+known, and explained.  Moreover, avoid using the mailing list for asking
+question about the options, etc.  It has been built for announces and
+suggestions, not to contact the authors.
+
+* Menu:
+
+* Why Does ...?::               Questions on Error
+* How Can I ...?::              a2ps' How-To
+* Please tell me...::           Existential Questions on a2ps
+
+
+File: a2ps.info,  Node: Why Does ...?,  Next: How Can I ...?,  Prev: FAQ,  Up: FAQ
+
+Why Does...?
+============
+
+   Error related questions.
+
+* Menu:
+
+* It Prints Nothing::           The printer issues nothing
+* It Prints in Simplex::        While I asked for Duplex
+* It Prints in Duplex::         While I asked for Simplex
+* It Does Not Fit on the Paper::  Some parts are missing
+* It Prints Junk::              Random characters
+* It Says my File is Binary::   And refuses to print it
+* It Refuses to Change the Font Size::
+
+
+File: a2ps.info,  Node: It Prints Nothing,  Next: It Prints in Simplex,  Prev: Why Does ...?,  Up: Why Does ...?
+
+Why Does it Print Nothing?
+--------------------------
+
+     a2ps works OK, but the printer prints nothing.
+
+   There are two ways that printing can fail: silently, or with a
+diagnostic.
+
+   First, *check that the printer received what you sent*.  a2ps may
+correctly do its job, but have the printer queue fail to deliver the
+job.  In case of doubt, please check that the printer's leds blink (or
+whatever is its way to show that something is being processed).
+
+   If the printer does receive the job, but prints nothing at all, check
+that you did not give exotic options to an old printer (typically, avoid
+printing on two sides on a printer that does not support it).  Avoid
+using `-S', `--setpagedevice' (*note Page Device Options::) and
+`--statusdict' (*note Statusdict Options::).
+
+   If the trouble persists, please try again but with the option
+`--debug' (a PostScript error handler is downloaded), and then send us:
+  1. the input file that gives problems
+
+  2. the output file created by a2ps *with the option `--debug'*
+
+  3. the error message that was printed.
+
+
+File: a2ps.info,  Node: It Prints in Simplex,  Next: It Prints in Duplex,  Prev: It Prints Nothing,  Up: Why Does ...?
+
+Why Does it Print in Simplex?
+-----------------------------
+
+     Though I ask a2ps to print Duplex via `--sides', the job is
+     printed Simplex.
+
+   If your printer is too old, then a2ps will not be able to send it the
+code it needs when `-s2' is specified.  This is because your printer
+uses an old and not standardized interface for special features.
+
+   So you need to
+  1. specify that you want Duplex mode: `-s2',
+
+  2. remove by hand the standardized call to the Duplex feature:
+     `-SDuplex',
+
+  3. add the non standard call to Duplex.  Try
+     `--statusdict=setduplexmode:true'.
+
+   Since this is painful to hit, a User Option (*note Your Shortcuts::)
+should help.
+
+
+File: a2ps.info,  Node: It Prints in Duplex,  Next: It Does Not Fit on the Paper,  Prev: It Prints in Simplex,  Up: Why Does ...?
+
+Why Does it Print in Duplex?
+----------------------------
+
+     Though I ask a2ps to print Simplex via `--sides', the job is
+     printed Duplex.
+
+   Actually when you require Simplex, a2ps issues nothing, for
+portability reasons.  Hence, if your printer is defaulted to Duplex,
+the job will be Duplexed.  So you have to force a2ps to issue the
+Simplex request with `-SDuplex:false'.  The user options `-=s1' and
+`-=simplex' have names easier to remember.
+
+   In the next version of a2ps this kind of portability problems will be
+fixed in a user friendly way.
+
+
+File: a2ps.info,  Node: It Does Not Fit on the Paper,  Next: It Prints Junk,  Prev: It Prints in Duplex,  Up: Why Does ...?
+
+Why Does it Not Fit on the Paper?
+---------------------------------
+
+     When I print text files with a2ps, it prints beyond the frame of
+     the paper.
+
+   You are most probably printing with a bad medium, for instance using
+A4 paper within a2ps, while your printer uses Letter paper.  Some jet
+printers have a small printable area, and a2ps may not expect it.  In
+both case, read *Note Sheet Options::, option `--medium' for more.
+
+
+File: a2ps.info,  Node: It Prints Junk,  Next: It Says my File is Binary,  Prev: It Does Not Fit on the Paper,  Up: Why Does ...?
+
+Why Does it Print Junk?
+-----------------------
+
+     What I get on the printer is long and incomprehensible.  It does
+     not seem to correspond to what I wanted to print.
+
+   You are probably printing a PostScript file or equivalent.  Try to
+print with `-Z': a2ps will try to do his best to find what is the
+program that can help you (*note Your Delegations::).  In case of doubt,
+don't hesitate to save into a file, and check the content with
+`Ghostview', or equivalent:
+     $ a2ps my_weird_file -Z -o mwf.ps
+     $ gv mwf.ps
+
+If your a2ps is correctly installed, you can use the `display'
+fake-printer:
+     $ a2ps my_weird_file -Z -P display
+
+   If it is incorrect, ask for help around you.
+
+
+File: a2ps.info,  Node: It Says my File is Binary,  Next: It Refuses to Change the Font Size,  Prev: It Prints Junk,  Up: Why Does ...?
+
+Why Does it Say my File is Binary?
+----------------------------------
+
+     a2ps complains that my file is binary though it is not.
+
+   There are several reasons that can cause a2ps to consider a file is
+binary:
+   - there are many non printable characters in the file.  Then you
+     need to use the option `--print-anyway'.
+
+   - the file is sane, composed of printable characters.  Then it is
+     very likely that `file(1)' said the type of the file is `data', in
+     which case a2ps prefers not to print the file.  Then you can
+     either:
+        - specify the type of the file, for instance `-Eplain';
+
+        - specify to print in any case, `--print-anyway';
+
+        - remove the annoying rule from the system's `sheets.map':
+               binary: <data*>
+
+        - insert in your own `~/.a2ps/sheets.map' a rule that overrides
+          that of the system's `sheets.map':
+               # Load the system's sheets.map
+               include(/usr/local/share/a2ps/sheets/sheets.map)
+               
+               # Override the rule for files with type `data' according to file(1)
+               plain: <data*>
+
+          But this is not very good, since then this rule is always the
+          first tested, which means that any file with type `data'
+          according to `file(1)' will be printed in `plain' style, even
+          if the file is called `foo.c'.
+
+        - if your files can be recognized, insert a new rule in a
+          `sheets.map', such as
+               # file(1) says it's data, but it's pure text
+               plain:   /*.txx/
+
+
+
+
+File: a2ps.info,  Node: It Refuses to Change the Font Size,  Prev: It Says my File is Binary,  Up: Why Does ...?
+
+Why Does it Refuse to Change the Font Size
+------------------------------------------
+
+     _a2ps does not seem to honor `--font-size'  (or
+     `--lines-per-page', or `--chars-per-line')._
+
+   This is probably because you used `-1'..`-9' after the
+`--font-size'.  This is wrong, because the options `-1'..`-9' set the
+font size (so that there are 80 characters per lines), and many other
+things (*Note Page Options::, option `--font-size').
+
+   Hence `a2ps --font-size=12km -4' is exactly the same thing as `a2ps
+-4', but is different from `a2ps -4 --font-size=12km'.  Note that the
+`pure' options (no side-effects) to specify the number of virtual pages
+are `--columns' and `--rows'.
+
+
+File: a2ps.info,  Node: How Can I ...?,  Next: Please tell me...,  Prev: Why Does ...?,  Up: FAQ
+
+How Can I ...?
+==============
+
+   A mini how-to on a2ps.
+
+* Menu:
+
+* Leave Room for Binding::      Specifying Margins
+* Print stdin::                 Using a2ps in a pipe chain
+* Change the Fonts::            Tired of Courier?
+* The Old Option -b?::          Printing in Bold
+* Pass Options to lpr::         Disable the banner
+* Non PostScript Printers::     Using GhostScript
+* Man Pages with Underlines::   Now it Prints With Italics
+
+
+File: a2ps.info,  Node: Leave Room for Binding,  Next: Print stdin,  Prev: How Can I ...?,  Up: How Can I ...?
+
+How Can I Leave Room for Binding?
+---------------------------------
+
+   The option `--margin[=SIZE]' is meant for this.  See *Note Sheet
+Options::.
+
+
+File: a2ps.info,  Node: Print stdin,  Next: Change the Fonts,  Prev: Leave Room for Binding,  Up: How Can I ...?
+
+How Can I Print `stdin'?
+------------------------
+
+   a2ps prints the standard input if you give no file name, or if you
+gave `-' as file name.  Automatic style selection is of course much
+weaker: without the file name, a2ps can only get `file(1)''s opinion
+(*note Style Sheet Files::).  In general it means most delegations are
+safe, but there will probably be no pretty-printing.
+
+   `You' can supply a name to the standard input (`--stdin=NAME') with
+which it could guess the language.
+
+
+File: a2ps.info,  Node: Change the Fonts,  Next: The Old Option -b?,  Prev: Print stdin,  Up: How Can I ...?
+
+How Can I Change the Fonts?
+---------------------------
+
+   *Note Designing PostScript Prologues::, for details.  Make sure that
+all the information a2ps needs is available (*note Font Files::).
+
+
+File: a2ps.info,  Node: The Old Option -b?,  Next: Pass Options to lpr,  Prev: Change the Fonts,  Up: How Can I ...?
+
+How Can I Simulate the Old Option `-b'?
+---------------------------------------
+
+   By the past, a2ps had an option `-b' with which the fonts were bold.
+Since now the fonts are defined by prologues (*note Designing
+PostScript Prologues::) this option no longer makes sense.  A
+replacement prologue is provided: `bold'.  To use it, give the option
+`--prologue=bold'.
+
+
+File: a2ps.info,  Node: Pass Options to lpr,  Next: Non PostScript Printers,  Prev: The Old Option -b?,  Up: How Can I ...?
+
+How Can I Pass Options to `lpr'
+-------------------------------
+
+     How can I tell `a2ps' to ask `lpr' no to print the banner?
+
+     How can I pass specific options to `lp'?
+
+   If your `Printer:' fields in the configuration files were properly
+filled (*note Your Printers::), you can use the variable `lp.options'
+to pass options to `lpr' (or `lp', depending on your environment):
+
+     a2ps -Dlp.options="-h -s" -P printer
+
+You can also define `lp.options' once for all, *Note Defining
+Variables::.
+
+   Finally, you can use `Printer:' several times to reach a printer
+with different `lpr' options.
+
+
+File: a2ps.info,  Node: Non PostScript Printers,  Next: Man Pages with Underlines,  Prev: Pass Options to lpr,  Up: How Can I ...?
+
+How Can I Print on Non PostScript Printers?
+-------------------------------------------
+
+     I use a2ps at work and wish to use it at home, but my printer is
+     not PostScript.  How can I do?
+
+   `Ghostscript' might be the tool you need (*note Glossary::).  It
+support conversion to many different non PostScript printers.
+
+   Here are some tips on how to use a non PostScript printer.  If
+somebody feels like writing a more precise documentation, she really is
+welcome.
+
+   Please refer to the `Ghostscript' documentation for a precise
+description of the tuning you need.
+
+   Basically, the first step you need is to achieve to call
+`Ghostscript' in a pipe chain.  In other words, try to find out the
+right arguments `Ghostscript' needs in order to print with a command
+like this:
+     $ cat file.ps | gs MORE ARGUMENTS
+
+   In general it is the same command as for calling `Ghostscript' with
+a filename, except that the file name to use is `-':
+     $ cat file.ps \
+       | gs -q -dNOPAUSE -sDEVICE=deskjet -sOutputFile=- - -c quit\
+       | lp -dPRINTER-NAME
+
+   Once it works, it is then easy to settle the right `Printer:' line
+in your configuration file (*note Your Printers::).  For instance:
+     Printer: djet \
+       | gs -q -dNOPAUSE -sDEVICE=deskjet -sOutputFile=- - -c quit\
+       | lp -d djet
+
+   Christian Mondrup <scancm@biobase.dk> uses a2ps under Windows with a
+non PostScript printer.  He uses:
+     DefaultPrinter: | //c/gstools/gs5.10/Gswin32c.exe         \
+        -Ic:\gstools\gs5.10;c:\gstools\gs5.10\fonts            \
+        -sDEVICE=ljet4 -sPAPERSIZE=a4 -dNOPAUSE -r300 -dSAFER  \
+        -sOutputFile="\\spool\HP LaserJet 5L (PCL)"            \
+        -q - -c quit
+
+
+File: a2ps.info,  Node: Man Pages with Underlines,  Prev: Non PostScript Printers,  Up: How Can I ...?
+
+How Can I Print Man Pages with Underlines
+-----------------------------------------
+
+     By the past, when I printed a man page with a2ps, it used
+     underlines, but now it uses italics.  I want underlines back!
+
+   Use `a2ps --pro=ul'.
+
+
+File: a2ps.info,  Node: Please tell me...,  Prev: How Can I ...?,  Up: FAQ
+
+Please tell me...
+=================
+
+   Wondering something?
+
+* Menu:
+
+* Is a2ps Y2K compliant?::      Printing dates in short format
+* The Options Have Changed::    Respect The Users
+* Why not using yacc::          Why Using Style Sheets
+
+
+File: a2ps.info,  Node: Is a2ps Y2K compliant?,  Next: The Options Have Changed,  Prev: Please tell me...,  Up: Please tell me...
+
+Is a2ps Y2K compliant?
+----------------------
+
+   The famous Y2K(1) problem...
+
+   Yes, a2ps is Y2K compliant... provided that you have either a version
+more recent than 4.10.3.  The expansions of the following escapes were
+broken (giving `100' instead of `00'): `%D', `%W', `$D', `$W'.
+
+   Nevertheless, please note that if you required a two digit year,
+expect to have `Jan 1st, 00' someday.  *You* are responsible of the
+format you want for the date: *Note Escapes::.
+
+   ---------- Footnotes ----------
+
+   (1) Year 2000.
+
+
+File: a2ps.info,  Node: The Options Have Changed,  Next: Why not using yacc,  Prev: Is a2ps Y2K compliant?,  Up: Please tell me...
+
+Why Have the Options Changed?
+-----------------------------
+
+     The options of this a2ps are not the same as in the previous
+     versions.
+
+   True.  But the old scheme (up to version 4.6.1) prevented us from
+offering more options.  We *had* to drop it, and to fully redesign the
+options handling.
+
+   Since that profound change, we try to change as little as possible
+between versions.  Nevertheless, as the time passes, we discover that
+some never used options should be renamed, or used for something else.
+In these cases, compatibility code is left for a long time.
+
+   Anywhere you put options but the command line (e.g., in a2ps
+configuration files or in shell scripts), *avoid using short options*,
+since short options are much more likely to be changed (there are not
+so many, so it is a precious resource).  Since there are as many long
+options as one wants, we can leave compatibility code with the long
+options.
+
+
+File: a2ps.info,  Node: Why not using yacc,  Prev: The Options Have Changed,  Up: Please tell me...
+
+Why not having used `yacc' and such
+-----------------------------------
+
+   There are several reasons why we decided not to use grammars to parse
+the files.  Firstly it would have made the design of the style sheets
+much more tricky, and today a2ps would know only 4 or 5 languages.
+
+   Secondly, it limits the number of persons who could build a style
+sheet.
+
+   Thirdly, we did not feel the need for such a powerful tool: handling
+the keywords and the sequences is just what the users expect.
+
+   Fourthly, any extension of a2ps would have required to recompile.
+
+   And last but not least, using a parser requires that the sources are
+syntactic bug free, which is too strong a requirement.
+
+   Nevertheless, `PreScript' gives the possibility to have on the one
+hand a syntactic parser which would produce `PreScript' code, and on
+the other hand, a2ps, which would make it PostScript.  This schema
+seems to us a good compromise.  If it is still not enough for you, you
+can use the library.
+
+
+File: a2ps.info,  Node: Glossary,  Next: Genesis,  Prev: FAQ,  Up: Top
+
+Glossary
+********
+
+   This section settles some terms used through out this document, and
+provides the definitions of some terms you probably want to know about.
+
+"Adobe"
+     Adobe is the firm who designed and owns the PostScript language.
+     The patent that printer manufacturers must pay to Adobe is the
+     main reason why PostScript printers are so expansive.
+
+"AFM file"
+     AFM stands for Adobe Font Metrics.  These files contain everything
+     one needs to know about a font: the width of the characters, the
+     available characters etc.
+
+"Charset"
+"Code Set"
+     Cf. Encoding.
+
+"Delegate"
+     Another filter (application) which a2ps may call to process some
+     files.  This feature is especially meant for page description
+     files (*note Your Delegations::).
+
+"DSC"
+"Document Structuring Conventions"
+     Because PostScript is a language, any file describing a document
+     can have an arbitrary complexity.  To ease the post-processing of
+     PostScript files, the document should follow some conventions.
+     Basically there are two kinds of conventions to follow:
+    Page Independence
+          Special comments state where the pages begin and end.  With
+          these comments (and the fact that the code describing a page
+          starts and ends somewhere, which is absolutely not necessary
+          in PostScript), very simple programs (such as `psnup',
+          `psselect' etc.) can post process PostScript files.
+
+    Requirements
+          Special features may be needed to run correctly the file.
+          Some comments specify what services are expected from the
+          printer (e.g., fonts, duplex printing, color etc.), and other
+          what features are provided by the file itself (e.g., fonts,
+          procsets etc.), so that a print manager can decide that a
+          file cannot be printed on that printer, or that it is
+          possible if the file is slightly modified (e.g., adding a
+          required font not known by the printer) etc.
+
+     The DSC are edited by Adobe.  A document which respects them is
+     said to be "DSC conformant".
+
+     a2ps follows all the DSC.
+
+"Duplex"
+"DuplexTumble"
+"DuplexNoTumble"
+     To print "Duplex" is to print double-sided.  There are two ways to
+     print Duplex depending whether the second face is printed
+     upside-down or not:
+    "DuplexTumble"
+          DuplexTumble is suitable when (if it were to be bound) the
+          document would be bound along the short edge (for instance
+          when you are printing booklets).
+
+    "DuplexNoTumble"
+          DuplexNoTumble corresponds to binding along the long edge of
+          the medium.  A typical case is when printing one-up.
+
+"Encoding"
+     Association of human readable characters, and computers' internal
+     numbered representation.  In other words, they are the alphabets,
+     which are different according to your country/mother tongue.
+     E.g.: ASCII, Latin 1, corresponding to Western Europe etc.
+
+     To know more about encodings, see *Note What is an Encoding::.
+
+"`Ghostscript'"
+
+"`gs'"
+     `Ghostscript' (http://www.cs.wisc.edu/~ghost/index.html), `gs' for
+     short, is a full PostScript interpreter running under many various
+     systems (Unices, MS-DOS, Mac etc.).  It comes with a large set of
+     output formats allowing many different applications:
+    _Displaying_
+          It can be used either to view PostScript files (in general
+          thanks to a graphic interface such as `Ghostview' or `gv'
+          ...).
+
+    _Converting_
+          To may useful languages/formats: PDF, rewriting in portable
+          PostScript or Encapsulated PS etc.
+
+    _Translating_
+          to a printer dedicated language, e.g., PCL.  In particular,
+          thanks to `ghostscript', you may print PostScript files on
+          non PostScript printers.
+
+"Face"
+     A virtual style given to some text.  For instance, _Keyword_,
+     _Comment_ are faces.
+
+"Headings"
+     Everything that goes around the page and is not part of the text
+     body.  Typically the title, footer etc.
+
+"Key"
+     Many objects used in a2ps, such as encodings, have both a key and
+     a name.  The word "name" is used for a symbol, a label, which is
+     only meant to be nice to read by a human.  For instance `ISO Latin
+     1' is a name.  a2ps never uses a name, but the key.
+
+     A "key" is the identifier of a unique object.  This is information
+     that a2ps processes, hence, whenever you need to specify an object
+     to a2ps, use the key, not its name.  For instance `latin1' is the
+     unique identifier of the `ISO Latin 1' encoding.
+
+"Logical page"
+     Cf. Virtual page.
+
+"lhs"
+"left hand side"
+     See "P-rule".
+
+"Medium"
+     Official name (by Adobe) given to the output physical support.  In
+     other words, it means the description of a sheet, e.g., A4, Letter
+     etc.
+
+"Name"
+     See "Key".
+
+"Page"
+     A single side of a sheet.
+
+"Page Description Language"
+     A language that describes some text (which may be enriched with
+     pointers, pictures etc.) and its layout.  `HTML', PostScript,
+     LaTeX, `roff' and others are such languages.  A file written in
+     those languages is not made to be read as is by a human, but to be
+     transformed (or compiled) into a readable form.
+
+"PCL"
+     FIXME:
+
+"PFA file"
+     PostScript Font in ASCII format.  This file can be directly down
+     loaded to provide support for another font.
+
+"PFB file"
+     PostScript Font in Binary format.  In PFA files there are long
+     sequences of hexadecimal digits.  Here these digits are
+     represented by their value, hence compressing 2 characters in a
+     PFA into 1 in the PFB.  This is the only advantage since a PFB
+     file cannot be directly sent to printer: it must first be
+     decompressed (hence turned into a PFA file) before being used.
+
+"PostScript"
+     "PostScript" is a page description language designed for _Raster
+     output devices_.  It is even more powerful than that: unlike to
+     `HTML', or `roff', but as TeX and LaTeX, it is truly a programming
+     language which main purpose is to draw (on sheets).  Most programs
+     are a list of instructions that describes lines, shades of gray,
+     or text to draw on a page.  This is the language that most
+     printers understand.
+
+     Note that the fact that PostScript is a programming language is
+     responsible of both its success and its failure.  It is a big win
+     for the PostScript programmer who can easily implement a lot of
+     nice visual effects.  It is a big loss because the page
+     descriptions can have an arbitrary complexity, hence rendering can
+     be really slow (remember the first Laser you had, or even
+     `Ghostscript'.  `PDF' has been invented by Adobe to remedy these
+     problems).
+
+     PostScript is a trademark of Adobe Systems Incorporated.
+
+"PPD file"
+"PostScript Printer Description file"
+     These files report everything one needs to know about a printer:
+     the known fonts, the patches that should be down loaded, the
+     available memory, the trays, the way to ask it duplex printing,
+     the supported media, etc.
+
+     PostScript has pretended to be a device independent page
+     description language, and the PPD files are here to prove that
+     device independence was a failure.
+
+"ProcSet"
+     Set of (PostScript) procedures.
+
+"Prologue"
+     PostScript being a language, a typical PostScript program (i.e. a
+     typical PostScript file) consists of two parts.  The first part is
+     composed of resources, such as fonts, procsets, etc. and the
+     second part of calls to these procedures.  The first part is
+     called the "prologue", and the second, the "script".
+
+"P-rule"
+     Pretty printing rule.  It is composed of a "left-hand side",
+     ("lhs" for short), and a "right-hand side", ("rhs").  The lhs
+     describes when the rule is triggered (i.e., the pattern of text to
+     match), and the rhs specifies the pretty printed output.  *Note
+     P-Rules::, for more semantical details, and see *Note Syntax for
+     the P-Rules::, for implementation.
+
+"`psutils'"
+     The "psutils"
+     (http://www.dcs.ed.ac.uk/home/ajcd/psutils/index.html) is a set of
+     tools for PostScript post processing written by Angus Duggan
+     (http://www.dcs.ed.ac.uk/home/ajcd/).  They let you resize the
+     frame into which the page is drawn, reorder or select pages, put
+     several pages onto a single sheet, etc.  To allow the `psutils' to
+     run correctly, the PostScript files must be DSC conformant, and
+     the bad news is that many PostScript drivers produce files which
+     are not.  For some common cases (e.g., Micro$oft tools), Angus
+     Duggan included in the package some tools (named `fix...ps') to
+     fix typical problems.  `fixps' is a collection of recipes on when
+     to run what `fix' tool.
+
+"Raster Image Processor"
+"RIP"
+     The hardware and/or software that translates data from a high-level
+     language (e.g., PostScript) into dots or pixels in a printer or
+     image setter.
+
+"Raster Output Device"
+     Behind these words is hidden the general class of devices which
+     have Pixels that can be addressed individually: Laser, Ink or Dot
+     printers, but also regular screens etc.  It is typically opposed
+     to the class of devices which _plot_, i.e., have a pen that they
+     move on the paper.
+
+"rhs"
+"right hand side"
+     See "P-rule".
+
+"RIP"
+     See "Raster Image Processor".
+
+"Script"
+     See "Prologue".
+
+"Sheet"
+     The physical support of the printing: it may support one or two
+     pages, depending on your printing options.
+
+"Style sheet"
+     Set of rules used by a2ps to give a face to the strings of a file.
+     In a2ps, each programming language which is supported is defined
+     via one style-sheet.
+
+"Tumble"
+     See "Duplex".
+
+"Virtual page"
+     Area on a physical page in which a2ps draws the content of a file.
+     There may be several virtual pages on a physical page. ("virtual
+     page" is the name recommended by Adobe).
+
+
+File: a2ps.info,  Node: Genesis,  Next: Copying,  Prev: Glossary,  Up: Top
+
+Genesis
+*******
+
+   Here are some words on a2ps and its history.
+
+* Menu:
+
+* History::                     Where does it come from
+* Thanks::                      People who really helped
+* Translators::                 People who brought support of your tongue
+
+
+File: a2ps.info,  Node: History,  Next: Thanks,  Prev: Genesis,  Up: Genesis
+
+History
+=======
+
+   The initial version was a shell program written by Evan Kirshenbaum
+<evan@csli>.  It was very slow and contained many bugs.
+
+   A new version was written in `C' by Miguel Santana
+<Miguel.Santana@st.com> to improve execution speed and portability.
+Many new features and improvements have been added since this first
+version.  Many contributions (changes, fixes, ideas) were done by
+a2ps users in order to improve it.
+
+   From the latest version from Miguel Santana (4.3), Emmanuel Briot
+implemented bold faces for keywords in `Ada', `C' and `C++'.
+
+   From that version, Akim Demaille <akim@freefriends.org> generalized
+the pretty-printing capabilities, implemented more languages support,
+and other features.
+
+
+File: a2ps.info,  Node: Thanks,  Next: Translators,  Prev: History,  Up: Genesis
+
+Thanks
+======
+
+   Patrick Andries, from Alis Technologies inc. (http://www.alis.com/)
+and Roman Czyborra (see his home page (http://czyborra.com/)), provided
+us with important information on encodings.  We strongly recommend that
+you go and read these pages: there is a lot to learn.
+
+   Juliusz Chroboczek worked a lot on the integration of the products of
+Ogonkify (such as Latin 2 etc. fonts) in a2ps.  Without his help, and
+the time is devoted to both a2ps and `ogonkify', many non west-European
+people would still be unable to print easily texts written in their
+mother tongue.
+
+   Denis Girou brought a constant and valuable support through out the
+genesis of pretty-printing a2ps.  His comments on both the program and
+the documentation are the origin of many pleasant features (such as
+`--prologue').
+
+   Alexander Mai provided us with invaluable help in the development.
+He spotted several times subtle bugs in a2ps and the contributions, he
+keeps a vigilant eye on portability issues, he checks and improves the
+style sheets, and he maintains a port of a2ps for OS/2.
+
+   Graham Jenkins, with an extraordinary regularity, tortures a2ps on
+weird systems that nobody ever heard of `:)'.  Graham is usually the
+ultimate test: if he says I can release a2ps, I rest reassured that,
+yes, this time it *will* compile!  If a2ps works today on your system,
+you should thank Graham too!
+
+   Of course this list is not up to date, and never will.  We would
+like to thank everybody that helped us, talked to us, and even
+criticized us with the intention to help us to improve a2ps.  Of course
+it doesn't sound right, yes it sounds a little childish, but we can
+tell you: we would *never* have the strength and the faith of building
+and maintaining a2ps without the support of all these guys.
+
+   While a2ps is finally just a couple of bits on a hard disk, to us it
+is an adventure we live with other humans, and, boy, that's a darn good
+pleasure!
+

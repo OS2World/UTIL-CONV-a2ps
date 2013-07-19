@@ -1,0 +1,348 @@
+   +======================================================================+
+   |                                                                      |
+   |   The following information is part of the Texinfo documentation.    |
+   |   It is provided only to help you solve problems you might have      |
+   |   while installing a2ps.  You need not keep this file.               |
+   |                                                                      |
+   +======================================================================+
+
+Frequently asked questions
+**************************
+
+   Please, before sending us mail, make sure the problem you have is not
+known, and explained.  Moreover, avoid using the mailing list for asking
+question about the options, etc.  It has been built for announces and
+suggestions, not to contact the authors.
+
+Why Does...?
+============
+
+   Error related questions.
+
+Why Does it Print Nothing?
+--------------------------
+
+     a2ps works OK, but the printer prints nothing.
+
+   There are two ways that printing can fail: silently, or with a
+diagnostic.
+
+   First, *check that the printer received what you sent*.  a2ps may
+correctly do its job, but have the printer queue fail to deliver the
+job.  In case of doubt, please check that the printer's leds blink (or
+whatever is its way to show that something is being processed).
+
+   If the printer does receive the job, but prints nothing at all, check
+that you did not give exotic options to an old printer (typically, avoid
+printing on two sides on a printer that does not support it).  Avoid
+using `-S', `--setpagedevice' (*note Page Device Options::) and
+`--statusdict' (*note Statusdict Options::).
+
+   If the trouble persists, please try again but with the option
+`--debug' (a PostScript error handler is downloaded), and then send us:
+  1. the input file that gives problems
+
+  2. the output file created by a2ps *with the option `--debug'*
+
+  3. the error message that was printed.
+
+Why Does it Print in Simplex?
+-----------------------------
+
+     Though I ask a2ps to print Duplex via `--sides', the job is
+     printed Simplex.
+
+   If your printer is too old, then a2ps will not be able to send it the
+code it needs when `-s2' is specified.  This is because your printer
+uses an old and not standardized interface for special features.
+
+   So you need to
+  1. specify that you want Duplex mode: `-s2',
+
+  2. remove by hand the standardized call to the Duplex feature:
+     `-SDuplex',
+
+  3. add the non standard call to Duplex.  Try
+     `--statusdict=setduplexmode:true'.
+
+   Since this is painful to hit, a User Option (*note Your Shortcuts::)
+should help.
+
+Why Does it Print in Duplex?
+----------------------------
+
+     Though I ask a2ps to print Simplex via `--sides', the job is
+     printed Duplex.
+
+   Actually when you require Simplex, a2ps issues nothing, for
+portability reasons.  Hence, if your printer is defaulted to Duplex,
+the job will be Duplexed.  So you have to force a2ps to issue the
+Simplex request with `-SDuplex:false'.  The user options `-=s1' and
+`-=simplex' have names easier to remember.
+
+   In the next version of a2ps this kind of portability problems will be
+fixed in a user friendly way.
+
+Why Does it Not Fit on the Paper?
+---------------------------------
+
+     When I print text files with a2ps, it prints beyond the frame of
+     the paper.
+
+   You are most probably printing with a bad medium, for instance using
+A4 paper within a2ps, while your printer uses Letter paper.  Some jet
+printers have a small printable area, and a2ps may not expect it.  In
+both case, read *Note Sheet Options::, option `--medium' for more.
+
+Why Does it Print Junk?
+-----------------------
+
+     What I get on the printer is long and incomprehensible.  It does
+     not seem to correspond to what I wanted to print.
+
+   You are probably printing a PostScript file or equivalent.  Try to
+print with `-Z': a2ps will try to do his best to find what is the
+program that can help you (*note Your Delegations::).  In case of doubt,
+don't hesitate to save into a file, and check the content with
+`Ghostview', or equivalent:
+     $ a2ps my_weird_file -Z -o mwf.ps
+     $ gv mwf.ps
+
+If your a2ps is correctly installed, you can use the `display'
+fake-printer:
+     $ a2ps my_weird_file -Z -P display
+
+   If it is incorrect, ask for help around you.
+
+Why Does it Say my File is Binary?
+----------------------------------
+
+     a2ps complains that my file is binary though it is not.
+
+   There are several reasons that can cause a2ps to consider a file is
+binary:
+   - there are many non printable characters in the file.  Then you
+     need to use the option `--print-anyway'.
+
+   - the file is sane, composed of printable characters.  Then it is
+     very likely that `file(1)' said the type of the file is `data', in
+     which case a2ps prefers not to print the file.  Then you can
+     either:
+        - specify the type of the file, for instance `-Eplain';
+
+        - specify to print in any case, `--print-anyway';
+
+        - remove the annoying rule from the system's `sheets.map':
+               binary: <data*>
+
+        - insert in your own `~/.a2ps/sheets.map' a rule that overrides
+          that of the system's `sheets.map':
+               # Load the system's sheets.map
+               include(/usr/local/share/a2ps/sheets/sheets.map)
+               
+               # Override the rule for files with type `data' according to file(1)
+               plain: <data*>
+
+          But this is not very good, since then this rule is always the
+          first tested, which means that any file with type `data'
+          according to `file(1)' will be printed in `plain' style, even
+          if the file is called `foo.c'.
+
+        - if your files can be recognized, insert a new rule in a
+          `sheets.map', such as
+               # file(1) says it's data, but it's pure text
+               plain:   /*.txx/
+
+
+
+Why Does it Refuse to Change the Font Size
+------------------------------------------
+
+     _a2ps does not seem to honor `--font-size'  (or
+     `--lines-per-page', or `--chars-per-line')._
+
+   This is probably because you used `-1'..`-9' after the
+`--font-size'.  This is wrong, because the options `-1'..`-9' set the
+font size (so that there are 80 characters per lines), and many other
+things (*Note Page Options::, option `--font-size').
+
+   Hence `a2ps --font-size=12km -4' is exactly the same thing as `a2ps
+-4', but is different from `a2ps -4 --font-size=12km'.  Note that the
+`pure' options (no side-effects) to specify the number of virtual pages
+are `--columns' and `--rows'.
+
+How Can I ...?
+==============
+
+   A mini how-to on a2ps.
+
+How Can I Leave Room for Binding?
+---------------------------------
+
+   The option `--margin[=SIZE]' is meant for this.  See *Note Sheet
+Options::.
+
+How Can I Print `stdin'?
+------------------------
+
+   a2ps prints the standard input if you give no file name, or if you
+gave `-' as file name.  Automatic style selection is of course much
+weaker: without the file name, a2ps can only get `file(1)''s opinion
+(*note Style Sheet Files::).  In general it means most delegations are
+safe, but there will probably be no pretty-printing.
+
+   `You' can supply a name to the standard input (`--stdin=NAME') with
+which it could guess the language.
+
+How Can I Change the Fonts?
+---------------------------
+
+   *Note Designing PostScript Prologues::, for details.  Make sure that
+all the information a2ps needs is available (*note Font Files::).
+
+How Can I Simulate the Old Option `-b'?
+---------------------------------------
+
+   By the past, a2ps had an option `-b' with which the fonts were bold.
+Since now the fonts are defined by prologues (*note Designing
+PostScript Prologues::) this option no longer makes sense.  A
+replacement prologue is provided: `bold'.  To use it, give the option
+`--prologue=bold'.
+
+How Can I Pass Options to `lpr'
+-------------------------------
+
+     How can I tell `a2ps' to ask `lpr' no to print the banner?
+
+     How can I pass specific options to `lp'?
+
+   If your `Printer:' fields in the configuration files were properly
+filled (*note Your Printers::), you can use the variable `lp.options'
+to pass options to `lpr' (or `lp', depending on your environment):
+
+     a2ps -Dlp.options="-h -s" -P printer
+
+You can also define `lp.options' once for all, *Note Defining
+Variables::.
+
+   Finally, you can use `Printer:' several times to reach a printer
+with different `lpr' options.
+
+How Can I Print on Non PostScript Printers?
+-------------------------------------------
+
+     I use a2ps at work and wish to use it at home, but my printer is
+     not PostScript.  How can I do?
+
+   `Ghostscript' might be the tool you need (*note Glossary::).  It
+support conversion to many different non PostScript printers.
+
+   Here are some tips on how to use a non PostScript printer.  If
+somebody feels like writing a more precise documentation, she really is
+welcome.
+
+   Please refer to the `Ghostscript' documentation for a precise
+description of the tuning you need.
+
+   Basically, the first step you need is to achieve to call
+`Ghostscript' in a pipe chain.  In other words, try to find out the
+right arguments `Ghostscript' needs in order to print with a command
+like this:
+     $ cat file.ps | gs MORE ARGUMENTS
+
+   In general it is the same command as for calling `Ghostscript' with
+a filename, except that the file name to use is `-':
+     $ cat file.ps \
+       | gs -q -dNOPAUSE -sDEVICE=deskjet -sOutputFile=- - -c quit\
+       | lp -dPRINTER-NAME
+
+   Once it works, it is then easy to settle the right `Printer:' line
+in your configuration file (*note Your Printers::).  For instance:
+     Printer: djet \
+       | gs -q -dNOPAUSE -sDEVICE=deskjet -sOutputFile=- - -c quit\
+       | lp -d djet
+
+   Christian Mondrup <scancm@biobase.dk> uses a2ps under Windows with a
+non PostScript printer.  He uses:
+     DefaultPrinter: | //c/gstools/gs5.10/Gswin32c.exe         \
+        -Ic:\gstools\gs5.10;c:\gstools\gs5.10\fonts            \
+        -sDEVICE=ljet4 -sPAPERSIZE=a4 -dNOPAUSE -r300 -dSAFER  \
+        -sOutputFile="\\spool\HP LaserJet 5L (PCL)"            \
+        -q - -c quit
+
+How Can I Print Man Pages with Underlines
+-----------------------------------------
+
+     By the past, when I printed a man page with a2ps, it used
+     underlines, but now it uses italics.  I want underlines back!
+
+   Use `a2ps --pro=ul'.
+
+Please tell me...
+=================
+
+   Wondering something?
+
+Is a2ps Y2K compliant?
+----------------------
+
+   The famous Y2K(1) problem...
+
+   Yes, a2ps is Y2K compliant... provided that you have either a version
+more recent than 4.10.3.  The expansions of the following escapes were
+broken (giving `100' instead of `00'): `%D', `%W', `$D', `$W'.
+
+   Nevertheless, please note that if you required a two digit year,
+expect to have `Jan 1st, 00' someday.  *You* are responsible of the
+format you want for the date: *Note Escapes::.
+
+   ---------- Footnotes ----------
+
+   (1) Year 2000.
+
+Why Have the Options Changed?
+-----------------------------
+
+     The options of this a2ps are not the same as in the previous
+     versions.
+
+   True.  But the old scheme (up to version 4.6.1) prevented us from
+offering more options.  We *had* to drop it, and to fully redesign the
+options handling.
+
+   Since that profound change, we try to change as little as possible
+between versions.  Nevertheless, as the time passes, we discover that
+some never used options should be renamed, or used for something else.
+In these cases, compatibility code is left for a long time.
+
+   Anywhere you put options but the command line (e.g., in a2ps
+configuration files or in shell scripts), *avoid using short options*,
+since short options are much more likely to be changed (there are not
+so many, so it is a precious resource).  Since there are as many long
+options as one wants, we can leave compatibility code with the long
+options.
+
+Why not having used `yacc' and such
+-----------------------------------
+
+   There are several reasons why we decided not to use grammars to parse
+the files.  Firstly it would have made the design of the style sheets
+much more tricky, and today a2ps would know only 4 or 5 languages.
+
+   Secondly, it limits the number of persons who could build a style
+sheet.
+
+   Thirdly, we did not feel the need for such a powerful tool: handling
+the keywords and the sequences is just what the users expect.
+
+   Fourthly, any extension of a2ps would have required to recompile.
+
+   And last but not least, using a parser requires that the sources are
+syntactic bug free, which is too strong a requirement.
+
+   Nevertheless, `PreScript' gives the possibility to have on the one
+hand a syntactic parser which would produce `PreScript' code, and on
+the other hand, a2ps, which would make it PostScript.  This schema
+seems to us a good compromise.  If it is still not enough for you, you
+can use the library.
+

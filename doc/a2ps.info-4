@@ -1,0 +1,1394 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+File: a2ps.info,  Node: Syntax,  Next: PreScript Commands,  Prev: PreScript,  Up: PreScript
+
+Syntax
+......
+
+   Every command name begins with a backslash (`\'). If the command
+uses an argument, it is given between curly braces with no spaces
+between the command name and the argument.
+
+   The main limit on `PreScript' is that no command can be used inside
+another command. For instance the following line will be badly
+interpreted by a2ps:
+
+     \Keyword{Problems using \keyword{recursive \copyright} calls}
+
+   The correct way to write this in `PreScript' is
+
+     \Keyword{Problems using} \keyword{recursive} \copyright \Keyword{calls}.
+
+   Everything from an unquoted % to the end of line is ignored
+(comments).
+
+
+File: a2ps.info,  Node: PreScript Commands,  Next: PreScript examples,  Prev: Syntax,  Up: PreScript
+
+PreScript Commands
+..................
+
+   These commands required arguments.
+
+`\keyword{TEXT}'
+`\Keyword{TEXT}'
+     Highlight lightly/strongly the given TEXT.  Should be used only
+     for a couple of adjacent words.
+
+`\comment{TEXT}'
+`\Comment{TEXT}'
+     The TEXT is given a special face.  The TEXT may be removed if
+     option `--strip' is used.
+
+`\label{TEXT}'
+`\Label{TEXT}'
+     TEXT should be considered as a definition, or an important point
+     in the structure of the whole text.
+
+`\string{TEXT}'
+     Write TEXT with string's face (e.g., in font Times).
+
+`\error{TEXT}'
+     Write TEXT with error's face (generally a very different face, so
+     that you see immediately).
+
+`\symbol{TEXT}'
+     TEXT is written in the PostScript symbol font.  This feature is
+     not compatible with LaTeX.  It is recommended, when possible, to
+     use the special keywords denoting symbols, which are compatible
+     with LaTeX (*note Symbol::).
+
+`\header{TEXT}'
+`\footer{TEXT}'
+     Use TEXT as header (footer) for the current page.  If several
+     headers or footers are defined on the same page, the last one is
+     taken into account.
+
+`\encoding{KEY}'
+     Change dynamically the current encoding.  After this command, the
+     text is printed using the encoding corresponding to KEY.
+
+
+File: a2ps.info,  Node: PreScript examples,  Prev: PreScript Commands,  Up: PreScript
+
+Examples
+........
+
+   `PreScript' and a2ps can be used for one-the-fly formating. For
+instance, on the `passwd' file:
+
+     ypcat passwd |
+      awk -F: \
+        '{print "\Keyword{" $5 "} (" $1 ") \rightarrow\keyword{" $7 "}"}'\
+      | a2ps -Epre -P
+
+
+File: a2ps.info,  Node: PreTeX,  Next: TeXScript,  Prev: PreScript,  Up: Type Setting Style Sheets
+
+PreTeX
+------
+
+   The aim of the PreTeX style sheet is to provide something similar to
+`PreScript', but with a more LaTeX like syntax.
+
+* Menu:
+
+* Special characters::
+* PreTeX Commands::
+* Differences with LaTeX::
+
+
+File: a2ps.info,  Node: Special characters,  Next: PreTeX Commands,  Prev: PreTeX,  Up: PreTeX
+
+Special characters
+..................
+
+   `$' is ignored in `PreTeX' for compatibility with LaTeX, and `%'
+introduces a comment. Hence they are the only symbols which have to be
+quoted by a `\'.  The following characters should also be quoted to
+produce good LaTeX files, but are accepted by `PreScript': `_', `&',
+`#'.
+
+   Note that _inside a command_, like `\textbf', the quotation
+mechanism does not work in `PreScript' (`\textrm{#$%}' writes `#$%')
+though LaTeX still requires quotation. Hence whenever special
+characters or symbols are introduced, they should be at the outer most
+level.
+
+
+File: a2ps.info,  Node: PreTeX Commands,  Next: Differences with LaTeX,  Prev: Special characters,  Up: PreTeX
+
+PreTeX Commands
+...............
+
+   These commands required arguments.
+
+`\section{TITLE}'
+`\subsection{TITLE}'
+`\subsubsection{TITLE}.'
+     Used to specify the title of a section, subsection or
+     subsubsection.
+
+`\textbf{TEXT}'
+`\textit{TEXT}'
+`\textbi{TEXT}'
+`\textrm{TEXT}'
+     write TEXT in bold, italic, bold-italic, Times.  Default font is
+     Courier.
+
+`\textsy{TEXT}'
+     TEXT is written in the PostScript symbol font.  This feature is
+     not compatible with LaTeX.  It is recommended, when possible, to
+     use the special keywords denoting symbols, which are compatible
+     with LaTeX (See the style sheet `Symbol').
+
+`\header{TEXT}'
+`\footer{TEXT}'
+     Use TEXT as header (footer) for the current page.  If several
+     headers or footers are defined on the same page, the last one is
+     taken into account.
+
+`\verb+TEXT+'
+     Quote TEXT so that no special sequence will be interpreted.  In
+     `\verb+QUOTED STRING+' `+' can be any symbol in `+', `!', `|',
+     `#', `='.
+
+`\begin{document}'
+`\end{document}'
+`\begin{itemize}'
+`\end{itemize}'
+`\begin{enumerate}'
+`\end{enumerate}'
+`\begin{description}'
+`\end{description}'
+     These commands are legal in LaTeX but have no sense in PreTeX.
+     Hence there are simply ignored and not printed (if immediately
+     followed by an end-of-line).
+
+
+File: a2ps.info,  Node: Differences with LaTeX,  Prev: PreTeX Commands,  Up: PreTeX
+
+Differences with LaTeX
+......................
+
+   The following symbols, inherited from the style sheet `Symbol', are
+not supported by LaTeX:
+
+   `\Alpha', `\apple', `\Beta', `\carriagereturn', `\Chi', `\Epsilon',
+`\Eta', `\florin', `\Iota', `\Kappa', `\Mu', `\Nu', `\Omicron',
+`\omicron', `\radicalex', `\register', `\Rho', `\suchthat', `\Tau',
+`\therefore', `\trademark', `\varUpsilon', `\Zeta'.
+
+   LaTeX is more demanding about special symbols. Most of them must be
+in so-called math mode, which means that the command must be inside `$'
+signs. For instance, though
+     If \forall x \in E, x \in F then E \subseteq F.
+
+is perfectly legal in PreTeX, it should be written
+     If $\forall x \in E, x \in F$ then $E \subseteq F$.
+
+for LaTeX. Since in PreTeX every `$' is discarded (unless quoted by a
+`\'), the second form is also admitted.
+
+
+File: a2ps.info,  Node: TeXScript,  Prev: PreTeX,  Up: Type Setting Style Sheets
+
+TeXScript
+---------
+
+   `TeXScript' is a replacement of the old version of `PreScript': it
+combines both the a2ps-like and the LaTeX-like syntaxes through
+inheritance of both `PreScript' and `PreTeX'.
+
+   In addition it provides commands meant to ease processing of file for
+a2ps by LaTeX.
+
+   Everything between `%%TeXScript:skip' and `%%TeXScript:piks' will be
+ignored in `TeXScript', so that there can be inserted command
+definitions for LaTeX exclusively.
+
+   The commands `\textbi' (for bold-italic) and `\textsy' (for symbol)
+do not exist in LaTeX.  They should be defined in the preamble:
+
+     %%TeXScript:skip
+     \newcommand{\textbi}[1]{\textbf{\textit{#1}}}
+     \newcommand{\textsy}[1]{#1}
+     %%TeXScript:piks
+
+   There is no way in TeXScript to get an automatic numbering.  There is
+no equivalent to the LaTeX environment `enumerate'.  But every command
+beginning by `\text' is doubled by a command beginning by `\magic'.
+a2ps behaves the same way on both families of commands.  Hence, if one
+specifies that arguments of those functions should be ignored in the
+preamble of the LaTeX document, the numbering is emulated.  For instance
+     \begin{enumerate}
+     \magicbf{1.}\item First line
+     \magicbf{2.}\item Second line
+     \end{enumerate}
+
+will be treated the same way both in TeXScript and LaTeX.
+
+   `\header' and `\footer', are not understood by LaTeX.
+
+
+File: a2ps.info,  Node: Faces,  Next: Style sheets semantics,  Prev: Type Setting Style Sheets,  Up: Pretty Printing
+
+Faces
+=====
+
+   A "face" is an attribute given to a piece of text, which specifies
+how it should look like.  Since a2ps is devoted to pretty-printing
+source files, the faces it uses are related to the syntactic entities
+that can be encountered in a file.
+
+   The faces a2ps uses are:
+`Plain'
+     This corresponds to the text body.
+
+`Keyword'
+`Keyword_strong'
+     These are related to the keywords that may appear in a text.
+
+`Comment'
+`Comment_strong'
+     These are related to comments in the text.  Remember that comments
+     should be considered as non essential ("_Aaaeaaarg_" says the
+     programmer); indeed, the user might suppress the comments thanks
+     (?) to the option `--strip-level'.  Hence, *never* use these faces
+     just because you think they look better on, say, strings.
+
+`Label'
+`Label_strong'
+     These are used when a point of extreme importance, or a sectioning
+     point, is met.  Typically, functions declarations etc.
+
+`String'
+     Used mainly for string and character literals.
+
+`Error'
+     Used to underline the presence of an error.  For instance in
+     Encapsulated PostScript, some PostScript operators are forbidden:
+     they are underlined as errors.
+
+   Actually, there is also the face `Symbol', but this one is
+particular: it is not legal changing its font.
+
+
+File: a2ps.info,  Node: Style sheets semantics,  Next: Style Sheets Implementation,  Prev: Faces,  Up: Pretty Printing
+
+Style Sheets Semantics
+======================
+
+   a2ps pretty prints a source file thanks to "style sheets", one per
+language.  In the following is described how the style sheets are
+defined.  You may skip this section if you don't care how a2ps does
+this, and if you don't expect to implement new styles.
+
+* Menu:
+
+* Name and key::                Both names of a style sheet
+* Comments::                    Author name, version etc.
+* Alphabets::                   What words are legal
+* Case sensitivity::            Is BEGIN different of begin
+* P-Rules::                     Pretty Printing Rules
+* Sequences::                   Strings, comments etc.
+* Optional entries::            Second level of pretty printing
+
+
+File: a2ps.info,  Node: Name and key,  Next: Comments,  Prev: Style sheets semantics,  Up: Style sheets semantics
+
+Name and key
+------------
+
+   Every style sheet has both a key, and a name.  The name can be clean
+and beautiful, with any character you might want.  The key is in fact
+the prefix part of the file name, and is alpha-numerical, lower case,
+and less than 8 characters long.
+
+   Anywhere a2ps needs to recognize a style sheet by a name, *it uses
+the key* (in the `sheets.map' file, with the option `-E', etc.).
+
+   As an example, C++ is implemented in a file called `cxx.ssh', in
+which the name is declared to be `C++'.
+
+   The rationale is that not every system accepts any character in the
+file name (e.g., no `+' in MS-DOS).  Moreover, it allows to make
+symbolic links on the ssh files (e.g., `ln -s cxx.ssh c++.ssh' let's
+you use `-E c++').
+
+
+File: a2ps.info,  Node: Comments,  Next: Alphabets,  Prev: Name and key,  Up: Style sheets semantics
+
+Comments
+--------
+
+   ssh files can include the name of its author, a version number, a
+documentation note and a requirement on the version of a2ps.  For
+instance, if a style sheet requires a2ps version 4.9.6, then a2ps
+version 4.9.5 will reject it.
+
+
+File: a2ps.info,  Node: Alphabets,  Next: Case sensitivity,  Prev: Comments,  Up: Style sheets semantics
+
+Alphabets
+---------
+
+   a2ps needs to know the beginning and the end of a word, especially
+keywords.  Hence it needs two alphabets: the first one specifying by
+which letters an identifier can begin, and the second one for the rest
+of the word.  If you prefer, a keyword starts with a character
+belonging to the first alphabet, and a character not pertaining to the
+second is a separator.
+
+
+File: a2ps.info,  Node: Case sensitivity,  Next: P-Rules,  Prev: Alphabets,  Up: Style sheets semantics
+
+Case sensitivity
+----------------
+
+   If the style is case insensitive, then matching is case insensitive
+(keywords, operators and sequences).
+
+
+File: a2ps.info,  Node: P-Rules,  Next: Sequences,  Prev: Case sensitivity,  Up: Style sheets semantics
+
+P-Rules
+-------
+
+   A "P-rule" (Pretty printing rule), or "rule" for short, is a
+structure which consists of two items:
+"lhs"
+"left-hand side"
+     its source string, with which the source file is compared;
+
+"rhs"
+"right hand side"
+     a list of faced strings which will replace the text matched in the
+     pretty-printed output.  A faced string is composed of
+        - a string, or a reference to a part of the source string
+          (*note Back-reference Operator: (regex)Back-reference
+          Operator.)
+
+        - the face to use to print it
+
+   Just a short example: `(foo, bar, Keyword_strong)' as a rule means
+that every input occurrence of `foo' will be replaced by `bar', written
+with the `Keyword_strong' face.
+
+   If the destination string is empty, then a2ps will use the source
+string.  This is different from giving the source string as a
+destination string if the case is different.  An example will make it
+fairly clear.
+
+   Let `foobar' be a case insensitive style sheet including the rules
+`(foo, "", Keyword)' and `(bar, bar, Keyword)'.  Then, on the input
+`FOO BAR', a2ps will produce `FOO bar' in `Keyword'.
+
+   a2ps implements two different ways to match a string.  The difference
+comes from that some keywords are sensitive to the delimiters around
+them (such as `unsigned' and `int' in `C', which are definitely not the
+same thing as `unsignedint'), and others not (in `C', `!=' is
+"different from" both in `a != b' and `a!=b').
+
+   The first ones are called "keywords" in a2ps jargon, and the seconds
+are "operators".  Operators are matched anywhere they appear, while
+keywords need to have separators around them (*note Alphabets::).
+
+   Let us give a more complicated example: that of the `Yacc' rules.  A
+rule in `Yacc' is of the form:
+     a_rule : part1 part2 ;
+
+   Suppose you want to highlight these rules.  To recognize them, you
+will write a regular expression specifying that:
+  1. it must start at the beginning of the line,
+
+  2. then there is string composed of symbols, which is what you want to
+     highlight,
+
+  3. and a colon, which can be preceded by blank characters.
+
+   The regexp you want is: `/^[a-zA-Z0-9_]*[\t ]*:/'.  But with the rule
+     /^[a-zA-Z0-9_]*[\t ]*:/, "", Label_strong
+
+the blanks and the colon are highlighted too.  Hence you need to
+specify some parts in the regexp (*note Back-reference Operator:
+(regex)Back-reference Operator.), and use a longer list of destination
+strings.  The correct rule is
+     (/^([a-zA-Z0-9_]*)([\t ]*:)/, \1 Label_strong, \2 Plain)
+
+   Since it is a bit painful to read, regexps can be spread upon several
+lines.  It is strongly suggested to break them by groups, and to
+document the group:
+     (/^([a-zA-Z0-9_]*)/    # \1. Name of the rule
+      /([\t ]*:)/           # \2. Trailing space and colon
+      \1 Label_strong, \2 Plain)
+
+
+File: a2ps.info,  Node: Sequences,  Next: Optional entries,  Prev: P-Rules,  Up: Style sheets semantics
+
+Sequences
+---------
+
+   A "sequence" is a string between two "markers", along with a list of
+exceptions.  A marker is a fixed string.  Typical examples are
+comments, string (with usually `"' as opening and closing markers, and
+`\\' and `\"' as exceptions) etc.  Three faces are used: one for the
+initial marker, one for the core of the sequence, and a last one for
+the final maker.
+
+
+File: a2ps.info,  Node: Optional entries,  Prev: Sequences,  Up: Style sheets semantics
+
+Optional entries
+----------------
+
+   There are two levels of pretty-printing encoded in the style sheets.
+By default, a2ps uses the first level, called "normal", unless the
+option `-g' is specified, in which case, "heavy" highlighting is
+invoked, i.e., optional keywords, operators and sequences are
+considered.
+
+
+File: a2ps.info,  Node: Style Sheets Implementation,  Next: A tutorial on style sheets,  Prev: Style sheets semantics,  Up: Pretty Printing
+
+Style Sheets Implementation
+===========================
+
+   In the previous section (*note Style sheets semantics::) were
+explained the various items needed to understand the machinery involved
+in pretty printing.  Here, their implementation, i.e., how to write a
+style sheet file,  is explained.  The next section (*note A tutorial on
+style sheets::), exposes a step by step simple example.
+
+* Menu:
+
+* A Bit of Syntax::             Lexical rules of the ssh language
+* Style Sheet Header::          Declaration of a style
+* Syntax of the Words::         Classes of the Characters
+* Inheriting::                  Extending existing style sheets
+* Syntax for the P-Rules::      Atomic Pretty Printing rules
+* Declaring keywords and operators::  Special Classes of Identifiers
+* Declaring sequences::         Bordered Lexical Entities
+* Checking a Style Sheet::      Ask a2ps to Check the Sheet
+
+
+File: a2ps.info,  Node: A Bit of Syntax,  Next: Style Sheet Header,  Prev: Style Sheets Implementation,  Up: Style Sheets Implementation
+
+A Bit of Syntax
+---------------
+
+   Here are the lexical rules underlying the style sheet language:
+   - the separators are white space, form feed, new line, and tab.
+
+   - `#' introduces a comment, ended at the end of the line.
+
+   - special characters are the separators, plus `#', `"', `,', `(',
+     `)', `+' and `/'.  Any other character is a regular character.
+
+   - the list of the structuring keywords is
+          `alphabet', `alphabets', `are', `case', `documentation',
+          `end', `exceptions', `first', `in', `insensitive', `is',
+          `keywords', `operators', `optional', `second', `sensitive',
+          `sequences', `style'
+
+   - the list of the keywords designating faces is
+          `Comment', `Comment_strong', `Encoding', `Error', `Index1',
+          `Index2', `Index3', `Index4', `Invisible', `Keyword',
+          `Keyword_strong', `Label', `Label_strong', `Plain', `String',
+          `Symbol', `Tag1', `Tag2', `Tag3', `Tag4'
+
+   - the list of keywords designating special sequences is
+          `C-char', `C-string'
+
+   - the list of keywords representing special characters is
+          `---', `\Alpha', `\Beta', `\Chi', `\Delta', `\Downarrow',
+          `\Epsilon', `\Eta', `\Gamma', `\Im', `\Iota', `\Kappa',
+          `\Lambda', `\Leftarrow', `\Leftrightarrow', `\Mu', `\Nu',
+          `\Omega', `\Omicron', `\Phi', `\Pi', `\Psi', `\Re', `\Rho',
+          `\Rightarrow', `\Sigma', `\Tau', `\Theta', `\Uparrow',
+          `\Upsilon', `\Xi', `\Zeta', `\aleph', `\alpha', `\angle',
+          `\approx', `\beta', `\bullet', `\cap', `\carriagereturn',
+          `\cdot', `\chi', `\circ', `\clubsuit', `\cong', `\copyright',
+          `\cup', `\delta', `\diamondsuit', `\div', `\downarrow',
+          `\emptyset', `\epsilon', `\equiv', `\eta', `\exists',
+          `\florin', `\forall', `\gamma', `\geq', `\heartsuit', `\in',
+          `\infty', `\int', `\iota', `\kappa', `\lambda', `\langle',
+          `\lceil', `\ldots', `\leftarrow', `\leftrightarrow', `\leq',
+          `\lfloor', `\mu', `\nabla', `\neq', `\not', `\not\in',
+          `\not\subset', `\nu', `\omega', `\omicron', `\oplus',
+          `\otimes', `\partial', `\perp', `\phi', `\pi', `\pm',
+          `\prime', `\prod', `\propto', `\psi', `\radicalex', `\rangle',
+          `\rceil', `\register', `\rfloor', `\rho', `\rightarrow',
+          `\sigma', `\sim', `\spadesuit', `\subset', `\subseteq',
+          `\suchthat', `\sum', `\supset', `\supseteq', `\surd', `\tau',
+          `\theta', `\therefore', `\times', `\trademark', `\uparrow',
+          `\upsilon', `\varUpsilon', `\varcopyright',
+          `\vardiamondsuit', `\varphi', `\varpi', `\varregister',
+          `\varsigma', `\vartheta', `\vartrademark', `\vee', `\wedge',
+          `\wp', `\xi', `\zeta'
+     It is a good idea to print the style sheet `symbols.ssh' to see
+     them:
+          a2ps symbols.ssh
+
+   - a string starts and finishes with `"', and may contain anything.
+     Regular `C' escaping mechanism is used.
+
+   - a regular expression starts and finishes with `/', and may contain
+     anything.  Regular `C' escaping mechanism is used.  Regexps can be
+     split in several parts, a` la C strings (i.e., `/part 1/ /part
+     2/').
+
+   - any sequence of regular characters which is not a keyword, is a
+     string (consider this as a shortcut, avoiding extraneous `"').
+
+
+
+File: a2ps.info,  Node: Style Sheet Header,  Next: Syntax of the Words,  Prev: A Bit of Syntax,  Up: Style Sheets Implementation
+
+Style Sheet Header
+------------------
+
+   The definition of the name of the style sheet is:
+     `style' NAME `is'
+       # body of the style sheet
+     `end' `style'
+
+   The following constructions are optional:
+`version'
+     To define the version number of the style sheet
+          version is VERSION-NUMBER
+
+`written'
+     To define the author(s).
+          written by AUTHORS
+
+     Giving your email is useful for bug reports about style sheets.
+          written by "Some Body <Some.Body@some.whe.re>"
+
+`requires'
+     To specify the version of a2ps it requires.  a2ps won't accept a
+     file which requires a higher version number than its own.
+          requires a2ps A2PS-VERSION-NUMBER
+
+`documentation'
+     To leave extra comments people should read.
+          documentation is
+             STRINGS
+          end documentation
+     STRINGS may be a list of strings, without comas, in which case new
+     lines are automatically inserted between each item.  *Note
+     Documentation Format::, for details on the format.
+
+     Please, write useful comments, not `This style is devoted to C
+     files', since the name is here for that, nor `Report errors to
+     mail@me.somewhere', since `written by' is there for that.
+          documentation is
+              "Not all the keywords are used, to avoid too much"
+              "bolding. Heavy highlighting (code(-g)code), covers"
+              "the whole language."
+          end documentation
+
+
+File: a2ps.info,  Node: Syntax of the Words,  Next: Inheriting,  Prev: Style Sheet Header,  Up: Style Sheets Implementation
+
+Syntax of the Words
+-------------------
+
+   There are two things a2ps needs to know: what is symbol consistent,
+and whether the style is case insensitive.
+
+`alphabet'
+     To define two different alphabets, use
+          first alphabet is STRING
+          second alphabet is STRING
+
+     If both are identical, you may use the shortcut
+          alphabets are STRING
+
+     The default alphabets are
+          first alphabet is
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+          second alphabet is
+          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\
+          0123456789"
+
+     Note that it is on purpose that no characters interval are used.
+
+`case'
+          case insensitive        # e.g., C, C++ etc.
+          case sensitive          # e.g., Perl, Sather, Java etc.
+
+     The default is `case insensitive'.
+
+
+File: a2ps.info,  Node: Inheriting,  Next: Syntax for the P-Rules,  Prev: Syntax of the Words,  Up: Style Sheets Implementation
+
+Inheriting from Other Style Sheets
+----------------------------------
+
+   It is possible to extend an existing style. The syntax is:
+     ancestors are
+        ANCESTOR_1[, ANCESTOR_2...]
+     end ancestors
+
+where ANCESTOR1 etc. are style sheet keys.
+
+   For semantics, the rules are the following:
+   - the ancestors are read in order;
+
+   - the definition of the current style is read last;
+
+   - it is always the last item read which wins (last defined
+     alphabets, case sensitivity, keywords, operators and sequences).
+
+
+   As an example, both `C++' and `Objective C' style sheets extend the
+`C' style sheet:
+
+     style "Objective C" is
+     #[...]
+     ancestors are
+        c
+     end ancestors
+     #[...]
+     end style
+
+   To the biggest surprise of the author, mutually dependent style
+sheets do work!
+
+
+File: a2ps.info,  Node: Syntax for the P-Rules,  Next: Declaring keywords and operators,  Prev: Inheriting,  Up: Style Sheets Implementation
+
+Syntax for the P-Rules
+----------------------
+
+   *Note P-Rules::, for the definition of "P-rule".
+
+   Because of various short cuts, there are many ways to declare a rule:
+     RULES     ::= RULE_1 `,' RULE_2...
+     RULE      ::= `(' LHS RHS `)'
+                | LHS SRHS ;
+     LHS       ::= STRING | REGEX ;
+     RHS       ::= SRHS `,' ...
+     SRHS      ::= LATEX-KEYWORD | EXPANSION FACE
+     EXPANSION ::= STRING | `\'NUM | <nothing>;
+     FACE      ::= FACE-KEYWORD | <nothing>;
+
+   The rules are the following:
+   - If the left-hand side (lhs) is a regular expression, then it is
+     compiled with the following syntax bits:
+          #define RE_SYNTAX_A2PS \
+            (/* Allow char classes. */					\
+              RE_CHAR_CLASSES						\
+            /* Be picky. */						\
+            | RE_CONTEXT_INVALID_OPS					\
+            /* Allow intervals with `{' and `}', forbid invalid ranges. */\
+            | RE_INTERVALS | RE_NO_BK_BRACES | RE_NO_EMPTY_RANGES		\
+            /* `(' and `)' are the grouping operators. */			\
+            | RE_NO_BK_PARENS						\
+            /* `|' is the alternation. */					\
+            | RE_NO_BK_VBAR)
+
+     Basically it means that all of the possible operators are used,
+     and that they are in non-backslashed form.  For instance `(' and
+     `)' stand for the group operator, while `\\(' stands for the
+     character `('.  *Note Regular Expression Syntax: (regex)Regular
+     Expression Syntax, for a detailed description of the regular
+     expressions.
+
+   - If no EXPANSION is specified, then the matched string is used.
+     For instance `(/fo*/, NULL, Keyword)' applied on the source
+     `fooooo' produces `fooooo' in `Keyword'.
+
+   - If no FACE is given, then
+        - if the context defines the default face, then this face is
+          used;
+
+        - if no default face is given, `PLAIN' is used.
+
+
+File: a2ps.info,  Node: Declaring keywords and operators,  Next: Declaring sequences,  Prev: Syntax for the P-Rules,  Up: Style Sheets Implementation
+
+Declaring the keywords and the operators
+----------------------------------------
+
+   Basically, keywords and operators are lists of rules.  The syntax is:
+     keywords are
+       RULES
+     end keywords
+
+or
+     keywords in FACE-KEYWORD are
+       RULES
+     end keywords
+
+in which case the default face is set to FACE-KEYWORD.
+
+   As an example:
+     keywords in Keyword_strong are
+       /foo*/,
+       "bar" "BAR" Keyword,
+       -> \rightarrow
+     end keywords
+
+is valid.
+
+   The syntax for the operators is the same, and both constructs can be
+qualified with an `optional' flag, in which case they are taken into
+account in the heavy highlighting mode (*note Pretty Print Options::).
+
+   This is an extract of the `C' style sheet:
+     optional operators are
+        -> \rightarrow,
+        && \wedge,
+        || \vee,
+        != \neq,
+        == \equiv,
+        # We need to protect these, so that <= is not replaced in <<=
+        <<=,
+        >>=,
+        <= \leq,
+        >= \geq,
+        ! \not
+     end operators
+
+   Note how `<<=' and `>>=' are protected (there are defined to be
+written as is when met in the source).  This is to prevent the two last
+characters of `<<=' from being converted into a `less or equal' sign.
+
+   The order in which you define the elements of a category (but the
+sequences) does not matter.  But since a2ps sorts them at run time, it
+may save time if the alphabetical `C'-order is more or less followed.
+
+   You should be aware that when declaring a keyword with a regular
+expression as lhs, then a2ps automatically makes this expression
+matching only if there are no character of the first alphabet both just
+before, and just after the string.
+
+   In term of implementation, it means that
+     keywords are
+       /foo|bar/
+     end keywords
+
+is exactly the same as
+     operators are
+       /\\b(foo|bar)\\b/
+     end operators
+
+   This can cause problems if you use anchors (e.g. `$', or `^') in
+keywords: the matcher will be broken.  In this particular case, define
+your keywords as operators, taking care of the `\\b' by yourself.
+
+   *Note Match-word-boundary Operator: (regex)Match-word-boundary
+Operator, for details on `\b'.
+
+
+File: a2ps.info,  Node: Declaring sequences,  Next: Checking a Style Sheet,  Prev: Declaring keywords and operators,  Up: Style Sheets Implementation
+
+Declaring the sequences
+-----------------------
+
+   Sequences admit several declarations too:
+     SEQUENCES      ::= sequences are
+                          SEQUENCE_1 `,' SEQUENCE_2...
+                        end sequences
+     SEQUENCE       ::= RULE IN_FACE CLOSE_OPT EXCEPTIONS_OPT
+                      | `C-string'
+                      | `C-char'
+                      ;
+     CLOSE_OPT      ::= RULE
+                      | closers are
+                          RULES
+                        end closers
+                      | <nothing>
+                      ;
+     EXCEPTIONS_OPT ::= exceptions are
+                          RULES
+                        end exceptions
+                      | <nothing>
+                      ;
+
+   The rules are:
+   - The default face is then IN_FACE.
+
+   - If no closing rule is given, `"\n"' (i.e., end-of-line) is used.
+
+   As a first example, here is the correct definition for a `C' string:
+     sequences are
+      "\"" Plain String "\"" Plain
+          exceptions are
+             "\\\\", "\\\""
+          end exceptions
+     end sequences
+   Since a great deal of languages uses this kind of constructs, you may
+use `C-string' to mean exactly this, and `C-char' for manifest
+characters defined the `C' way.
+
+   The following example comes from `ssh.ssh', the style sheet for
+style sheet files, in which there are two kinds of pseudo-strings: the
+strings (`"example"'), and the regular expressions (`/example/').  We
+do not want the content of the pseudo-strings in the face `String'.
+
+     sequences are
+       # The comments
+       "#" Comment,
+     
+       # The name of the style sheet
+       "style " Keyword_strong (Label + Index1) " is" Keyword_strong,
+     
+       # Strings are exactly the C-strings, though we don't want to
+       # have them in the "string" face
+       "\"" Plain "\""
+          exceptions are
+             "\\\\", "\\\""
+          end exceptions,
+     
+       # Regexps
+       "/" Plain "/"
+          exceptions are
+             "\\\\", "\\\/"
+          end exceptions
+     
+     end sequences
+
+   The order between sequences does matter.  For instance in Java,
+`/**' introduces strong comments, and `/*' comments.  `/**' _must_ be
+declared before `/*', or it will be hidden.
+
+   There are actually some sequences that could have been implemented as
+operators with a specific regular expression (that goes up to the
+closer).  Nevertheless be aware of a big difference: regular expression
+are applied to a single line of the source file, hence, they cannot
+match on several lines.  For instance, the `C' comments,
+     /*
+      * a comment
+      */
+
+cannot be implemented with operators, though `C++' comments can:
+     //
+     // a comment
+     //
+
+
+File: a2ps.info,  Node: Checking a Style Sheet,  Prev: Declaring sequences,  Up: Style Sheets Implementation
+
+Checking a Style Sheet
+----------------------
+
+   Once your style sheet is written, you may want to let a2ps perform
+simple tests on it (e.g., checking there are no rules involving upper
+case characters in a case insensitive style sheet, etc.).  These tests
+are performed when verbosity includes the style sheets.
+
+   you may also want to use the special convention that when a style
+sheet is required with a suffix, then a2ps will not look at it in its
+library path, but precisely from when you are.
+
+   Suppose for instance you extended the `c.ssh' style sheet, which is
+in the current directory, and is said case insensitive.  Run
+     ubu $ a2ps foo.c -Ec.ssh -P void -v sheets
+     # Long output deleted
+     Checking coherence of "C" (c.ssh)
+     a2ps: c.ssh:`FILE' uses upper case characters
+     a2ps: c.ssh:`NULL' uses upper case characters
+     "C" (c.ssh) is corrupted.
+     ---------- End of Finalization of c.ssh
+
+Here, it is clear that `C' is not case insensitive.
+
+
+File: a2ps.info,  Node: A tutorial on style sheets,  Prev: Style Sheets Implementation,  Up: Pretty Printing
+
+A Tutorial on Style Sheets
+==========================
+
+   In this section a simple example of style sheet is entirely covered:
+that of `ChangeLog' files.
+
+   `ChangeLog' files are some kind of memory of changes done to files,
+so that various programmers can understand what happened to the sources.
+This helps a lot, for instance, in guessing what recent changes may have
+introduced new bugs.
+
+* Menu:
+
+* Example and syntax::          ChangeLog files
+* Implementation::              Implementation of chlog.ssh
+* The Entry in sheets.map::     Getting automatic style selection
+* More Sophisticated Rules::    Complex regular expressions
+* Distributed Style Sheets::    Additional Constraints
+
+
+File: a2ps.info,  Node: Example and syntax,  Next: Implementation,  Prev: A tutorial on style sheets,  Up: A tutorial on style sheets
+
+Example and syntax
+------------------
+
+   First of all, here is a sample of a `ChangeLog' file, taken from the
+`misc/' directory of the original a2ps package:
+     Sun Apr 27 14:29:22 1997  Akim Demaille  <demaille@inf.enst.fr>
+     
+             * base.ps: Merged in color.ps, since now a lot is
+               common [added box and underline features].
+     
+     Fri Apr 25 14:05:20 1997  Akim Demaille  <demaille@inf.enst.fr>
+     
+             * color.ps: Added box and underline routines.
+     
+     Mon Mar 17 20:39:11 1997  Akim Demaille  <demaille@gargantua.enst.fr>
+     
+             * base.ps: Got rid of CourierBack and reencoded_backspace_font.
+               Now the C has to handle this by itself.
+     
+     Sat Mar  1 19:12:22 1997  Akim Demaille  <demaille@gargantua.enst.fr>
+     
+             * *.enc: they build their own dictionaries, to ease multi
+               lingual documents.
+
+   The syntax is really simple: A line specifying the author and the
+date of the changes, then a list of changes, all of them starting with
+an star followed by the name of the files concerned, then optionally
+between parentheses the functions affected, and then some comments.
+
+
+File: a2ps.info,  Node: Implementation,  Next: The Entry in sheets.map,  Prev: Example and syntax,  Up: A tutorial on style sheets
+
+Implementation
+--------------
+
+   Quite naturally the style will be called `ChangeLog', hence:
+     style ChangeLog is
+     written by "Akim Demaille <demaille@inf.enst.fr>"
+     version is 1.0
+     requires a2ps 4.9.5
+     
+     documentation is
+        "This is a tutorial style sheet.\n"
+     end documentation
+       ...
+     end style
+
+   A first interesting and easy entry is that of function names, between
+`(' and `)':
+     sequences are
+       "(" Plain Label ")" Plain
+     end sequences
+
+   A small problem that may occur is that there can be several functions
+mentioned separated by commas, that we don't want to highlight this way.
+Commas, here, are exceptions.  Since regular expressions are not yet
+implemented in a2ps, there is a simple but stupid way to avoid that
+white spaces are all considered as part of a function name, namely
+defining two exceptions: one which captures a single comma, and a
+second, capturing a comma and its trailing space.
+
+   For the file names, the problem is a bit more delicate, since they
+may end with `:', or when starts the list of functions.  Then, we
+define two sequences, each one with one of the possible closers, the
+exceptions being attached to the first one:
+
+     sequences are
+       "* " Plain Label_strong ":" Plain
+          exceptions are
+             ", " Plain, "," Plain
+          end exceptions,
+       "* " Plain Label_strong " " Plain
+     end sequences
+
+   Finally, let us say that some words have a higher importance in the
+core of text: those about removing or adding something.
+     keywords in Keyword_strong are
+       add, added, remove, removed
+     end keywords
+
+   Since they may appear in lower or upper, of mixed case, the style
+will be defined as case insensitive.
+
+   Finally, we end up with this style sheet file, in which an optional
+highlighting of the mail address of the author is done.  Saving the file
+is last step.  But do not forget that a style sheet has both a name as
+nice as you may want (such as `Common Lisp'), and a key on which there
+are strict rules: the prefix must be alpha-numerical, lower case, with
+no more than 8 characters.  Let's chose `chlog.ssh'.
+
+     # This is a tutorial on a2ps' style sheets
+     style ChangeLog is
+     written by "Akim Demaille <demaille@inf.enst.fr>"
+     version is 1.0
+     requires a2ps 4.9.5
+     
+     documentation is
+        "Second level of high lighting covers emails."
+     end documentation
+     
+     sequences are
+       "(" Plain Label ")" Plain
+          exceptions are
+             ", " Plain, "," Plain
+          end exceptions,
+       "* " Plain Label_strong ":" Plain
+          exceptions are
+             ", " Plain, "," Plain
+          end exceptions,
+       "* " Plain Label_strong " " Plain
+     end sequences
+     
+     keywords in Keyword_strong are
+       add, added, remove, removed
+     end keywords
+     
+     optional sequences are
+        < Plain Keyword > Plain
+     end sequences
+     end style
+
+   As a last step, you may which to let a2ps check your style sheet,
+both its syntax, and common errors:
+     ubu $ a2ps -vsheet -E/tmp/chlog.ssh ChangeLog -P void
+     Long output deleted
+     Checking coherence of "ChangeLog" (/tmp/chlog.ssh)
+     "ChangeLog" (/tmp/chlog.ssh) is sane.
+     ---------- End of Finalization of /tmp/chlog.ssh
+
+   It's all set, your style sheet is ready!
+
+
+File: a2ps.info,  Node: The Entry in sheets.map,  Next: More Sophisticated Rules,  Prev: Implementation,  Up: A tutorial on style sheets
+
+The Entry in `sheets.map'
+-------------------------
+
+   The last touch is to include the pattern rules about `ChangeLog'
+files (which could appear as `ChangeLog.old' etc.) in `sheets.map':
+     # ChangeLog files
+     chlog:  /ChangeLog*/
+
+   This won't work...  Well, not always.  Not for instance if you print
+`misc/ChangeLog'.  This is not a bug, but truly a feature, since
+sometimes one gets more information about the type of a file from its
+path, than from the file name.
+
+   Here, to match the preceding path that may appear, just use `*':
+     # ChangeLog files
+     chlog:  /*ChangeLog*/
+
+If you want to be more specific (`FooChangeLog' should not match), use:
+     # ChangeLog files
+     chlog:  /ChangeLog*/ /*\/ChangeLog*/
+
+
+File: a2ps.info,  Node: More Sophisticated Rules,  Next: Distributed Style Sheets,  Prev: The Entry in sheets.map,  Up: A tutorial on style sheets
+
+More Sophisticated Rules
+------------------------
+
+   The example we have presented until now uses only basic features, and
+does not take advantage of the regexp.  In this section we should how
+to write more evolved pretty printing rules.
+
+   The target will be the lines like:
+     Sun Apr 27 14:29:22 1997  Akim Demaille  <demaille@inf.enst.fr>
+     
+     Fri Apr 25 14:05:20 1997  Akim Demaille  <demaille@inf.enst.fr>
+
+   There are three fields: the date, the name, the mail.  These lines
+all start at the beginning of line.  The last field is the easier to
+recognize: is starts with a `<', and finishes with a `>'.  Its rule is
+then `/<[^>]+>/'.  It is now easier to specify the second: it is
+composed only of words, at least one, separated by blanks, and is
+followed by the mail: `/[[:alpha:]]+([ \t]+[[:alpha:]]+)*/'.  To
+concatenate the two, we introduce optional blanks, and we put each one
+into a pair of `('-`)' to make each one a recognizable part:
+     ([[:alpha:]]+([ \t]+[[:alpha:]]+)*)
+     (.+)
+     (<[^>]+>)
+
+   Now the first part is rather easy: it starts at the beginning of the
+line, finishes with a digit.  Once again, it is separated from the
+following field by blanks. Split by groups (*note Grouping Operators:
+(regex)Grouping Operators.), we have:
+     ^
+     ([^\t ].*[0-9])
+     ([ \t]+)
+     ([[:alpha:]]+([ \t]+[[:alpha:]]+)*)
+     (.+)
+     (<[^>]+>)
+
+   Now the destination is composed of back references to those groups,
+together with a face:
+     # We want to highlight the date and the maintainer name
+     optional operators are
+       (/^([^\t ].*[0-9])/                        # \1. The date
+        /([ \t]+)/                                # \2. Spaces
+        /([[:alpha:]]+([ \t]+[[:alpha:]]+)*)/     # \3. Name
+        /(.+)/                                    # \5. space and <
+        /(<[^>]+)>/                               # \6. email
+        \1 Keyword, \2 Plain, \3 Keyword_strong,
+        \5 Plain, \6 Keyword, > Plain)
+     end operators
+
+   Notice the way regexps are split, to ease reading.
+
+
+File: a2ps.info,  Node: Distributed Style Sheets,  Prev: More Sophisticated Rules,  Up: A tutorial on style sheets
+
+Guide Line for Distributed Style Sheets
+---------------------------------------
+
+   This section is meant for people who wish to contribute style sheets.
+There is a couple of additional constraints, explained here.
+
+_The Copyright_
+     Please, do put a copyright in your file, the same as all other
+     distributed files have: it should include your name, but also the
+     three paragraphs stating the sheet is covered by the GPL.  I won't
+     distribute files without these paragraphs.
+
+_The Version_
+     Do put a version number, so that people can track evolutions.
+
+_The Requirements_
+     Make sure to include a requirement on the needed version of a2ps.
+     If you don't know what to put, just put the version of the a2ps
+     you run.
+
+_The Documentation_
+     The documentation string is mandatory.  Unless the language your
+     style sheet covers is widely known, please document a bit what the
+     style sheet is meant for.  If there were choices you made, if
+     there are special behaviors, document them.
+
+_The `sheets.map' Entries_
+     Put in a comment on the `sheets.map' lines that correspond to your
+     style sheet.
+
+_A Test File_
+     It is better to give a test file, as small as possible, that
+     contains the most specific and/or most difficult contructs that
+     your style sheet supports.  I need to be able to distribute this
+     file, therefore, do not put anything that is copyrighted.
+
+   Finally, make sure your style sheet behaves well! (*note Checking a
+Style Sheet::)
+
+
+File: a2ps.info,  Node: PostScript,  Next: Contributions,  Prev: Pretty Printing,  Up: Top
+
+PostScript
+**********
+
+   This chapter is devoted to the information which is only relevant to
+PostScript.
+
+* Menu:
+
+* Good and Bad PostScript::     How to lose, how to win
+* Page Device Options::         Accessing some printers' features
+* Statusdict Options::          Some other features
+* Colors in PostScript::        Specifying a color or a gray
+* a2ps PostScript Files::       Convention for PostScript library files
+* Designing PostScript Prologues::  Make it look like what you want
+
+
+File: a2ps.info,  Node: Good and Bad PostScript,  Next: Page Device Options,  Prev: PostScript,  Up: PostScript
+
+Foreword: Good and Bad PostScript
+=================================
+
+   To read this section, the reader must understand what DSC are (*note
+Glossary::).
+
+     Why are there good PostScript files, easy to post-process, and bad
+     files that none of my tools seem to understand?  They print fine
+     though!
+
+   Once you understood that PostScript is not a page description format
+(like PDF is), you'll have understood most of the problem.  Let's
+imagine for a second that you are a word processor.
+
+   The user asks you to print his/her 100 page document in PostScript.
+Up to page 50, there are few different fonts used.  Then, on pages 51 to
+80, there are now many different heavy fonts.
+
+   When/where will you download the fonts?
+
+   The most typical choice, sometimes called "Optimize for Speed", is,
+once you arrived to page 51, to download those fonts *once* for the
+rest of the document.  The global processing chain will have worked
+quite quickly: little effort from the software, same from the printer;
+better yet: you can start sending the file to the printer even before it
+is finished!  The problem is that this is not DSC conformant, and it is
+easy to understand why: if somebody wants to print only the page 60,
+then s/he will lack the three fonts which were defined in page 51...
+This document is not page independent.
+
+   Another choice is to download the three fonts in *each* page ranging
+from 51 to 80, that is the PostScript file contains 30 times the
+definition of each font.  It is easy for the application to do that, but
+the file is getting real big, and the printer will have to interpret 30
+times the same definitions of fonts.  But it is DSC conformant!  And you
+can still send the file while you make it.
+
+   Now you understand why
+     *Non DSC conformant files are not necessarily badly designed files
+     from broken applications.*
+
+   They are files meant to be sent directly to the printer (they are
+still perfect PostScript files after all!), they are not meant to be
+post-processed.  And the example clearly shows why they are *right*.
+
+   There is a third possibility, sometimes called "Optimize for
+Portability": downloading the three fonts in the prologue of the
+document, i.e., the section before the first page where are given all
+the common definitions of the whole file.  This is a bit more
+complicated to implement (the prologue, which is issued first though,
+grows at the same time as you process the file), and cannot be sent
+concurrently with the processing (you have to process the whole file to
+design the prologue).  This file is small (the fonts are downloaded once
+only), and DSC conformant.  Well, there are problems, of course...  You
+need to wait before sending the output, it can be costly for the
+computer (which cannot transfer as it produces), and for the printer
+(you've burnt quite a lot of RAM right since the beginning just to hold
+fonts that won't be used before page 51...  This can be a real problem
+for small printers).
+
+   This is what a2ps does.
+
+   If should be clear that documents optimized for speed should never
+escape the way between the computer and the printer: no post-processing
+is possible.
+
+   What you should remember is that some applications offer the
+possibility to tune the PostScript output, and they can be praised for
+that.  Unfortunately, when these very same applications don't
+automatically switch to "Optimize for Portability" when you save the
+PostScript file, and they can be criticized for that.
+
+   So please, think of the people after you: if you create a PostScript
+file meant to be exchanged, read, printed, etc; by other people: give
+sane DSC conformant, optimized for portability files.
+
+
+File: a2ps.info,  Node: Page Device Options,  Next: Statusdict Options,  Prev: Good and Bad PostScript,  Up: PostScript
+
+Page Device Options
+===================
+
+   Page device is a PostScript level 2 feature that offers an uniform
+interface to control the printer's output device.  a2ps protects all
+page device options inside an if block so they have no effect in level 1
+interpreters.  Although all level 2 interpreters support page device,
+they do not have to support all page device options.  For example some
+printers can print in duplex mode and some can not.  Refer to the
+documentation of your printer for supported options.
+
+   Here are some usable page device options which can be selected with
+the `-S' option (`--setpagedevice').  For a complete listing, see
+`PostScript Language Reference Manual' (section 4.11 Device Setup in
+the second edition, or section 6, Device Control in the third edition).
+
+`Collate BOOLEAN'
+     how output is organized when printing multiple copies
+
+`Duplex BOOLEAN'
+     duplex (two side) printing
+
+`ManualFeed BOOLEAN'
+     manual feed paper tray
+
+`OutputFaceUp BOOLEAN'
+     print output `face up' or `face down'
+
+`Tumble BOOLEAN'
+     how opposite sides are positioned in duplex printing
+
+
+File: a2ps.info,  Node: Statusdict Options,  Next: Colors in PostScript,  Prev: Page Device Options,  Up: PostScript
+
+Statusdict Options
+==================
+
+   The `statusdict' is a special storage entity in PostScript (called a
+"dictionary"), in which some variables and operators determine the
+behavior of the printer.  This is an historic horror that existed before
+page device definitions were defined.  They are even more printer
+dependent, and are provided only for the people who don't have a level
+printer.  In any case, refer to the documentation of your printer for
+supported options.
+
+   Here are some statusdict definitions in which you might be
+interested:
+
+`manualfeed BOOLEAN'
+     Variable which determine that the manual fed paper tray will be
+     used.  Use is `--statusdict=manualfeed::true'.
+
+`setmanualfeed BOOLEAN'
+     Idem as the previous point, but use is
+     `--statusdict=setmanualfeed:true'.
+
+`setduplexmode BOOLEAN'
+     If BOOLEAN, then print Duplex.  Use if
+     `--statusdict=setduplexmode:true'.
+
+
+File: a2ps.info,  Node: Colors in PostScript,  Next: a2ps PostScript Files,  Prev: Statusdict Options,  Up: PostScript
+
+Colors in PostScript
+====================
+
+   Nevertheless, here are some tips on how to design your PostScript
+styles.  It is strongly recommended to use `gray.pro' or `color.pro' as
+a template.
+
+   There are two PostScript instructions you might want to use in your
+new PostScript prologue:
+`setgray'
+     this instruction must be preceded by a number between 0 (black)
+     and 1 (white).  It defines the gray level used.
+
+`setrgbcolor'
+     this instruction must be preceded by three numbers between 0 (0 %)
+     and 1 (100%).  Those three numbers are related to red, green and
+     blue proportions used to designate a color.
+
+   a2ps uses two higher level procedures, `BG' and `FG', but both use
+an argument as in `setrgbcolor'.  So if you wanted a gray shade, just
+give three times the same ratio.
+

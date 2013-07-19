@@ -1,0 +1,23 @@
+Notes for OS/2 changes 2007-09-30
+---------------------------------
+
+Changes made in order to rebuild using GCC-3.3.5-csd1.
+The original failed to link due to multiply defined variables.
+It seems that __INNOTEK_LIBC__ now defines some of the relevant variables
+but not all yet.
+Other minor changes were made to remove warnings.
+
+To rebuild from sources run:-
+make -f makefile.os2
+in this directory.
+
+In order not to have to copy many directories to somewhere accessible
+from your PATH, a small example cmd file is provided.
+Place this in a directory in your PATH.
+You will need to update it to point to where you installed a2ps.
+You will also need to update etc/a2ps.cfg.
+
+I hope this is useful to someone.
+
+D.W.Parsons
+30-Sept-2007

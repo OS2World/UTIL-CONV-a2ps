@@ -1,0 +1,1017 @@
+This is regex.info, produced by makeinfo version 4.0 from regex.texi.
+
+INFO-DIR-SECTION C library code
+START-INFO-DIR-ENTRY
+* Regex: (regex).                  Regular expression library.
+END-INFO-DIR-ENTRY
+
+  This file documents the GNU regular expression library.
+
+  Copyright (C) 1992, 1993 Free Software Foundation, Inc.
+
+  Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+  Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled "GNU General Public License" is included exactly as in
+the original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+  Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that the section entitled "GNU General Public License"
+may be included in a translation approved by the Free Software
+Foundation instead of in the original English.
+
+
+File: regex.info,  Node: Syntactic Class Operators,  Up: GNU Emacs Operators
+
+Syntactic Class Operators
+=========================
+
+  The operators in this section require Regex to recognize the syntactic
+classes of characters.  Regex uses a syntax table to determine this.
+
+* Menu:
+
+* Emacs Syntax Tables::
+* Match-syntactic-class Operator::      \sCLASS
+* Match-not-syntactic-class Operator::  \SCLASS
+
+
+File: regex.info,  Node: Emacs Syntax Tables,  Next: Match-syntactic-class Operator,  Up: Syntactic Class Operators
+
+Emacs Syntax Tables
+-------------------
+
+  A "syntax table" is an array indexed by the characters in your
+character set.  In the ASCII encoding, therefore, a syntax table has
+256 elements.
+
+  If Regex is compiled with the preprocessor symbol `emacs' defined,
+then Regex expects you to define and initialize the variable
+`re_syntax_table' to be an Emacs syntax table.  Emacs' syntax tables
+are more complicated than Regex's own (*note Non-Emacs Syntax
+Tables::).  *Note Syntax: (emacs)Syntax, for a description of Emacs'
+syntax tables.
+
+
+File: regex.info,  Node: Match-syntactic-class Operator,  Next: Match-not-syntactic-class Operator,  Prev: Emacs Syntax Tables,  Up: Syntactic Class Operators
+
+The Match-syntactic-class Operator (`\s'CLASS)
+----------------------------------------------
+
+  This operator matches any character whose syntactic class is
+represented by a specified character.  `\sCLASS' represents this
+operator where CLASS is the character representing the syntactic class
+you want.  For example, `w' represents the syntactic class of
+word-constituent characters, so `\sw' matches any word-constituent
+character.
+
+
+File: regex.info,  Node: Match-not-syntactic-class Operator,  Prev: Match-syntactic-class Operator,  Up: Syntactic Class Operators
+
+The Match-not-syntactic-class Operator (`\S'CLASS)
+--------------------------------------------------
+
+  This operator is similar to the match-syntactic-class operator except
+that it matches any character whose syntactic class is _not_
+represented by the specified character.  `\SCLASS' represents this
+operator.  For example, `w' represents the syntactic class of
+word-constituent characters, so `\Sw' matches any character that is not
+word-constituent.
+
+
+File: regex.info,  Node: What Gets Matched?,  Next: Programming with Regex,  Prev: GNU Emacs Operators,  Up: Top
+
+What Gets Matched?
+******************
+
+  Regex usually matches strings according to the "leftmost longest"
+rule; that is, it chooses the longest of the leftmost matches.  This
+does not mean that for a regular expression containing subexpressions
+that it simply chooses the longest match for each subexpression, left to
+right; the overall match must also be the longest possible one.
+
+  For example, `(ac*)(c*d[ac]*)\1' matches `acdacaaa', not `acdac', as
+it would if it were to choose the longest match for the first
+subexpression.
+
+
+File: regex.info,  Node: Programming with Regex,  Next: Copying,  Prev: What Gets Matched?,  Up: Top
+
+Programming with Regex
+**********************
+
+  Here we describe how you use the Regex data structures and functions
+in C programs.  Regex has three interfaces: one designed for GNU, one
+compatible with POSIX and one compatible with Berkeley UNIX.
+
+* Menu:
+
+* GNU Regex Functions::
+* POSIX Regex Functions::
+* BSD Regex Functions::
+
+
+File: regex.info,  Node: GNU Regex Functions,  Next: POSIX Regex Functions,  Up: Programming with Regex
+
+GNU Regex Functions
+===================
+
+  If you're writing code that doesn't need to be compatible with either
+POSIX or Berkeley UNIX, you can use these functions.  They provide more
+options than the other interfaces.
+
+* Menu:
+
+* GNU Pattern Buffers::         The re_pattern_buffer type.
+* GNU Regular Expression Compiling::  re_compile_pattern ()
+* GNU Matching::                re_match ()
+* GNU Searching::               re_search ()
+* Matching/Searching with Split Data::  re_match_2 (), re_search_2 ()
+* Searching with Fastmaps::     re_compile_fastmap ()
+* GNU Translate Tables::        The `translate' field.
+* Using Registers::             The re_registers type and related fns.
+* Freeing GNU Pattern Buffers::  regfree ()
+
+
+File: regex.info,  Node: GNU Pattern Buffers,  Next: GNU Regular Expression Compiling,  Up: GNU Regex Functions
+
+GNU Pattern Buffers
+-------------------
+
+  To compile, match, or search for a given regular expression, you must
+supply a pattern buffer.  A "pattern buffer" holds one compiled regular
+expression.(1)
+
+  You can have several different pattern buffers simultaneously, each
+holding a compiled pattern for a different regular expression.
+
+  `regex.h' defines the pattern buffer `struct' as follows:
+
+             /* Space that holds the compiled pattern.  It is declared as
+               `unsigned char *' because its elements are
+                sometimes used as array indexes.  */
+       unsigned char *buffer;
+     
+             /* Number of bytes to which `buffer' points.  */
+       unsigned long allocated;
+     
+             /* Number of bytes actually used in `buffer'.  */
+       unsigned long used;
+     
+             /* Syntax setting with which the pattern was compiled.  */
+       reg_syntax_t syntax;
+     
+             /* Pointer to a fastmap, if any, otherwise zero.  re_search uses
+                the fastmap, if there is one, to skip over impossible
+                starting points for matches.  */
+       char *fastmap;
+     
+             /* Either a translate table to apply to all characters before
+                comparing them, or zero for no translation.  The translation
+                is applied to a pattern when it is compiled and to a string
+                when it is matched.  */
+       char *translate;
+     
+             /* Number of subexpressions found by the compiler.  */
+       size_t re_nsub;
+     
+             /* Zero if this pattern cannot match the empty string, one else.
+                Well, in truth it's used only in `re_search_2', to see
+                whether or not we should use the fastmap, so we don't set
+                this absolutely perfectly; see `re_compile_fastmap' (the
+                `duplicate' case).  */
+       unsigned can_be_null : 1;
+     
+             /* If REGS_UNALLOCATED, allocate space in the `regs' structure
+                  for `max (RE_NREGS, re_nsub + 1)' groups.
+                If REGS_REALLOCATE, reallocate space if necessary.
+                If REGS_FIXED, use what's there.  */
+     #define REGS_UNALLOCATED 0
+     #define REGS_REALLOCATE 1
+     #define REGS_FIXED 2
+       unsigned regs_allocated : 2;
+     
+             /* Set to zero when `regex_compile' compiles a pattern; set to one
+                by `re_compile_fastmap' if it updates the fastmap.  */
+       unsigned fastmap_accurate : 1;
+     
+             /* If set, `re_match_2' does not return information about
+                subexpressions.  */
+       unsigned no_sub : 1;
+     
+             /* If set, a beginning-of-line anchor doesn't match at the
+                beginning of the string.  */
+       unsigned not_bol : 1;
+     
+             /* Similarly for an end-of-line anchor.  */
+       unsigned not_eol : 1;
+     
+             /* If true, an anchor at a newline matches.  */
+       unsigned newline_anchor : 1;
+
+  ---------- Footnotes ----------
+
+  (1) Regular expressions are also referred to as "patterns," hence the
+name "pattern buffer."
+
+
+File: regex.info,  Node: GNU Regular Expression Compiling,  Next: GNU Matching,  Prev: GNU Pattern Buffers,  Up: GNU Regex Functions
+
+GNU Regular Expression Compiling
+--------------------------------
+
+  In GNU, you can both match and search for a given regular expression.
+To do either, you must first compile it in a pattern buffer (*note GNU
+Pattern Buffers::).
+
+  Regular expressions match according to the syntax with which they were
+compiled; with GNU, you indicate what syntax you want by setting the
+variable `re_syntax_options' (declared in `regex.h' and defined in
+`regex.c') before calling the compiling function, `re_compile_pattern'
+(see below).  *Note Syntax Bits::, and *Note Predefined Syntaxes::.
+
+  You can change the value of `re_syntax_options' at any time.
+Usually, however, you set its value once and then never change it.
+
+  `re_compile_pattern' takes a pattern buffer as an argument.  You must
+initialize the following fields:
+
+`translate initialization'
+
+`translate'
+     Initialize this to point to a translate table if you want one, or
+     to zero if you don't.  We explain translate tables in *Note GNU
+     Translate Tables::.
+
+`fastmap'
+     Initialize this to nonzero if you want a fastmap, or to zero if you
+     don't.
+
+`buffer'
+`allocated'
+     If you want `re_compile_pattern' to allocate memory for the
+     compiled pattern, set both of these to zero.  If you have an
+     existing block of memory (allocated with `malloc') you want Regex
+     to use, set `buffer' to its address and `allocated' to its size (in
+     bytes).
+
+     `re_compile_pattern' uses `realloc' to extend the space for the
+     compiled pattern as necessary.
+
+  To compile a pattern buffer, use:
+
+     char *
+     re_compile_pattern (const char *REGEX, const int REGEX_SIZE,
+                         struct re_pattern_buffer *PATTERN_BUFFER)
+
+REGEX is the regular expression's address, REGEX_SIZE is its length,
+and PATTERN_BUFFER is the pattern buffer's address.
+
+  If `re_compile_pattern' successfully compiles the regular expression,
+it returns zero and sets `*PATTERN_BUFFER' to the compiled pattern.  It
+sets the pattern buffer's fields as follows:
+
+`buffer'
+     to the compiled pattern.
+
+`used'
+     to the number of bytes the compiled pattern in `buffer' occupies.
+
+`syntax'
+     to the current value of `re_syntax_options'.
+
+`re_nsub'
+     to the number of subexpressions in REGEX.
+
+`fastmap_accurate'
+     to zero on the theory that the pattern you're compiling is
+     different than the one previously compiled into `buffer'; in that
+     case (since you can't make a fastmap without a compiled pattern),
+     `fastmap' would either contain an incompatible fastmap, or nothing
+     at all.
+
+  If `re_compile_pattern' can't compile REGEX, it returns an error
+string corresponding to one of the errors listed in *Note POSIX Regular
+Expression Compiling::.
+
+
+File: regex.info,  Node: GNU Matching,  Next: GNU Searching,  Prev: GNU Regular Expression Compiling,  Up: GNU Regex Functions
+
+GNU Matching
+------------
+
+  Matching the GNU way means trying to match as much of a string as
+possible starting at a position within it you specify.  Once you've
+compiled a pattern into a pattern buffer (*note GNU Regular Expression
+Compiling::), you can ask the matcher to match that pattern against a
+string using:
+
+     int
+     re_match (struct re_pattern_buffer *PATTERN_BUFFER,
+               const char *STRING, const int SIZE,
+               const int START, struct re_registers *REGS)
+
+PATTERN_BUFFER is the address of a pattern buffer containing a compiled
+pattern.  STRING is the string you want to match; it can contain
+newline and null characters.  SIZE is the length of that string.  START
+is the string index at which you want to begin matching; the first
+character of STRING is at index zero.  *Note Using Registers::, for a
+explanation of REGS; you can safely pass zero.
+
+  `re_match' matches the regular expression in PATTERN_BUFFER against
+the string STRING according to the syntax in PATTERN_BUFFERS's `syntax'
+field.  (*Note GNU Regular Expression Compiling::, for how to set it.)
+The function returns -1 if the compiled pattern does not match any part
+of STRING and -2 if an internal error happens; otherwise, it returns
+how many (possibly zero) characters of STRING the pattern matched.
+
+  An example: suppose PATTERN_BUFFER points to a pattern buffer
+containing the compiled pattern for `a*', and STRING points to `aaaaab'
+(whereupon SIZE should be 6). Then if START is 2, `re_match' returns 3,
+i.e., `a*' would have matched the last three `a's in STRING.  If START
+is 0, `re_match' returns 5, i.e., `a*' would have matched all the `a's
+in STRING.  If START is either 5 or 6, it returns zero.
+
+  If START is not between zero and SIZE, then `re_match' returns -1.
+
+
+File: regex.info,  Node: GNU Searching,  Next: Matching/Searching with Split Data,  Prev: GNU Matching,  Up: GNU Regex Functions
+
+GNU Searching
+-------------
+
+  "Searching" means trying to match starting at successive positions
+within a string.  The function `re_search' does this.
+
+  Before calling `re_search', you must compile your regular expression.
+*Note GNU Regular Expression Compiling::.
+
+  Here is the function declaration:
+
+     int
+     re_search (struct re_pattern_buffer *PATTERN_BUFFER,
+                const char *STRING, const int SIZE,
+                const int START, const int RANGE,
+                struct re_registers *REGS)
+
+whose arguments are the same as those to `re_match' (*note GNU
+Matching::) except that the two arguments START and RANGE replace
+`re_match''s argument START.
+
+  If RANGE is positive, then `re_search' attempts a match starting
+first at index START, then at START + 1 if that fails, and so on, up to
+START + RANGE; if RANGE is negative, then it attempts a match starting
+first at index START, then at START -1 if that fails, and so on.
+
+  If START is not between zero and SIZE, then `re_search' returns -1.
+When RANGE is positive, `re_search' adjusts RANGE so that START + RANGE
+- 1 is between zero and SIZE, if necessary; that way it won't search
+outside of STRING.  Similarly, when RANGE is negative, `re_search'
+adjusts RANGE so that START + RANGE + 1 is between zero and SIZE, if
+necessary.
+
+  If the `fastmap' field of PATTERN_BUFFER is zero, `re_search' matches
+starting at consecutive positions; otherwise, it uses `fastmap' to make
+the search more efficient.  *Note Searching with Fastmaps::.
+
+  If no match is found, `re_search' returns -1.  If a match is found,
+it returns the index where the match began.  If an internal error
+happens, it returns -2.
+
+
+File: regex.info,  Node: Matching/Searching with Split Data,  Next: Searching with Fastmaps,  Prev: GNU Searching,  Up: GNU Regex Functions
+
+Matching and Searching with Split Data
+--------------------------------------
+
+  Using the functions `re_match_2' and `re_search_2', you can match or
+search in data that is divided into two strings.
+
+  The function:
+
+     int
+     re_match_2 (struct re_pattern_buffer *BUFFER,
+                 const char *STRING1, const int SIZE1,
+                 const char *STRING2, const int SIZE2,
+                 const int START,
+                 struct re_registers *REGS,
+                 const int STOP)
+
+is similar to `re_match' (*note GNU Matching::) except that you pass
+_two_ data strings and sizes, and an index STOP beyond which you don't
+want the matcher to try matching.  As with `re_match', if it succeeds,
+`re_match_2' returns how many characters of STRING it matched.  Regard
+STRING1 and STRING2 as concatenated when you set the arguments START and
+STOP and use the contents of REGS; `re_match_2' never returns a value
+larger than SIZE1 + SIZE2.
+
+  The function:
+
+     int
+     re_search_2 (struct re_pattern_buffer *BUFFER,
+                  const char *STRING1, const int SIZE1,
+                  const char *STRING2, const int SIZE2,
+                  const int START, const int RANGE,
+                  struct re_registers *REGS,
+                  const int STOP)
+
+is similarly related to `re_search'.
+
+
+File: regex.info,  Node: Searching with Fastmaps,  Next: GNU Translate Tables,  Prev: Matching/Searching with Split Data,  Up: GNU Regex Functions
+
+Searching with Fastmaps
+-----------------------
+
+  If you're searching through a long string, you should use a fastmap.
+Without one, the searcher tries to match at consecutive positions in the
+string.  Generally, most of the characters in the string could not start
+a match.  It takes much longer to try matching at a given position in
+the string than it does to check in a table whether or not the
+character at that position could start a match.  A "fastmap" is such a
+table.
+
+  More specifically, a fastmap is an array indexed by the characters in
+your character set.  Under the ASCII encoding, therefore, a fastmap has
+256 elements.  If you want the searcher to use a fastmap with a given
+pattern buffer, you must allocate the array and assign the array's
+address to the pattern buffer's `fastmap' field.  You either can
+compile the fastmap yourself or have `re_search' do it for you; when
+`fastmap' is nonzero, it automatically compiles a fastmap the first
+time you search using a particular compiled pattern.
+
+  To compile a fastmap yourself, use:
+
+     int
+     re_compile_fastmap (struct re_pattern_buffer *PATTERN_BUFFER)
+
+PATTERN_BUFFER is the address of a pattern buffer.  If the character C
+could start a match for the pattern, `re_compile_fastmap' makes
+`PATTERN_BUFFER->fastmap[C]' nonzero.  It returns 0 if it can compile a
+fastmap and -2 if there is an internal error.  For example, if `|' is
+the alternation operator and PATTERN_BUFFER holds the compiled pattern
+for `a|b', then `re_compile_fastmap' sets `fastmap['a']' and
+`fastmap['b']' (and no others).
+
+  `re_search' uses a fastmap as it moves along in the string: it checks
+the string's characters until it finds one that's in the fastmap.  Then
+it tries matching at that character.  If the match fails, it repeats
+the process.  So, by using a fastmap, `re_search' doesn't waste time
+trying to match at positions in the string that couldn't start a match.
+
+  If you don't want `re_search' to use a fastmap, store zero in the
+`fastmap' field of the pattern buffer before calling `re_search'.
+
+  Once you've initialized a pattern buffer's `fastmap' field, you need
+never do so again--even if you compile a new pattern in it--provided
+the way the field is set still reflects whether or not you want a
+fastmap.  `re_search' will still either do nothing if `fastmap' is null
+or, if it isn't, compile a new fastmap for the new pattern.
+
+
+File: regex.info,  Node: GNU Translate Tables,  Next: Using Registers,  Prev: Searching with Fastmaps,  Up: GNU Regex Functions
+
+GNU Translate Tables
+--------------------
+
+  If you set the `translate' field of a pattern buffer to a translate
+table, then the GNU Regex functions to which you've passed that pattern
+buffer use it to apply a simple transformation to all the regular
+expression and string characters at which they look.
+
+  A "translate table" is an array indexed by the characters in your
+character set.  Under the ASCII encoding, therefore, a translate table
+has 256 elements.  The array's elements are also characters in your
+character set.  When the Regex functions see a character C, they use
+`translate[C]' in its place, with one exception: the character after a
+`\' is not translated.  (This ensures that, the operators, e.g., `\B'
+and `\b', are always distinguishable.)
+
+  For example, a table that maps all lowercase letters to the
+corresponding uppercase ones would cause the matcher to ignore
+differences in case.(1)  Such a table would map all characters except
+lowercase letters to themselves, and lowercase letters to the
+corresponding uppercase ones.  Under the ASCII encoding, here's how you
+could initialize such a table (we'll call it `case_fold'):
+
+     for (i = 0; i < 256; i++)
+       case_fold[i] = i;
+     for (i = 'a'; i <= 'z'; i++)
+       case_fold[i] = i - ('a' - 'A');
+
+  You tell Regex to use a translate table on a given pattern buffer by
+assigning that table's address to the `translate' field of that buffer.
+If you don't want Regex to do any translation, put zero into this
+field.  You'll get weird results if you change the table's contents
+anytime between compiling the pattern buffer, compiling its fastmap, and
+matching or searching with the pattern buffer.
+
+  ---------- Footnotes ----------
+
+  (1) A table that maps all uppercase letters to the corresponding
+lowercase ones would work just as well for this purpose.
+
+
+File: regex.info,  Node: Using Registers,  Next: Freeing GNU Pattern Buffers,  Prev: GNU Translate Tables,  Up: GNU Regex Functions
+
+Using Registers
+---------------
+
+  A group in a regular expression can match a (posssibly empty)
+substring of the string that regular expression as a whole matched.
+The matcher remembers the beginning and end of the substring matched by
+each group.
+
+  To find out what they matched, pass a nonzero REGS argument to a GNU
+matching or searching function (*note GNU Matching:: and *Note GNU
+Searching::), i.e., the address of a structure of this type, as defined
+in `regex.h':
+
+     struct re_registers
+     {
+       unsigned num_regs;
+       regoff_t *start;
+       regoff_t *end;
+     };
+
+  Except for (possibly) the NUM_REGS'th element (see below), the Ith
+element of the `start' and `end' arrays records information about the
+Ith group in the pattern.  (They're declared as C pointers, but this is
+only because not all C compilers accept zero-length arrays;
+conceptually, it is simplest to think of them as arrays.)
+
+  The `start' and `end' arrays are allocated in various ways, depending
+on the value of the `regs_allocated' field in the pattern buffer passed
+to the matcher.
+
+  The simplest and perhaps most useful is to let the matcher
+(re)allocate enough space to record information for all the groups in
+the regular expression.  If `regs_allocated' is `REGS_UNALLOCATED', the
+matcher allocates 1 + RE_NSUB (another field in the pattern buffer;
+*note GNU Pattern Buffers::).  The extra element is set to -1, and sets
+`regs_allocated' to `REGS_REALLOCATE'.  Then on subsequent calls with
+the same pattern buffer and REGS arguments, the matcher reallocates
+more space if necessary.
+
+  It would perhaps be more logical to make the `regs_allocated' field
+part of the `re_registers' structure, instead of part of the pattern
+buffer.  But in that case the caller would be forced to initialize the
+structure before passing it.  Much existing code doesn't do this
+initialization, and it's arguably better to avoid it anyway.
+
+  `re_compile_pattern' sets `regs_allocated' to `REGS_UNALLOCATED', so
+if you use the GNU regular expression functions, you get this behavior
+by default.
+
+  xx document re_set_registers
+
+  POSIX, on the other hand, requires a different interface:  the caller
+is supposed to pass in a fixed-length array which the matcher fills.
+Therefore, if `regs_allocated' is `REGS_FIXED' the matcher simply fills
+that array.
+
+  The following examples illustrate the information recorded in the
+`re_registers' structure.  (In all of them, `(' represents the
+open-group and `)' the close-group operator.  The first character in
+the string STRING is at index 0.)
+
+   * If the regular expression has an I-th group not contained within
+     another group that matches a substring of STRING, then the
+     function sets `REGS->start[I]' to the index in STRING where the
+     substring matched by the I-th group begins, and `REGS->end[I]' to
+     the index just beyond that substring's end.  The function sets
+     `REGS->start[0]' and `REGS->end[0]' to analogous information about
+     the entire pattern.
+
+     For example, when you match `((a)(b))' against `ab', you get:
+
+        - 0 in `REGS->start[0]' and 2 in `REGS->end[0]'
+
+        - 0 in `REGS->start[1]' and 2 in `REGS->end[1]'
+
+        - 0 in `REGS->start[2]' and 1 in `REGS->end[2]'
+
+        - 1 in `REGS->start[3]' and 2 in `REGS->end[3]'
+
+   * If a group matches more than once (as it might if followed by,
+     e.g., a repetition operator), then the function reports the
+     information about what the group _last_ matched.
+
+     For example, when you match the pattern `(a)*' against the string
+     `aa', you get:
+
+        - 0 in `REGS->start[0]' and 2 in `REGS->end[0]'
+
+        - 1 in `REGS->start[1]' and 2 in `REGS->end[1]'
+
+   * If the I-th group does not participate in a successful match,
+     e.g., it is an alternative not taken or a repetition operator
+     allows zero repetitions of it, then the function sets
+     `REGS->start[I]' and `REGS->end[I]' to -1.
+
+     For example, when you match the pattern `(a)*b' against the string
+     `b', you get:
+
+        - 0 in `REGS->start[0]' and 1 in `REGS->end[0]'
+
+        - -1 in `REGS->start[1]' and -1 in `REGS->end[1]'
+
+   * If the I-th group matches a zero-length string, then the function
+     sets `REGS->start[I]' and `REGS->end[I]' to the index just beyond
+     that zero-length string.
+
+     For example, when you match the pattern `(a*)b' against the string
+     `b', you get:
+
+        - 0 in `REGS->start[0]' and 1 in `REGS->end[0]'
+
+        - 0 in `REGS->start[1]' and 0 in `REGS->end[1]'
+
+   * If an I-th group contains a J-th group in turn not contained
+     within any other group within group I and the function reports a
+     match of the I-th group, then it records in `REGS->start[J]' and
+     `REGS->end[J]' the last match (if it matched) of the J-th group.
+
+     For example, when you match the pattern `((a*)b)*' against the
+     string `abb', group 2 last matches the empty string, so you get
+     what it previously matched:
+
+        - 0 in `REGS->start[0]' and 3 in `REGS->end[0]'
+
+        - 2 in `REGS->start[1]' and 3 in `REGS->end[1]'
+
+        - 2 in `REGS->start[2]' and 2 in `REGS->end[2]'
+
+     When you match the pattern `((a)*b)*' against the string `abb',
+     group 2 doesn't participate in the last match, so you get:
+
+        - 0 in `REGS->start[0]' and 3 in `REGS->end[0]'
+
+        - 2 in `REGS->start[1]' and 3 in `REGS->end[1]'
+
+        - 0 in `REGS->start[2]' and 1 in `REGS->end[2]'
+
+   * If an I-th group contains a J-th group in turn not contained
+     within any other group within group I and the function sets
+     `REGS->start[I]' and `REGS->end[I]' to -1, then it also sets
+     `REGS->start[J]' and `REGS->end[J]' to -1.
+
+     For example, when you match the pattern `((a)*b)*c' against the
+     string `c', you get:
+
+        - 0 in `REGS->start[0]' and 1 in `REGS->end[0]'
+
+        - -1 in `REGS->start[1]' and -1 in `REGS->end[1]'
+
+        - -1 in `REGS->start[2]' and -1 in `REGS->end[2]'
+
+
+
+File: regex.info,  Node: Freeing GNU Pattern Buffers,  Prev: Using Registers,  Up: GNU Regex Functions
+
+Freeing GNU Pattern Buffers
+---------------------------
+
+  To free any allocated fields of a pattern buffer, you can use the
+POSIX function described in *Note Freeing POSIX Pattern Buffers::,
+since the type `regex_t'--the type for POSIX pattern buffers--is
+equivalent to the type `re_pattern_buffer'.  After freeing a pattern
+buffer, you need to again compile a regular expression in it (*note GNU
+Regular Expression Compiling::) before passing it to a matching or
+searching function.
+
+
+File: regex.info,  Node: POSIX Regex Functions,  Next: BSD Regex Functions,  Prev: GNU Regex Functions,  Up: Programming with Regex
+
+POSIX Regex Functions
+=====================
+
+  If you're writing code that has to be POSIX compatible, you'll need
+to use these functions. Their interfaces are as specified by POSIX,
+draft 1003.2/D11.2.
+
+* Menu:
+
+* POSIX Pattern Buffers::               The regex_t type.
+* POSIX Regular Expression Compiling::  regcomp ()
+* POSIX Matching::                      regexec ()
+* Reporting Errors::                    regerror ()
+* Using Byte Offsets::                  The regmatch_t type.
+* Freeing POSIX Pattern Buffers::       regfree ()
+
+
+File: regex.info,  Node: POSIX Pattern Buffers,  Next: POSIX Regular Expression Compiling,  Up: POSIX Regex Functions
+
+POSIX Pattern Buffers
+---------------------
+
+  To compile or match a given regular expression the POSIX way, you
+must supply a pattern buffer exactly the way you do for GNU (*note GNU
+Pattern Buffers::).  POSIX pattern buffers have type `regex_t', which
+is equivalent to the GNU pattern buffer type `re_pattern_buffer'.
+
+
+File: regex.info,  Node: POSIX Regular Expression Compiling,  Next: POSIX Matching,  Prev: POSIX Pattern Buffers,  Up: POSIX Regex Functions
+
+POSIX Regular Expression Compiling
+----------------------------------
+
+  With POSIX, you can only search for a given regular expression; you
+can't match it.  To do this, you must first compile it in a pattern
+buffer, using `regcomp'.
+
+  To compile a pattern buffer, use:
+
+     int
+     regcomp (regex_t *PREG, const char *REGEX, int CFLAGS)
+
+PREG is the initialized pattern buffer's address, REGEX is the regular
+expression's address, and CFLAGS is the compilation flags, which Regex
+considers as a collection of bits.  Here are the valid bits, as defined
+in `regex.h':
+
+`REG_EXTENDED'
+     says to use POSIX Extended Regular Expression syntax; if this isn't
+     set, then says to use POSIX Basic Regular Expression syntax.
+     `regcomp' sets PREG's `syntax' field accordingly.
+
+`REG_ICASE'
+     says to ignore case; `regcomp' sets PREG's `translate' field to a
+     translate table which ignores case, replacing anything you've put
+     there before.
+
+`REG_NOSUB'
+     says to set PREG's `no_sub' field; *note POSIX Matching::, for
+     what this means.
+
+`REG_NEWLINE'
+     says that a:
+
+        * match-any-character operator (*note Match-any-character
+          Operator::) doesn't match a newline.
+
+        * nonmatching list not containing a newline (*note List
+          Operators::) matches a newline.
+
+        * match-beginning-of-line operator (*note
+          Match-beginning-of-line Operator::) matches the empty string
+          immediately after a newline, regardless of how `REG_NOTBOL'
+          is set (*note POSIX Matching::, for an explanation of
+          `REG_NOTBOL').
+
+        * match-end-of-line operator (*note Match-beginning-of-line
+          Operator::) matches the empty string immediately before a
+          newline, regardless of how `REG_NOTEOL' is set (*note POSIX
+          Matching::, for an explanation of `REG_NOTEOL').
+
+
+  If `regcomp' successfully compiles the regular expression, it returns
+zero and sets `*PATTERN_BUFFER' to the compiled pattern. Except for
+`syntax' (which it sets as explained above), it also sets the same
+fields the same way as does the GNU compiling function (*note GNU
+Regular Expression Compiling::).
+
+  If `regcomp' can't compile the regular expression, it returns one of
+the error codes listed here.  (Except when noted differently, the
+syntax of in all examples below is basic regular expression syntax.)
+
+`REG_BADRPT'
+     For example, the consecutive repetition operators `**' in `a**'
+     are invalid.  As another example, if the syntax is extended
+     regular expression syntax, then the repetition operator `*' with
+     nothing on which to operate in `*' is invalid.
+
+`REG_BADBR'
+     For example, the COUNT `-1' in `a\{-1' is invalid.
+
+`REG_EBRACE'
+     For example, `a\{1' is missing a close-interval operator.
+
+`REG_EBRACK'
+     For example, `[a' is missing a close-list operator.
+
+`REG_ERANGE'
+     For example, the range ending point `z' that collates lower than
+     does its starting point `a' in `[z-a]' is invalid.  Also, the
+     range with the character class `[:alpha:]' as its starting point in
+     `[[:alpha:]-|]'.
+
+`REG_ECTYPE'
+     For example, the character class name `foo' in `[[:foo:]' is
+     invalid.
+
+`REG_EPAREN'
+     For example, `a\)' is missing an open-group operator and `\(a' is
+     missing a close-group operator.
+
+`REG_ESUBREG'
+     For example, the back reference `\2' that refers to a nonexistent
+     subexpression in `\(a\)\2' is invalid.
+
+`REG_EEND'
+     Returned when a regular expression causes no other more specific
+     error.
+
+`REG_EESCAPE'
+     For example, the trailing backslash `\' in `a\' is invalid, as is
+     the one in `\'.
+
+`REG_BADPAT'
+     For example, in the extended regular expression syntax, the empty
+     group `()' in `a()b' is invalid.
+
+`REG_ESIZE'
+     Returned when a regular expression needs a pattern buffer larger
+     than 65536 bytes.
+
+`REG_ESPACE'
+     Returned when a regular expression makes Regex to run out of
+     memory.
+
+
+File: regex.info,  Node: POSIX Matching,  Next: Reporting Errors,  Prev: POSIX Regular Expression Compiling,  Up: POSIX Regex Functions
+
+POSIX Matching
+--------------
+
+  Matching the POSIX way means trying to match a null-terminated string
+starting at its first character.  Once you've compiled a pattern into a
+pattern buffer (*note POSIX Regular Expression Compiling::), you can
+ask the matcher to match that pattern against a string using:
+
+     int
+     regexec (const regex_t *PREG, const char *STRING,
+              size_t NMATCH, regmatch_t PMATCH[], int EFLAGS)
+
+PREG is the address of a pattern buffer for a compiled pattern.  STRING
+is the string you want to match.
+
+  *Note Using Byte Offsets::, for an explanation of PMATCH.  If you
+pass zero for NMATCH or you compiled PREG with the compilation flag
+`REG_NOSUB' set, then `regexec' will ignore PMATCH; otherwise, you must
+allocate it to have at least NMATCH elements.  `regexec' will record
+NMATCH byte offsets in PMATCH, and set to -1 any unused elements up to
+PMATCH`[NMATCH]' - 1.
+
+  EFLAGS specifies "execution flags"--namely, the two bits `REG_NOTBOL'
+and `REG_NOTEOL' (defined in `regex.h').  If you set `REG_NOTBOL', then
+the match-beginning-of-line operator (*note Match-beginning-of-line
+Operator::) always fails to match.  This lets you match against pieces
+of a line, as you would need to if, say, searching for repeated
+instances of a given pattern in a line; it would work correctly for
+patterns both with and without match-beginning-of-line operators.
+`REG_NOTEOL' works analogously for the match-end-of-line operator
+(*note Match-end-of-line Operator::); it exists for symmetry.
+
+  `regexec' tries to find a match for PREG in STRING according to the
+syntax in PREG's `syntax' field.  (*Note POSIX Regular Expression
+Compiling::, for how to set it.)  The function returns zero if the
+compiled pattern matches STRING and `REG_NOMATCH' (defined in
+`regex.h') if it doesn't.
+
+
+File: regex.info,  Node: Reporting Errors,  Next: Using Byte Offsets,  Prev: POSIX Matching,  Up: POSIX Regex Functions
+
+Reporting Errors
+----------------
+
+  If either `regcomp' or `regexec' fail, they return a nonzero error
+code, the possibilities for which are defined in `regex.h'.  *Note
+POSIX Regular Expression Compiling::, and *Note POSIX Matching::, for
+what these codes mean.  To get an error string corresponding to these
+codes, you can use:
+
+     size_t
+     regerror (int ERRCODE,
+               const regex_t *PREG,
+               char *ERRBUF,
+               size_t ERRBUF_SIZE)
+
+ERRCODE is an error code, PREG is the address of the pattern buffer
+which provoked the error, ERRBUF is the error buffer, and ERRBUF_SIZE
+is ERRBUF's size.
+
+  `regerror' returns the size in bytes of the error string
+corresponding to ERRCODE (including its terminating null).  If ERRBUF
+and ERRBUF_SIZE are nonzero, it also returns in ERRBUF the first
+ERRBUF_SIZE - 1 characters of the error string, followed by a null.
+ERRBUF_SIZE must be a nonnegative number less than or equal to the size
+in bytes of ERRBUF.
+
+  You can call `regerror' with a null ERRBUF and a zero ERRBUF_SIZE to
+determine how large ERRBUF need be to accommodate `regerror''s error
+string.
+
+
+File: regex.info,  Node: Using Byte Offsets,  Next: Freeing POSIX Pattern Buffers,  Prev: Reporting Errors,  Up: POSIX Regex Functions
+
+Using Byte Offsets
+------------------
+
+  In POSIX, variables of type `regmatch_t' hold analogous information,
+but are not identical to, GNU's registers (*note Using Registers::).
+To get information about registers in POSIX, pass to `regexec' a
+nonzero PMATCH of type `regmatch_t', i.e., the address of a structure
+of this type, defined in `regex.h':
+
+     typedef struct
+     {
+       regoff_t rm_so;
+       regoff_t rm_eo;
+     } regmatch_t;
+
+  When reading in *Note Using Registers::, about how the matching
+function stores the information into the registers, substitute PMATCH
+for REGS, `PMATCH[I]->rm_so' for `REGS->start[I]' and
+`PMATCH[I]->rm_eo' for `REGS->end[I]'.
+
+
+File: regex.info,  Node: Freeing POSIX Pattern Buffers,  Prev: Using Byte Offsets,  Up: POSIX Regex Functions
+
+Freeing POSIX Pattern Buffers
+-----------------------------
+
+  To free any allocated fields of a pattern buffer, use:
+
+     void
+     regfree (regex_t *PREG)
+
+PREG is the pattern buffer whose allocated fields you want freed.
+`regfree' also sets PREG's `allocated' and `used' fields to zero.
+After freeing a pattern buffer, you need to again compile a regular
+expression in it (*note POSIX Regular Expression Compiling::) before
+passing it to the matching function (*note POSIX Matching::).
+
+
+File: regex.info,  Node: BSD Regex Functions,  Prev: POSIX Regex Functions,  Up: Programming with Regex
+
+BSD Regex Functions
+===================
+
+  If you're writing code that has to be Berkeley UNIX compatible,
+you'll need to use these functions whose interfaces are the same as
+those in Berkeley UNIX.
+
+* Menu:
+
+* BSD Regular Expression Compiling::    re_comp ()
+* BSD Searching::                       re_exec ()
+
+
+File: regex.info,  Node: BSD Regular Expression Compiling,  Next: BSD Searching,  Up: BSD Regex Functions
+
+BSD Regular Expression Compiling
+--------------------------------
+
+  With Berkeley UNIX, you can only search for a given regular
+expression; you can't match one.  To search for it, you must first
+compile it.  Before you compile it, you must indicate the regular
+expression syntax you want it compiled according to by setting the
+variable `re_syntax_options' (declared in `regex.h' to some syntax
+(*note Regular Expression Syntax::).
+
+  To compile a regular expression use:
+
+     char *
+     re_comp (char *REGEX)
+
+REGEX is the address of a null-terminated regular expression.
+`re_comp' uses an internal pattern buffer, so you can use only the most
+recently compiled pattern buffer.  This means that if you want to use a
+given regular expression that you've already compiled--but it isn't the
+latest one you've compiled--you'll have to recompile it.  If you call
+`re_comp' with the null string (_not_ the empty string) as the
+argument, it doesn't change the contents of the pattern buffer.
+
+  If `re_comp' successfully compiles the regular expression, it returns
+zero.  If it can't compile the regular expression, it returns an error
+string.  `re_comp''s error messages are identical to those of
+`re_compile_pattern' (*note GNU Regular Expression Compiling::).
+
+
+File: regex.info,  Node: BSD Searching,  Prev: BSD Regular Expression Compiling,  Up: BSD Regex Functions
+
+BSD Searching
+-------------
+
+  Searching the Berkeley UNIX way means searching in a string starting
+at its first character and trying successive positions within it to
+find a match.  Once you've compiled a pattern using `re_comp' (*note
+BSD Regular Expression Compiling::), you can ask Regex to search for
+that pattern in a string using:
+
+     int
+     re_exec (char *STRING)
+
+STRING is the address of the null-terminated string in which you want
+to search.
+
+  `re_exec' returns either 1 for success or 0 for failure.  It
+automatically uses a GNU fastmap (*note Searching with Fastmaps::).
+

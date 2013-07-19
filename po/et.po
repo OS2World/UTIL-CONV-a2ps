@@ -1,0 +1,1201 @@
+# Estonian translations for a2ps.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Toomas Soome <tsoome@ut.ee>, 2000.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: a2ps 4.12j\n"
+"POT-Creation-Date: 2000-02-09 17:34+0100\n"
+"PO-Revision-Date: 2000-02-15 11:46+02:00\n"
+"Last-Translator: Toomas Soome <tsoome@ut.ee>\n"
+"Language-Team: Estonian <linux-ee@eenet.ee>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#. TRANS: the type of the end-of-line rules, is `any type', i.e.
+#. lines ended by \n, or \r, or \r\n, or \n\r are OK
+#: src/buffer.c:67
+msgid "any type"
+msgstr "suvaline tüüp"
+
+#: lib/routines.c:160 lib/xbackupfile.c:248 lib/xbackupfile.c:276
+#: lib/xbackupfile.c:284 src/delegate.c:260
+#, c-format
+msgid "cannot create file `%s'"
+msgstr "faili `%s' ei õnnestu luua"
+
+#: lib/routines.c:190 lib/routines.c:196 src/delegate.c:269 src/select.c:159
+#, c-format
+msgid "cannot open a pipe on `%s'"
+msgstr "ei õnnestu luua toru `%s'"
+
+#. E.g.: Delegation `PsNup', from ps to ps
+#: src/delegate.c:389
+#, c-format
+msgid "Delegation `%s', from %s to %s\n"
+msgstr "Delegeerin `%s', %s -> %s\n"
+
+#: src/delegate.c:408 src/delegate.c:430
+msgid "Applications configured for delegation"
+msgstr "Delegeerimiseks seadistatud rakendused"
+
+#: src/generate.c:88
+#, c-format
+msgid "`%s' is a directory"
+msgstr "`%s' on kataloog"
+
+#: lib/confg.c:288 lib/confg.c:451 lib/routines.c:154 src/generate.c:96
+#: src/main.c:558 src/main.c:580
+#, c-format
+msgid "cannot open file `%s'"
+msgstr "ei saa avada faili `%s'"
+
+#. Another kind of error occured: exit
+#: lib/xbackupfile.c:224 src/generate.c:101
+#, c-format
+msgid "cannot get informations on file `%s'"
+msgstr "faili `%s' atribuutide lugemine ebaõnnestus"
+
+#: src/generate.c:168
+#, c-format
+msgid "[%s (%s): 1 page on 1 sheet]\n"
+msgstr "[%s (%s): üks lehekülg ühel lehel]\n"
+
+#: src/generate.c:174
+#, c-format
+msgid "[%s (%s): %d pages on 1 sheet]\n"
+msgstr "[%s (%s): %d lehekülge ühel lehel]\n"
+
+#: src/generate.c:181
+#, c-format
+msgid "[%s (%s): %d pages on %d sheets]\n"
+msgstr "[%s (%s): %d lehekülge %d lehel]\n"
+
+#: src/generate.c:208
+#, c-format
+msgid "[Total: 1 page on 1 sheet] %s\n"
+msgstr "[Kokku: üks lehekülg ühel lehel] %s\n"
+
+#: src/generate.c:212
+#, c-format
+msgid "[Total: %d pages on 1 sheet] %s\n"
+msgstr "[Kokku: %d lehekülge ühel lehel] %s\n"
+
+#: src/generate.c:217
+#, c-format
+msgid "[Total: %d pages on %d sheets] %s\n"
+msgstr "[Kokku: %d lehekülge %d lehel] %s\n"
+
+#: src/generate.c:226
+msgid "[1 line wrapped]\n"
+msgstr "[üks rida poolitatud]\n"
+
+#: src/generate.c:229
+#, c-format
+msgid "[%d lines wrapped]\n"
+msgstr "[%d rida poolitatud]\n"
+
+#: src/generate.c:242
+msgid "[No output produced]\n"
+msgstr "[Väljundit pole]\n"
+
+#: src/generate.c:314
+#, c-format
+msgid "%s, delegated to %s"
+msgstr "%s, delegeeritud: %s"
+
+#: src/generate.c:322
+#, c-format
+msgid "[%s (%s): failed.  Ignored]\n"
+msgstr "[%s (%s): ebaõnnestus. Ignoreerin]\n"
+
+#: src/generate.c:330
+#, c-format
+msgid "[%s (unprintable): ignored]\n"
+msgstr "[%s (mittetrükitav): ignoreerin]\n"
+
+#: src/generate.c:339
+#, c-format
+msgid "[%s (binary): ignored]\n"
+msgstr "[%s (kahendfail): ignoreerin]\n"
+
+#: src/generate.c:360
+msgid "plain"
+msgstr "lihttekst"
+
+#: /home/akim/src/a2ps-4.12/src/lexssh.l:348
+msgid "end-of-line in string constant"
+msgstr "realõpp sõnekonstandis"
+
+#. TRANS: %s is ".." or <..> or /../ etc.
+#: /home/akim/src/a2ps-4.12/src/lexssh.l:415 src/sheets-map.l:152
+#: src/sheets-map.l:191
+#, c-format
+msgid "end of line inside a %s"
+msgstr "realõpp %s sees"
+
+#: src/main.c:201
+#, c-format
+msgid "received signal %d: %s"
+msgstr "sain signaali %d: %s"
+
+#. TRANS: highlighting level = heavy (2/2)
+#: src/main.c:240
+msgid "heavy"
+msgstr "tugev"
+
+#. TRANS: highlighting level = normal (1/2)
+#: src/main.c:244
+msgid "normal"
+msgstr "normaalne"
+
+#. TRANS: highlighting level = none (0/2)
+#: src/main.c:248
+msgid "none"
+msgstr "pole"
+
+#. This is just so that gettext knows I use those two strings.
+#: src/main.c:322
+msgid "yes"
+msgstr "jah"
+
+#: src/main.c:323 src/main.c:367
+msgid "no"
+msgstr "ei"
+
+#: src/main.c:333
+#, c-format
+msgid "Configuration status of %s %s\n"
+msgstr "%s %s seadete olek\n"
+
+#: src/main.c:337 src/main.c:694
+msgid "Sheets:\n"
+msgstr "Lehed:\n"
+
+#: src/main.c:338
+#, c-format
+msgid ""
+"  medium          = %s%s, %s\n"
+"  page layout     = %d x %d, %s\n"
+"  borders         = %s\n"
+"  file alignment  = %s\n"
+"  interior margin = %d\n"
+msgstr ""
+"  meedia           = %s%s, %s\n"
+"  lehekülje suurus = %d x %d, %s\n"
+"  piirid           = %s\n"
+"  faili asetus     = %s\n"
+"  sisemine piir    = %d\n"
+
+#: src/main.c:347
+msgid "portrait"
+msgstr "püstpaigutus"
+
+#: src/main.c:347
+msgid "landscape"
+msgstr "rõhtpaigutus"
+
+#: src/main.c:356
+#, c-format
+msgid "%d characters per line"
+msgstr "%d sümbolit real"
+
+#: src/main.c:359
+#, c-format
+msgid "%d lines per page"
+msgstr "%d rida lehel"
+
+#: src/main.c:362
+#, c-format
+msgid "font size is %gpt"
+msgstr "kirja suurus on %gpt"
+
+#. number line: each line
+#: src/main.c:371
+msgid "each line"
+msgstr "iga rida"
+
+#. number line: each %d line
+#: src/main.c:375
+#, c-format
+msgid "each %d lines"
+msgstr "iga %d rea järel"
+
+#: src/main.c:378 src/main.c:715
+msgid "Virtual pages:\n"
+msgstr "Virtuaalsed leheküljed:\n"
+
+#: src/main.c:379
+#, c-format
+msgid ""
+"  number lines         = %s\n"
+"  format               = %s\n"
+"  tabulation size      = %d\n"
+"  non printable format = %s\n"
+msgstr ""
+"  nummerdada read       = %s\n"
+"  formaat               = %s\n"
+"  tabulaatori suurus    = %d\n"
+"  mittetrükitav formaat = %s\n"
+
+#: src/main.c:390
+msgid "Headers:\n"
+msgstr "Päised:\n"
+
+#: src/main.c:391
+#, c-format
+msgid ""
+"  header       = %s\n"
+"  left footer  = %s\n"
+"  footer       = %s\n"
+"  right footer = %s\n"
+"  left title   = %s\n"
+"  center title = %s\n"
+"  right title  = %s\n"
+"  under lay    = %s\n"
+msgstr ""
+"  päis            = %s\n"
+"  vasak jalus     = %s\n"
+"  jalus           = %s\n"
+"  parem jalus     = %s\n"
+"  vasak tiitel    = %s\n"
+"  keskmine tiitel = %s\n"
+"  parem tiitel    = %s\n"
+"  vesimärk        = %s\n"
+
+#: src/main.c:410 src/main.c:744
+msgid "Input:\n"
+msgstr "Sisend:\n"
+
+#: src/main.c:411
+#, c-format
+msgid ""
+"  truncate lines = %s\n"
+"  interpret      = %s\n"
+"  end of line    = %s\n"
+"  encoding       = %s\n"
+"  document title = %s\n"
+"  prologue       = %s\n"
+"  print anyway   = %s\n"
+"  delegating     = %s\n"
+msgstr ""
+"  lühenda ridu     = %s\n"
+"  interpreteeri    = %s\n"
+"  realõpp          = %s\n"
+"  kodeering        = %s\n"
+"  dokumendi tiitel = %s\n"
+"  proloog          = %s\n"
+"  trüki igal juhul = %s\n"
+"  delegeerimine    = %s\n"
+
+#. TRANS: a2ps -E --list=options.  Warning, this answer is also
+#. used for the PPD file.  Make it compatible with both.
+#: src/main.c:436 src/main.c:502
+msgid "selected automatically"
+msgstr "automaatselt valitud"
+
+#: src/main.c:439 src/main.c:763
+msgid "Pretty-printing:\n"
+msgstr "Ilutrükk:\n"
+
+#: src/main.c:440
+#, c-format
+msgid ""
+"  style sheet     = %s\n"
+"  highlight level = %s\n"
+"  strip level     = %d\n"
+msgstr ""
+"  stiilileht       = %s\n"
+"  esiletõste tase  = %s\n"
+"  puhastamise tase = %d\n"
+
+#: src/main.c:460
+msgid "never make backups"
+msgstr "ära tee varukoopiaid"
+
+#: src/main.c:464
+msgid "simple backups of every file"
+msgstr "lihtsad koopiad igast failist"
+
+#. appears in a2ps --version-=existing --list=defaults
+#: src/main.c:469
+msgid ""
+"numbered backups of files already numbered,\n"
+"                            and simple of others"
+msgstr ""
+"nummerdatud koopiad failidest, mis on juba nummerdatud\n"
+"ja lihtne koopia teistest"
+
+#: src/main.c:474
+msgid "numbered backups of every file"
+msgstr "nummerdatud koopiad igast failist"
+
+#: src/main.c:478 src/main.c:772
+msgid "Output:\n"
+msgstr "Väljund:\n"
+
+#: src/main.c:479
+#, c-format
+msgid ""
+"  destination     = %s\n"
+"  version control = %s\n"
+"  backup suffix   = %s\n"
+msgstr ""
+"  sihtpunkt          = %s\n"
+"  versioonikontroll  = %s\n"
+"  varukoopia sufiks = %s\n"
+
+#: src/main.c:492 src/main.c:782
+msgid "PostScript:\n"
+msgstr "Postskript:\n"
+
+#: src/main.c:493
+#, c-format
+msgid ""
+"  magic number              = %s\n"
+"  Printer Description (PPD) = %s\n"
+"  default PPD               = %s\n"
+"  page label format         = %s\n"
+"  number of copies          = %d\n"
+"  sides per sheet           = %s\n"
+"  page device definitions   = "
+msgstr ""
+"  maagiline number           = %s\n"
+"  printeri kirjeldus (PPD)   = %s\n"
+"  vaikimisi PPD              = %s\n"
+"  paberi märgendi formaat    = %s\n"
+"  koopiate arv               = %d\n"
+"  külgi lehel                = %s\n"
+"  seadmedefinitsioonid       = "
+
+#: src/main.c:513
+msgid "  statusdict definitions    = "
+msgstr "  statusdict definitsioonid = "
+
+#: src/main.c:516
+#, c-format
+msgid "  page prefeed              = %s\n"
+msgstr "  eelleht                   = %s\n"
+
+#.
+#. * Internal Details
+#.
+#: src/main.c:525
+msgid "Internals:\n"
+msgstr "Siseinfo:\n"
+
+#: src/main.c:526
+#, c-format
+msgid ""
+"  verbosity level     = %d\n"
+"  file command        = %s\n"
+"  library path        = \n"
+msgstr ""
+"  infotase             = %d\n"
+"  käsk `file'          = %s\n"
+"  teekide otsingutee   = \n"
+
+#: src/main.c:651
+#, c-format
+msgid ""
+"Usage: %s [OPTION]... [FILE]...\n"
+"\n"
+"Convert FILE(s) or standard input to PostScript.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"Long options marked with * require a yes/no argument, corresponding\n"
+"short options stand for `yes'.\n"
+msgstr ""
+"Kasuta: %s [VÕTI]... [FAIL]...\n"
+"\n"
+"Teisenda FAIL(id) või standardsisend postskripti.\n"
+"\n"
+"Pikkade võtmete kohustuslikud argumendid on kohustuslikud ka lühikestele\n"
+"võtmetele. * sümboliga märgitud pikad võtmed nõuavad jah/ei argumenti,\n"
+"vastavad lühikesed võtmed kasutavad argumenti `jah'.\n"
+
+#: src/main.c:665
+msgid "Tasks:\n"
+msgstr "Tööd:\n"
+
+#: src/main.c:666
+msgid ""
+"  --version        display version\n"
+"  --help           display this help\n"
+"  --guess          report guessed types of FILES\n"
+"  --which          report the full path of library files named FILES\n"
+"  --glob           report the full path of library files matching FILES\n"
+"  --list=defaults  display default settings and parameters\n"
+"  --list=TOPIC     detailed list on TOPIC (delegations, encodings, "
+"features,\n"
+"                   variables, media, ppd, printers, prologues, "
+"style-sheets,\n"
+"                   user-options)\n"
+msgstr ""
+"  --version       näita versiooni\n"
+"  --help          abiinfo\n"
+"  --guess         näita FAILide arvatavad tüübid\n"
+"  --which         näita FAILide nimega teekide täistee\n"
+"  --glob          näita FAILide nimega sobivate teekide täistee\n"
+"  --list=defaults näita vaikimisi seaded ja parameetrid\n"
+"  --list=TEEMA    TEEMA detailne info (delegeerimised, kodeeringud, "
+"omadused\n"
+"                  muutujad, meedia, ppd, trükkalid, proloogid, stiililehed\n"
+"                  kasutajavõtmed)\n"
+
+#: src/main.c:677
+msgid ""
+"After having performed the task, exit successfully.  Detailed lists may\n"
+"provide additional help on specific features.\n"
+msgstr ""
+"Peale soovitud töö lõpetamist lõpetab programm edukalt töö. Detailsed\n"
+"listingud võivad anda teile lisainfot programmi omaduste kohta.\n"
+
+#: src/main.c:685
+msgid "Global:\n"
+msgstr "Globaalsed:\n"
+
+#: src/main.c:686
+msgid ""
+"  -q, --quiet, --silent      be really quiet\n"
+"  -v, --verbose[=LEVEL]      set verbosity on, or to LEVEL\n"
+"  -=, --user-option=OPTION   use the user defined shortcut OPTION\n"
+"      --debug                enable debugging features\n"
+"  -D, --define=KEY[:VALUE]   unset variable KEY or set to VALUE\n"
+msgstr ""
+"  -q, --quiet. --silent       ole vaikne\n"
+"  -v. --verbose[=TASE]        luba info esitus, sea infoedastuse TASE\n"
+"  -=, --user-option=VÕTI      kasuta kasutaja defineeritud VÕTIt\n"
+"      --debug                 luba silumisteated\n"
+"  -D, --define=VÕTI[:VÄÄRTUS] kustuta muutuja VÕTI või sea tema VÄÄRTUS\n"
+
+#: src/main.c:695
+msgid ""
+"  -M, --medium=NAME      use output medium NAME\n"
+"  -r, --landscape        print in landscape mode\n"
+"  -R, --portrait         print in portrait mode\n"
+"      --columns=NUM      number of columns per sheet\n"
+"      --rows=NUM         number of rows per sheet\n"
+"      --major=DIRECTION  first fill (DIRECTION=) rows, or columns\n"
+"  -1, -2, ..., -9        predefined font sizes and layouts for 1.. 9 "
+"virtuals\n"
+"  -A, --file-align=MODE  align separate files according to MODE (fill, rank\n"
+"                         page, sheet, or a number)\n"
+"  -j, --borders*         print borders around columns\n"
+"      --margin[=NUM]     define an interior margin of size NUM\n"
+msgstr ""
+"  -M, --medium=NIMI      kasuta väljundmeediumina NIMI\n"
+"  -r, --landscape        trüki rõhtpaigutuses\n"
+"  -R, --portrait         trüki püstpaigutuses\n"
+"      --columns=NUMBER   veerge lehele\n"
+"      --rows=NUMBER      ridu lehele\n"
+"      --major=SUUND      esiteks täida (SUUND=) read või veerud\n"
+"  -1, -2, ..., -9        defineeritud kirja suurused ja asetused 1.. 9 "
+"virtualile\n"
+"  -A, --file-align=MOOD  paiguta erinevad failid vastavalt MOODile (fill, "
+"rank\n"
+"                         page, sheet või number)\n"
+"  -j, --borders*         trüki veergude ümber raamid\n"
+"      --margin[=NUMBER]  devineeri sisemine raam suurusega NUMBER\n"
+
+#: src/main.c:708
+msgid ""
+"The options -1.. -9 affect several primitive parameters to set up "
+"predefined\n"
+"layouts with 80 columns.  Therefore the order matters: `-R -f40 -2' is\n"
+"equivalent to `-2'.  To modify the layout, use `-2Rf40', or compose "
+"primitive\n"
+"options (`--columns', `--font-size' etc.).\n"
+msgstr ""
+"Võtmed -1.. -9 mõjutavad mitmeid võtmeid, et seada ettedefineeritud 80\n"
+"veeruline lehekülje paigutus. Seetõttu on oluline ka võtmete järjestus:\n"
+"`-R -f40 -2' annab sama tulemuse, kui `-2'. Et paigutust muuta, tuleks\n"
+"kasutada kas `-2Rf40', või kasutada üksikuid võtmeid (`--columns', \n"
+"`--font-size' jne.).\n"
+
+#: src/main.c:716
+msgid ""
+"      --line-numbers=NUM     precede each NUM lines with its line number\n"
+"  -C                         alias for --line-numbers=5\n"
+"  -f, --font-size=SIZE       use font SIZE (float) for the body text\n"
+"  -L, --lines-per-page=NUM   scale the font to print NUM lines per virtual\n"
+"  -l, --chars-per-line=NUM   scale the font to print NUM columns per "
+"virtual\n"
+"  -m, --catman               process FILE as a man page (same as -L66)\n"
+"  -T, --tabsize=NUM          set tabulator size to NUM\n"
+"  --non-printable-format=FMT specify how non-printable chars are printed\n"
+msgstr ""
+"      --line-numbers=NUM     kirjuta iga NUM rea algusse selle rea number\n"
+"  -C                         lühivorm võtmele --line-numbers=5\n"
+"  -f, --font-size=SUURUS     kasuta teksti kehas kirja SUURUSt (murdarv)\n"
+"  -L, --lines-per-page=NUM   skaleeri kirja trükkimaks NUM rida virtualile\n"
+"  -l, --chars-per-line=NUM   skaleeri kirja trükkimaks NUM veergu "
+"virtualile\n"
+"  -m, --catman               töötle FAILi kui manuali (sama kui -L66)\n"
+"  -T, --tabsize=NUM          sea tabulaatori suurus\n"
+"  --non-printable-format=FMT määra, kuidas trükkida mitte-trükitavaid "
+"sümboleid\n"
+
+#: src/main.c:727
+msgid "Headings:\n"
+msgstr "Päised:\n"
+
+#: src/main.c:729
+#, no-c-format
+msgid ""
+"  -B, --no-header        no page headers at all\n"
+"  -b, --header[=TEXT]    set page header\n"
+"  -u, --underlay[=TEXT]  print TEXT under every page\n"
+"  --center-title[=TEXT]  set page title to TITLE\n"
+"  --left-title[=TEXT]    set left and right page title to TEXT\n"
+"  --right-title[=TEXT]\n"
+"  --left-footer[=TEXT]   set sheet footers to TEXT\n"
+"  --footer[=TEXT]\n"
+"  --right-footer[=TEXT]\n"
+msgstr ""
+"  -B, --no-header         ära kasuta päiseid\n"
+"  -b, --header[=TEKST]    sea lehe päis\n"
+"  -u, --underlay[=TEKST]  trüki TEKST vesimärgina (s.t. iga lehe alla)\n"
+"  --center-title[=TEKST]  sea lehe tiitel\n"
+"  --left-title[=TEKST]    sea lehe vasak ja parem tiitel\n"
+"  --right-title[=TEKST]\n"
+"  --left-footer[=TEKST]   sea lehe jalustekstid\n"
+"  --footer[=TEKST]\n"
+"  --right-footer[=TEKST]\n"
+
+#: src/main.c:740
+msgid "The TEXTs may use special escapes.\n"
+msgstr "TEKST võib sisaldada spetsiaalseid paojadasid.\n"
+
+#: src/main.c:745
+msgid ""
+"  -a, --pages[=RANGE]        select the pages to print\n"
+"  -c, --truncate-lines*      cut long lines\n"
+"  -i, --interpret*           interpret tab, bs and ff chars\n"
+"      --end-of-line=TYPE     specify the eol char (TYPE: r, n, nr, rn, any)\n"
+"  -X, --encoding=NAME        use input encoding NAME\n"
+"  -t, --title=NAME           set the name of the job\n"
+"      --stdin=NAME           set the name of the input file stdin\n"
+"      --print-anyway*        force binary printing\n"
+"  -Z, --delegate*            delegate files to another application\n"
+"      --toc[=TEXT]           generate a table of content\n"
+msgstr ""
+"  -a, --pages[=VAHEMIK]      vali trükkimiseks lehed\n"
+"  -c, --truncate-lines*      lühenda pikad read\n"
+"  -i, --interpret*           interpreteeri tab, bs ja ff sümboleid\n"
+"      --end-of-line=TÜÜP     määra realõpu sümbol (TÜÜP: r, n, nr, rn, "
+"muud)\n"
+"  -X, --encoding=NIMI        kasuta sisendi kodeeringuna NIMI\n"
+"  -t, --title=NIMI           sea töö nimi\n"
+"      --stdin=NIMI           sea standardsisendi mini\n"
+"      --print-anyway*        trüki ka kahendfailid\n"
+"  -Z, --delegate*            delegeeri failid teistele rakendustele\n"
+"      --toc[=TEKST]          genereeri sisukord\n"
+
+#: src/main.c:757
+msgid ""
+"When delegations are enabled, a2ps may use other applications to handle the\n"
+"processing of files that should not be printed as raw information, e.g., "
+"HTML\n"
+"PostScript, PDF etc.\n"
+msgstr ""
+"Kui delegeerimine on lubatud, võib a2ps kasutada teisi rakendusi, et "
+"käsitleda\n"
+"faile, mida ei peaks otse trükkima, näiteks HTML, postskript, PDF jne. "
+"faile.\n"
+
+#: src/main.c:764
+msgid ""
+"  -E, --pretty-print[=LANG]  enable pretty-printing (set style to LANG)\n"
+"  --highlight-level=LEVEL    set pretty printing highlight LEVEL\n"
+"                             LEVEL can be none, normal or heavy\n"
+"  -g                         alias for --highlight-level=heavy\n"
+"  --strip-level=NUM          level of comments stripping\n"
+msgstr ""
+"  -E, --pretty-print[=KEEL]  luba ilutrükk (määra kasutatav stiil)\n"
+"  --highlight-level=TASE     sea ilutrüki märksõnade esiletõste tase\n"
+"                             TASE võib olla none, normal või heavy\n"
+"  -g                         sünonüüm võtmele --highlight-level=heavy\n"
+"  --strip-level=NUMBER       kommentaaride eemaldamise tase\n"
+
+#: src/main.c:773
+msgid ""
+"  -o, --output=FILE          leave output to file FILE.  If FILE is `-',\n"
+"                             leave output to stdout.\n"
+"  --version-control=WORD     override the usual version control\n"
+"  --suffix=SUFFIX            override the usual backup suffix\n"
+"  -P, --printer=NAME         send output to printer NAME\n"
+"  -d                         send output to the default printer\n"
+msgstr ""
+"  -o, --output=FAIL          jäta väljund faili FAIL. Kui FAIL on `-',\n"
+"                             jäta väljund standardväljundisse.\n"
+"  --version-control=SÕNA     defineeri uus versioonikontroll\n"
+"  --suffix=SUFIKS            defineeri uus varukoopia sufiks\n"
+"  -P, --printer=NIMI         saada väljund trükkalisse NIMI\n"
+"  -d                         saada väljund vaikimisi trükkalisse\n"
+
+#: src/main.c:783
+msgid ""
+"      --prologue=FILE        include FILE.pro as PostScript prologue\n"
+"      --ppd[=KEY]            automatic PPD selection or set to KEY\n"
+"  -n, --copies=NUM           print NUM copies of each page\n"
+"  -s, --sides=MODE           set the duplex MODE (`1' or `simplex',\n"
+"                             `2' or `duplex', `tumble')\n"
+"  -S, --setpagedevice=K[:V]  pass a page device definition to output\n"
+"      --statusdict=K[:[:]V]  pass a statusdict definition to the output\n"
+"  -k, --page-prefeed         enable page prefeed\n"
+"  -K, --no-page-prefeed      disable page prefeed\n"
+msgstr ""
+"      --prologue=FAIL        kasuta FAIL.pro PostScript proloogina\n"
+"      --ppd[=VÕTI]           automaatne PPD valik või vali VÕTI\n"
+"  -n, --copies=NUMBER        trüki igast lehest NUMBER koopiat\n"
+"  -s, --sides=MOOD           sea dupleksmood (`1' või `simplex',\n"
+"                             `2' või `duplex', `tumble')\n"
+"  -S, --setpagedevice=K[:V]  saada väljundisse lehe seadme definitsioon\n"
+"      --statusdict=K[:[:]V]  saada väljundisse statusdict definitsioon\n"
+"  -k, --page-prefeed         luba eelleht\n"
+"  -K, --no-page-prefeed      keela eelleht\n"
+
+#: src/main.c:797
+msgid ""
+"By default a2ps is tuned to do what you want to, so trust it.  To pretty\n"
+"print the content of the `src' directory and a table of content, and send "
+"the\n"
+"result to the printer `lw',\n"
+"\n"
+"    $ a2ps -P lw --toc src/*\n"
+"\n"
+"To process the files `sample.ps' and `sample.html' and display the result,\n"
+"\n"
+"    $ a2ps -P display sample.ps sample.html\n"
+"\n"
+"To process a mailbox in 4 up,\n"
+"\n"
+"    $ a2ps -=mail -4 mailbox\n"
+"\n"
+"To print as a booklet on the default printer, which is Duplex capable,\n"
+"\n"
+"    $ a2ps -=book paper.dvi.gz -d\n"
+msgstr ""
+"a2ps on vaikimisi seatud töötama nii, nagu te seda soovite, usaldage teda.\n"
+"\n"
+"Kui on vaja ilutrükki kasutades trükkida kataloog `src' koos sisukorraga \n"
+"trükkalile `lw',\n"
+"\n"
+"    $ a2ps -P lw --toc src/*\n"
+"\n"
+"Et töödelda failid `sample.ps' ja `sample.html' ning näidata tulemust,\n"
+"\n"
+"    $ a2ps -P display sample.ps sample.html\n"
+"\n"
+"Töödelda kirjakast 4 lehte ühele,\n"
+"\n"
+"    $ a2ps -=mail -4 mailbox\n"
+"\n"
+"Trüki voldik vaikimisi printerile, mis on võimeline trükkima lehe mõlemale\n"
+"poolele,\n"
+"\n"
+"    $ a2ps -=book paper.dvi.gz -d\n"
+
+#: src/main.c:818
+msgid ""
+"News, updates and documentation: visit "
+"http://www.inf.enst.fr/~demaille/a2ps/.\n"
+msgstr ""
+"Uudised, uuendused ja dokumentatsioon: "
+"http://www.inf.enst.fr/~demaille/a2ps/.\n"
+
+#: src/main.c:820
+msgid "Report bugs to <bug-a2ps@gnu.org>.\n"
+msgstr "Vigadest teatamiseks kasutage aadressi <bug-a2ps@gnu.org>.\n"
+
+#: src/main.c:938
+#, fuzzy
+msgid ""
+"Copyright (c) 1988-1993 Miguel Santana\n"
+"Copyright (c) 1995-2000 Akim Demaille, Miguel Santana"
+msgstr ""
+"Autoriõigus (c) 1988-93 Miguel Santana\n"
+"Autoriõigus (c) 1995-99 Akim Demaille, Miguel Santana"
+
+#: src/main.c:1168
+msgid "Table of Content"
+msgstr "Sisukord"
+
+#: src/parsessh.y:236
+#, c-format
+msgid "cannot process `%s' which requires a2ps version %s"
+msgstr "`%s' ei saa töödelda, nõuab a2ps versiooni %s"
+
+#: src/sheets-map.l:110
+#, c-format
+msgid "unexpected character `%c'"
+msgstr "ootamatu sümbol `%c'"
+
+#: /home/akim/src/a2ps-4.12/lib/lexppd.l:211 src/sheets-map.l:210
+msgid "too many includes"
+msgstr "liiga palju lisasid"
+
+#: src/sheets-map.l:292 src/sheets-map.l:299
+#, c-format
+msgid "no key defined for `%s'"
+msgstr "`%s' jaoks puudub võti"
+
+#: /home/akim/src/a2ps-4.12/lib/fonts.l:837
+#: /home/akim/src/a2ps-4.12/lib/fonts.l:839
+#: /home/akim/src/a2ps-4.12/lib/fonts.l:841 lib/pathwalk.c:328
+#: lib/pathwalk.c:414 src/select.c:122 src/ssheet.c:866
+#, c-format
+msgid "cannot find file `%s'"
+msgstr "ei leia faili `%s'"
+
+#. sheets.map can not be found: there is no automatic prettyprinting
+#: src/select.c:124
+msgid "automatic style selection cancelled"
+msgstr "automaatne stiilivalik katkestatud"
+
+#: src/ssheet.c:295
+#, c-format
+msgid "cannot compile regular expression `%s': %s"
+msgstr "ei õnnestu kompileerida regulaaravaldist `%s': %s"
+
+#: src/ssheet.c:974 src/ssheet.c:995
+msgid "Known Style Sheets"
+msgstr "Tuntud stiililehed"
+
+#: src/ssheet.c:1461
+#, c-format
+msgid "cannot find style sheet `%s': using plain style"
+msgstr "ei leia stiililehte `%s': kasutan lihtstiili"
+
+#: src/sshread.c:453
+#, c-format
+msgid "unknown encoding `%s', ignored"
+msgstr "tundmatu kodeering `%s', ignoreerin"
+
+#: src/version-etc.c:38
+msgid "Copyright (C) 1999 Free Software Foundation, Inc."
+msgstr "Autoriõigus (C) 1999 Free Software Foundation, Inc."
+
+#: src/version-etc.c:60
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Kirjutanud %s.\n"
+
+#: src/version-etc.c:66
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"See on vaba tarkvara; kopeerimistingimused leiate lähtetekstidest. Garantii\n"
+"PUUDUB; ka müügiks või mingil eesmärgil kasutamiseks, vastavalt seadustega\n"
+"lubatud piiridele.\n"
+
+#: src/versions.c:133
+#, c-format
+msgid "invalid version number `%s'"
+msgstr "vigane versiooninumber `%s'"
+
+#: lib/caret.c:43
+msgid "space (i.e., ` ')"
+msgstr "tühik (s.t., ` ')"
+
+#: lib/caret.c:45
+msgid "octal (i.e., `\\001' etc.)"
+msgstr "kaheksandnumber (s.t., `\\001' jne.)"
+
+#: lib/caret.c:47
+msgid "hexadecimal (i.e., `\\x0a' etc.)"
+msgstr "kuueteistkümnendnumber (s.t., `\\x0a' jne.)"
+
+#: lib/caret.c:49
+msgid "caret (i.e., `^C', `M-^C' etc.)"
+msgstr "katus (s.t., `^C', `M-^C' jne.)"
+
+#: lib/caret.c:51
+msgid "emacs (i.e., `C-c', `M-C-c' etc.)"
+msgstr "emacs (s.t., `C-c', `M-C-c' jne.)"
+
+#: lib/caret.c:53
+msgid "question-mark (i.e., `?')"
+msgstr "küsimärk (s.t., `?')"
+
+#: lib/closeout.c:71 lib/closeout.c:73
+msgid "write error"
+msgstr "viga kirjutamisel"
+
+#: lib/confg.c:253 lib/encoding.c:639
+#, c-format
+msgid "invalid option `%s'"
+msgstr "vigane võti `%s'"
+
+#: lib/confg.c:264 lib/encoding.c:577 lib/encoding.c:617 lib/prolog.c:146
+#, c-format
+msgid "missing argument for `%s'"
+msgstr "võtmel `%s' puudub argument"
+
+#: lib/confg.c:320 lib/confg.c:327 lib/confg.c:334
+#, c-format
+msgid "invalid definition for printer `%s': %s"
+msgstr "vigane printeridefinitsioon `%s':%s"
+
+#: lib/confg.c:325 lib/confg.c:328
+msgid "Unknown Printer"
+msgstr "Tundmatu trükkal"
+
+#: lib/confg.c:332 lib/confg.c:335
+msgid "Default Printer"
+msgstr "Vaikimisi trükkal"
+
+#: lib/confg.c:388 lib/options.c:703
+#, c-format
+msgid "invalid variable identifier `%s'"
+msgstr "vigane muutuja identifikaator `%s'"
+
+#: lib/confg.c:417
+#, c-format
+msgid "obsolete `%s' entry.  Ignored"
+msgstr "aegunud kirje `%s'. Ignoreerin"
+
+#: lib/encoding.c:1115 lib/encoding.c:1136
+msgid "Known Encodings"
+msgstr "Tuntud kodeeringud"
+
+#: lib/faces.c:156
+msgid "incomplete knowledge of faces"
+msgstr "puudulik info kirjadest"
+
+#: lib/filtdir.c:113
+#, c-format
+msgid "cannot close directory `%s'"
+msgstr "ei õnnestu sulgeda kataloogi `%s'"
+
+#: lib/getnum.c:63 lib/getnum.c:121 lib/getnum.c:153 lib/getnum.c:221
+#, c-format
+msgid "invalid argument `%s' for `%s'"
+msgstr "vigane argument `%s' võtmel `%s'"
+
+#: lib/getnum.c:123
+#, c-format
+msgid "Valid arguments are integers n such that: %s\n"
+msgstr "Lubatud argumendid on täisarvud n, nagu näiteks: %s\n"
+
+#: lib/getnum.c:223
+#, c-format
+msgid "Valid arguments are floats f such that: %s\n"
+msgstr "Lubatud argumendid on murdarvud f, nagu näiteks: %s\n"
+
+#: lib/jobs.c:307
+#, c-format
+msgid "unknown encoding `%s'"
+msgstr "tundmatu kodeering `%s'"
+
+#: lib/madir.c:59
+msgid "rows first"
+msgstr "read enne"
+
+#: lib/madir.c:62
+msgid "columns first"
+msgstr "veerud enne"
+
+#: lib/media.c:173
+#, c-format
+msgid "unknown medium `%s'"
+msgstr "tundmatu meedium `%s'"
+
+#: lib/media.c:208 lib/media.c:237
+msgid "Known Media"
+msgstr "Tuntud meedia"
+
+#: lib/media.c:211
+msgid "Name"
+msgstr "Nimi"
+
+#: lib/media.c:212
+msgid "dimensions"
+msgstr "mõõtmed"
+
+#. TRANS: Variables (formely called `macro meta sequences', eeeaerk)
+#. are things such as #(psnup) which is substituted to a bigger strings,
+#. e.g. -#v #?q|-q|| #?j|-d|| #?r||-c| -w#w -h#h
+#: lib/metaseq.c:104 lib/metaseq.c:113
+msgid "Known Variables"
+msgstr "Tuntud muutujad"
+
+#: lib/metaseq.c:288 lib/metaseq.c:300
+#, c-format
+msgid "Printed by %s"
+msgstr "Trükkis %s"
+
+#: lib/metaseq.c:298
+#, c-format
+msgid "Printed by %s from %s"
+msgstr "Trükkis %s @ %s"
+
+#: lib/metaseq.c:308 lib/metaseq.c:327
+msgid "cannot get current working directory"
+msgstr "ei leia jooksvat töökataloogi"
+
+#: lib/metaseq.c:341 lib/metaseq.c:534 lib/metaseq.c:563 lib/metaseq.c:652
+#: lib/metaseq.c:954 lib/metaseq.c:987
+#, c-format
+msgid "%s: too long argument for %s escape"
+msgstr "%s: liiga pikk argument paojadale %s"
+
+#. Translators: please make a short date format
+#. * according to the std form in your language, using
+#. * the standard strftime(3)
+#: lib/metaseq.c:364 lib/metaseq.c:675
+msgid "%b %d, %y"
+msgstr "%d. %b %Y"
+
+#. Translators: please make a long date format
+#. * according to the std form in your language, using
+#. * GNU strftime(3)
+#: lib/metaseq.c:373 lib/metaseq.c:684
+msgid "%A %B %d, %Y"
+msgstr "%A, %d. %B %Y"
+
+#: lib/metaseq.c:419 lib/metaseq.c:448 lib/metaseq.c:491 lib/metaseq.c:724
+#: lib/metaseq.c:808 lib/metaseq.c:867 lib/metaseq.c:922 lib/metaseq.c:1099
+#: lib/metaseq.c:1234 lib/metaseq.c:1246 lib/metaseq.c:1289
+#, c-format
+msgid "%s: unknown `%s' escape `%c' (%d)"
+msgstr "%s: tundmatu `%s' paojada `%c' (%d)"
+
+#. `%q' localized `Page %d'
+#: lib/metaseq.c:426 lib/metaseq.c:815
+#, c-format
+msgid "Page %d"
+msgstr "Lehekülg %d"
+
+#. `%Q' localized `Page %d/%c'
+#: lib/metaseq.c:431 lib/metaseq.c:826
+#, c-format
+msgid "Page %d/%c"
+msgstr "Lehekülg %d/%c"
+
+#: lib/metaseq.c:531 lib/metaseq.c:548 lib/metaseq.c:608 lib/metaseq.c:951
+#: lib/metaseq.c:972
+#, c-format
+msgid "%s: missing `%c' for %s%c escape"
+msgstr "%s: `%c' puudub paojadas %s%c"
+
+#: lib/metaseq.c:593 lib/metaseq.c:1021
+#, c-format
+msgid "%s: invalid separator `%s%c' for `%s' escape"
+msgstr "%s: vigane eraldaja `%s%c' paojadas `%s'"
+
+#: lib/metaseq.c:601 lib/metaseq.c:611
+#, c-format
+msgid "%s: invalid argument for %s%c escape"
+msgstr "%s: vigane argument paojadale %s%c"
+
+#. This file is finised, we do know its real number of pages
+#: lib/metaseq.c:822
+#, c-format
+msgid "Page %d/%d"
+msgstr "Lehekülg %d/%d"
+
+#: lib/metaseq.c:1266
+msgid "output command"
+msgstr "väljundkäsk"
+
+#: lib/options.c:302
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Info saamiseks proovige `%s --help'.\n"
+
+#: lib/output.c:466
+#, c-format
+msgid "invalid face `%s'"
+msgstr "vigane kiri `%s'"
+
+#: lib/output.c:538
+#, c-format
+msgid "`%s' with no matching `%s'"
+msgstr "leidsin `%s', millel puudub vastav `%s'"
+
+#: lib/ppd.c:108
+msgid "Known Fonts"
+msgstr "Tuntud kirjad"
+
+#. TRANS: This `none' is an answer to `List of known fonts: None'
+#: lib/ppd.c:111
+msgid ""
+"\n"
+"  None.\n"
+msgstr ""
+"\n"
+"  Pole.\n"
+
+#: lib/ppd.c:149 lib/ppd.c:165
+msgid "Known PostScript Printer Descriptions"
+msgstr "Tuntud postskript trükkalite kirjeldused"
+
+#: lib/prange.c:305 lib/prange.c:323
+#, c-format
+msgid "invalid interval `%s'"
+msgstr "vigane intervall `%s'"
+
+#: lib/printers.c:396 lib/printers.c:413
+#, c-format
+msgid "no command for the `%s' (%s%s)"
+msgstr "`%s' (%s%s) tarvis puudub käsk"
+
+#: lib/printers.c:429
+msgid "sent to the standard output"
+msgstr "saadetud standardväljundisse"
+
+#: lib/printers.c:430
+msgid "sent to the default printer"
+msgstr "saadetud vaikimisi trükkalile"
+
+#: lib/printers.c:435
+#, c-format
+msgid "saved into the file `%s'"
+msgstr "salvestatud faili `%s'"
+
+#: lib/printers.c:436
+#, c-format
+msgid "sent to the printer `%s'"
+msgstr "saadetud trükkalile `%s'"
+
+#: lib/printers.c:613 lib/printers.c:621
+msgid "Known Outputs (Printers, etc.)"
+msgstr "Tuntud väljundid (trükkalid jne.)"
+
+#: lib/prolog.c:98 lib/prolog.c:181
+msgid "Known Prologues"
+msgstr "Tuntud proloogid"
+
+#: lib/prolog.c:579
+#, c-format
+msgid "font %f too big"
+msgstr "kiri %f on liiga suur"
+
+#: lib/psgen.c:662
+#, c-format
+msgid "`%s' is a binary file, printing aborted"
+msgstr "`%s' on kahendfail, katkestan trükkimise"
+
+#: lib/quotearg.c:200
+msgid "`"
+msgstr "`"
+
+#: lib/quotearg.c:203
+msgid "'"
+msgstr "'"
+
+#: lib/userdata.c:129
+msgid "user"
+msgstr "kasutaja"
+
+#: lib/userdata.c:130
+msgid "Unknown User"
+msgstr "Tundmatu kasutaja"
+
+#: lib/useropt.c:75
+#, c-format
+msgid "unknown user option `%s'"
+msgstr "tundmatu kasutajavõti `%s'"
+
+#: lib/useropt.c:86 lib/useropt.c:97
+msgid "Known User Options"
+msgstr "Tuntud kasutajavõtmed"
+
+#. If XALLOC_FAIL_FUNC is NULL, or does return, display this message
+#. before exiting when memory is exhausted.  Goes through gettext.
+#: lib/xbackupfile.c:105 lib/xmalloc.c:66
+msgid "Memory exhausted"
+msgstr "Mälu on otsas"
+
+#: lib/xbackupfile.c:240 lib/xbackupfile.c:252
+#, c-format
+msgid "cannot rename file `%s' as `%s'"
+msgstr "failile `%s' ei õnnestu anda uut nime `%s'"
+
+#: lib/xbackupfile.c:255
+#, c-format
+msgid "restored file `%s'"
+msgstr "raastasin faili `%s'"
+
+#: lib/argmatch.c:159
+#, c-format
+msgid "invalid argument %s for `%s'"
+msgstr "vigane argument %s võtmele `%s'"
+
+#: lib/argmatch.c:160
+#, c-format
+msgid "ambiguous argument %s for `%s'"
+msgstr "segane argument %s võtmele `%s'"
+
+#. We try to put synonyms on the same line.  The assumption is that
+#. synonyms follow each other
+#: lib/argmatch.c:178
+msgid "Valid arguments are:"
+msgstr "Lubatud argumendid on:"
+
+#: lib/error.c:102
+msgid "Unknown system error"
+msgstr "Tundmatu süsteemne viga"
+
+#: lib/getopt.c:675
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: võti `%s' on segane\n"
+
+#: lib/getopt.c:700
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: võti `--%s' ei luba kasutada argumenti\n"
+
+#: lib/getopt.c:705
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: võti `%c%s' ei luba kasutada argumenti\n"
+
+#: lib/getopt.c:723 lib/getopt.c:896
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: võti `%s' nõuab argumenti\n"
+
+#. --option
+#: lib/getopt.c:752
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: tundmatu võti `--%s'\n"
+
+#. +option or -option
+#: lib/getopt.c:756
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: tundmatu võti `%c%s'\n"
+
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:782
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: lubamatu võti -- %c\n"
+
+#: lib/getopt.c:785
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: vigane võti -- %c\n"
+
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:815 lib/getopt.c:945
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: võti nõuab argumenti -- %c\n"
+
+#: lib/getopt.c:862
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: võti `-W %s' on segane\n"
+
+#: lib/getopt.c:880
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: võti `-W %s' ei luba kasutada argumenti\n"

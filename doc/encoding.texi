@@ -1,0 +1,126 @@
+The known encodings are:
+@deftp {Encoding} {ASCII} (@file{ascii.edf})
+US-ASCII.
+@end deftp
+
+@deftp {Encoding} {HPRoman} (@file{hp.edf})
+The 8 bits Roman encoding for HP.
+@end deftp
+
+@deftp {Encoding} {IBM-CP437} (@file{ibm-cp437.edf})
+This encoding is meant to be used for PC files with drawing lines.
+@end deftp
+
+@deftp {Encoding} {IBM-CP850} (@file{ibm-cp850.edf})
+Several characters may be missing, especially Greek letters and some
+mathematical symbols.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-1} (@file{iso1.edf})
+The ISO-8859-1 character set, often simply referred to as Latin 1,
+covers most West European languages, such as French, Spanish, Catalan,
+Basque, Portuguese, Italian, Albanian, Rhaeto-Romanic, Dutch, German,
+Danish, Swedish, Norwegian, Finnish, Faroese, Icelandic, Irish,
+Scottish, and English, incidentally also Afrikaans and Swahili, thus
+in effect also the entire American continent, Australia and the
+southern two-thirds of Africa. The lack of the ligatures Dutch IJ,
+French OE and ,,German`` quotation marks is considered tolerable.
+
+The lack of the new C=-resembling Euro currency symbol U+20AC has
+opened the discussion of a new Latin0.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-2} (@file{iso2.edf})
+The Latin 2 character set supports the Slavic languages of Central
+Europe which use the Latin alphabet. The ISO-8859-2 set is used for
+the following languages: Czech, Croat, German, Hungarian, Polish,
+Romanian, Slovak and Slovenian.
+
+Support is provided thanks to Ogonkify.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-3} (@file{iso3.edf})
+This character set is used for Esperanto, Galician, Maltese and Turkish. 
+
+Support is provided thanks to Ogonkify.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-4} (@file{iso4.edf})
+Some letters were added to the ISO-8859-4 to support languages such as
+Estonian, Latvian and Lithuanian. It is an incomplete precursor of the
+Latin 6 set.
+
+Support is provided thanks to Ogonkify.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-5} (@file{iso5.edf})
+The ISO-8859-5 set is used for various forms of the Cyrillic
+alphabet. It supports Bulgarian, Byelorussian, Macedonian, Serbian and
+Ukrainian.
+
+The Cyrillic alphabet was created by St. Cyril in the 9th century from
+the upper case letters of the Greek alphabet. The more ancient
+Glagolithic (from the ancient Slav glagol, which means "word"), was
+created for certain dialects from the lower case Greek letters. These
+characters are still used by Dalmatian Catholics in their liturgical
+books. The kings of France were sworn in at Reims using a Gospel in
+Glagolithic characters attributed to St. Jerome.
+
+Note that Russians seem to prefer the KOI8-R character set to the ISO
+set for computer purposes. KOI8-R is composed using the lower half
+(the first 128 characters) of the corresponding American ASCII
+character set.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-7} (@file{iso7.edf})
+ISO-8859-7 was formerly known as ELOT-928 or ECMA-118:1986.  It is
+meant for modern Greek.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-9} (@file{iso9.edf})
+The ISO 8859-9 set, or Latin 5, replaces the rarely used Icelandic
+letters from Latin 1 with Turkish letters.
+
+Support is provided thanks to Ogonkify.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-10} (@file{iso10.edf})
+Latin 6 (or ISO-8859-10) adds the last letters from Greenlandic and
+Lapp which were missing in Latin 4, and thereby covers all
+Scandinavia.
+
+Support is provided thanks to Ogonkify.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-13} (@file{iso13.edf})
+Latin7 (ISO-8859-13) is going to cover the Baltic Rim and re-establish
+the Latvian (lv) support lost in Latin6 and may introduce the local
+quotation marks.
+
+Support is provided thanks to Ogonkify.
+@end deftp
+
+@deftp {Encoding} {ISO-8859-15} (@file{iso15.edf})
+The new Latin9 nicknamed Latin0 aims to update Latin1 by replacing
+some less needed symbols (some fractions and accents) with forgotten
+French and Finnish letters and placing the U+20AC Euro sign in the
+cell of the former international currency sign.
+
+Very few fonts yet offer the possibility to print the Euro sign.
+@end deftp
+
+@deftp {Encoding} {KOI8} (@file{koi8.edf})
+KOI-8 (+Ëë) is a subset of ISO-IR-111 that can be used in Serbia, Belarus
+etc.
+@end deftp
+
+@deftp {Encoding} {MS-CP1250} (@file{ms-cp1250.edf})
+Microsoft's CP-1250 encoding (aka CeP).
+@end deftp
+
+@deftp {Encoding} {Macintosh} (@file{mac.edf})
+For the Macintosh encoding.  The support is not sufficient, and a lot
+of characters may be missing at the end of the job (especially Greek
+letters).
+@end deftp
+

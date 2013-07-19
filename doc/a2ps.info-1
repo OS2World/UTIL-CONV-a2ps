@@ -1,0 +1,1374 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+File: a2ps.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
+
+a2ps
+****
+
+   GNU a2ps is a filter which generates PostScript from various formats,
+with pretty-printing features, strong support for many alphabets, and
+customizable layout.
+
+   This is Edition 4.13 of the a2ps documentation, updated 6 February
+2000.
+
+* Menu:
+
+* Introduction::                Foreword
+* User Guide::                  Beginner should start here
+* Invoking a2ps::               The command line options
+* Configuration Files::         Tuning your a2ps
+* Library Files::               Dynamic extension of a2ps
+* Encodings::                   Supporting various charsets
+* Pretty Printing::             Support for source files
+* PostScript::                  PostScript specific informations
+* Contributions::               Tools around a2ps
+* FAQ::                         Frequently Answered Questions
+* Glossary::                    Small Dictionary
+* Genesis::                     History of a2ps
+* Copying::                     Your rights and ours
+* Concept Index::               Most words used in here
+
+
+Introduction
+
+* Description::                 What a2ps is
+* Reporting Bugs::              What to do when you face problems
+* a2ps Mailing List::           Getting news about a2ps
+* Helping the Development::     How to contribute
+
+User's Guide
+
+* Purpose::                     What a2ps is made for
+* How to print::                The basis
+* Important parameters::        What needs to be set
+* Localizing::                  How to have a2ps speaking your language
+* Interfacing::                 Using a2ps from common programs
+
+How to print
+
+* Basics for Printing::         Printing text files
+* Special Printers::            Some useful fake printers
+* Using Delegations::           Printing special files (PS, DVI etc.)
+* Printing Duplex::             Doing Fancy Things
+* Checking the Defaults::       Is it set the way you want?
+
+Interfacing with Other Programs
+
+* Interfacing With a Mailer::   Printing Mails or News
+* Netscape::                    Interfacing with Netscape
+
+Invoking a2ps
+
+* Options::                     Command line options
+* Escapes::                     Strings ready to use in the headers
+
+Command line options
+
+* Tasks Options::               Exclusive options
+* Global Options::              Settings involving the whole process
+* Sheet Options::               Specify the layout on the sheet
+* Page Options::                Specify the virtual pages
+* Headings Options::            Specify the headers you want
+* Input Options::               How to process the input files
+* Pretty Print Options::        Source files support
+* Output Options::              What should be done of the output
+* PostScript Options::          PostScript specific options
+
+Escapes
+
+* Use of Escapes::              Where they are used
+* Structure of the Escapes::    Their syntax
+* Available Escapes::           Detailed list
+
+Configuration Files
+
+* Including Configuration Files::  Isolating site specific values
+* Your Library Path::           Setting the files search path
+* Your Default Options::        Default state of a2ps
+* Your Media::                  Sheets dimensions
+* Your Printers::               How to access the printers
+* Your Shortcuts::              Your very own command line options
+* Your PostScript magic number::  Handling very old printers
+* Your Page Labels::            Page names as in `Ghostview'
+* Your Variables::              Short cut for long sequences
+* Your Delegations::            Delegating some files to other filters
+* Your Internal Details::       Details you might want to tune
+
+Your Variables
+
+* Defining Variables::          Syntax and conventions
+* Predefined Variables::        Builtin variables
+
+Your Delegations
+
+* Defining a Delegation::       Syntax of the definitions of the delegations
+* Guide Line for Delegations::  What should be respected
+* Predefined Delegations::      Making the best use of these delegations
+
+Library Files
+
+* Documentation Format::        Special tags to write a documentation
+* Map Files::                   Their general shape and rationale
+* Font Files::                  Using other fonts
+* Style Sheet Files::           Defining pretty printing rules
+
+Font Files
+
+* Fonts Map File::              Mapping a font name to a file name
+* Fonts Description Files::     Needed files to use a Font
+* Adding More Font Support::    Using even more Fonts
+
+Encodings
+
+* What is an Encoding::         The concept of encoding explained
+* Encoding Files::              How a2ps handles the encodings
+
+Encoding Files
+
+* Encoding Map File::           Mapping an encoding name to a file name
+* Encoding Description Files::  Specifying an encoding
+* Some Encodings::              Classical or standard encodings
+
+Pretty Printing
+
+* Syntactic limits::            What can't be done
+* Known Style Sheets::          Some supported languages
+* Type Setting Style Sheets::   a2ps as a tiny word processor
+* Faces::                       Encoding the look of pieces of text
+* Style sheets semantics::      What is to be defined
+* Style Sheets Implementation::  How they should be defined
+* A tutorial on style sheets::  Step by step example
+
+Type Setting Style Sheets
+
+* Symbol::                      Access to the glyphs of the Symbol font
+* PreScript::                   Typesetting in an a2ps like syntax
+* PreTeX::                      Typesetting in a LaTeX like syntax
+* TeXScript::                   Typesetting in a mixture of both
+
+PreScript
+
+* Syntax::                      Lexical specifications
+* PreScript Commands::
+* PreScript examples::
+
+PreTeX
+
+* Special characters::
+* PreTeX Commands::
+* Differences with LaTeX::
+
+Style Sheets Semantics
+
+* Name and key::                Both names of a style sheet
+* Comments::                    Author name, version etc.
+* Alphabets::                   What words are legal
+* Case sensitivity::            Is BEGIN different of begin
+* P-Rules::                     Pretty Printing Rules
+* Sequences::                   Strings, comments etc.
+* Optional entries::            Second level of pretty printing
+
+Style Sheets Implementation
+
+* A Bit of Syntax::             Lexical rules of the ssh language
+* Style Sheet Header::          Declaration of a style
+* Syntax of the Words::         Classes of the Characters
+* Inheriting::                  Extending existing style sheets
+* Syntax for the P-Rules::      Atomic Pretty Printing rules
+* Declaring keywords and operators::  Special Classes of Identifiers
+* Declaring sequences::         Bordered Lexical Entities
+* Checking a Style Sheet::      Ask a2ps to Check the Sheet
+
+A Tutorial on Style Sheets
+
+* Example and syntax::          ChangeLog files
+* Implementation::              Implementation of chlog.ssh
+* The Entry in sheets.map::     Getting automatic style selection
+* More Sophisticated Rules::    Complex regular expressions
+* Distributed Style Sheets::    Additional Constraints
+
+PostScript
+
+* Good and Bad PostScript::     How to lose, how to win
+* Page Device Options::         Accessing some printers' features
+* Statusdict Options::          Some other features
+* Colors in PostScript::        Specifying a color or a gray
+* a2ps PostScript Files::       Convention for PostScript library files
+* Designing PostScript Prologues::  Make it look like what you want
+
+Designing PostScript Prologues
+
+* Definition of the faces::     What goes in a characters style
+* Prologue File Format::        Including documentation
+* A prologue example::          A step by step example
+
+Contributions
+
+* card::                        Printing Reference Cards
+* fixps::                       Fixing Some Ill Designed PostScript Files
+* fixnt::                       Fixing Microsoft NT PostScript Files
+* pdiff::                       Produce Pretty Comparison of Files
+* psmandup::                    Printing Duplex on Simplex Printers
+* psset::                       Inserting calls to setpagedevice
+
+`card'
+
+* Invoking card::               Command Line Interface
+* Caution when Using card::     card runs commands
+
+`fixps'
+
+* Invoking fixps::              Command Line Interface
+
+`fixnt'
+
+* Invoking fixnt::              Command Line Interface
+
+`pdiff'
+
+* Invoking pdiff::              Command Line Interface
+
+`psmandup'
+
+* Invoking psmandup::           Command Line Interface
+
+`psset'
+
+* Invoking psset::              Command Line Interface
+
+Frequently asked questions
+
+* Why Does ...?::               Questions on Error
+* How Can I ...?::              a2ps' How-To
+* Please tell me...::           Existential Questions on a2ps
+
+Why Does...?
+
+* It Prints Nothing::           The printer issues nothing
+* It Prints in Simplex::        While I asked for Duplex
+* It Prints in Duplex::         While I asked for Simplex
+* It Does Not Fit on the Paper::  Some parts are missing
+* It Prints Junk::              Random characters
+* It Says my File is Binary::   And refuses to print it
+* It Refuses to Change the Font Size::
+
+How Can I ...?
+
+* Leave Room for Binding::      Specifying Margins
+* Print stdin::                 Using a2ps in a pipe chain
+* Change the Fonts::            Tired of Courier?
+* The Old Option -b?::          Printing in Bold
+* Pass Options to lpr::         Disable the banner
+* Non PostScript Printers::     Using GhostScript
+* Man Pages with Underlines::   Now it Prints With Italics
+
+Please tell me...
+
+* Is a2ps Y2K compliant?::      Printing dates in short format
+* The Options Have Changed::    Respect The Users
+* Why not using yacc::          Why Using Style Sheets
+
+Genesis
+
+* History::                     Where does it come from
+* Thanks::                      People who really helped
+* Translators::                 People who brought support of your tongue
+
+
+File: a2ps.info,  Node: Introduction,  Next: User Guide,  Prev: Top,  Up: Top
+
+Introduction
+************
+
+   This document describes GNU a2ps version 4.13.  The latest versions
+may be found on the a2ps home page
+(http://www.inf.enst.fr/~demaille/a2ps).
+
+   We tried to make this document informative and pleasant.  It tries
+to be more than a plain reference guide, and intends to offer
+information about the concepts or tools etc. that are related to
+printing PostScript.  This is why it is now that big: to offer you all
+the information you might want, *not* because a2ps is difficult to use.
+*Note Glossary::, for technical words or even general information.
+
+   Please, send us emailcards `:)'. Whatever the comment is, or if you
+just like a2ps, write to Miguel Santana <Miguel.Santana@st.com> and
+Akim Demaille <akim@freefriends.org>.
+
+* Menu:
+
+* Description::                 What a2ps is
+* Reporting Bugs::              What to do when you face problems
+* a2ps Mailing List::           Getting news about a2ps
+* Helping the Development::     How to contribute
+
+
+File: a2ps.info,  Node: Description,  Next: Reporting Bugs,  Prev: Introduction,  Up: Introduction
+
+Description
+===========
+
+   a2ps formats files for printing on a PostScript printer.
+
+   The format used is nice and compact: normally two pages on each
+physical page, borders surrounding pages, headers with useful
+information (page number, printing date, file name or supplied header),
+line numbering, pretty-printing, symbol substitution etc.  This is very
+useful for making archive listings of programs or just to check your
+code in the bus.  Actually a2ps is kind of bootstrapped: its sources
+are frequently printed with a2ps `:)'.
+
+   While at the origin its names was derived from "ASCII to PostScript",
+today we like to think of it as "Any to PostScript".  Indeed, a2ps
+supports "delegations", i.e., you can safely use a2ps to print DVI,
+PostScript, LaTeX, JPEG etc., even compressed.
+
+   A short list of features of a2ps might look like this:
+   - Customizable through various configuration files (*note
+     Configuration Files::)
+
+   - Powerful escapes to define the headers, table of contents etc. the
+     way you want (*note Escapes::);
+
+   - Variables to push even further the customizability in a comfortable
+     manner (*note Your Variables::);
+
+   - Open approach of encodings (*note Encodings::);
+
+   - Excellent support of the Latin 2, 3, 4, 5 and 6 encodings, thanks
+     to `Ogonkify' (*note Overview: (ogonkify)top.), written by Juliusz
+     Chroboczek.
+
+   - Fully customizable output style: fonts, background and foreground
+     colors, line numbering style etc. (*note Designing PostScript
+     Prologues::).
+
+   - Possibility to delegate the processing of some files to other
+     filters (*note Your Delegations::).
+
+   - Many contributions, e.g., pretty-print diffs, print reference
+     cards of programs, sanitize broken PostScript files, print Duplex
+     on Simplex printers etc. (*note Contributions::).
+
+   - And finally, the ability to pretty-print sources written in quite a
+     few various languages (*note Pretty Printing::).
+
+
+File: a2ps.info,  Node: Reporting Bugs,  Next: a2ps Mailing List,  Prev: Description,  Up: Introduction
+
+Reporting Bugs
+==============
+
+   We try hard to make a2ps portable on any Unix platform, and bug free.
+But sometimes there can still be bad surprises, even after having
+compiled and checked a2ps on several very different platforms.
+
+   You may encounter some of these problems yourself.  In any case,
+please never abandon without giving us a chance.  We need information
+from everybody so that mistakes get fixed as fast as possible.
+
+   So, if you have a problem (configuration error, compilation error,
+runtime error, documentation error or unclear), first check in the FAQ
+(*note FAQ::), then on the page Known a2ps Bugs
+(http://www.inf.enst.fr/~demaille/a2ps/bugs.html) if the issue has not
+been addressed yet.  If it is not the case, but it appears that the
+version of a2ps you have is old, consider upgrading.
+
+   If the problem persists, send us a mail (<bug-a2ps@gnu.org>) which
+subject is `a2ps VERSION: SHORT-DESCRIPTION' and which content mentions
+the name of your machine and OS, the version of a2ps, every detail you
+have on your compiler, and as much traces as possible (the error
+messages you get on the screen, or the output of `make' when it fails
+etc.).
+
+   Be sure to get a quick answer.
+
+
+File: a2ps.info,  Node: a2ps Mailing List,  Next: Helping the Development,  Prev: Reporting Bugs,  Up: Introduction
+
+a2ps Mailing List
+=================
+
+   There is a mailing list in which are discussed various topics around
+a2ps: <a2ps@gnu.org>.  There are also announcements about the version
+in alpha testing, requests for comments, new sheets, etc.
+
+   To subscribe to the list, send a mail to <a2ps-request@gnu.org>,
+with `subscribe' in the body.
+
+   Please, note that the mailing list is by no means a bug reporting
+address: use <bug-a2ps@gnu.org> instead.
+
+
+File: a2ps.info,  Node: Helping the Development,  Prev: a2ps Mailing List,  Up: Introduction
+
+Helping the Development
+=======================
+
+   If you like a2ps and if you feel like helping, there are several
+things you can do.
+
+_Testing_
+     You just can't imagine how hard it is to make sure that the
+     program that works perfectly here will work on your machine.
+     Actually, in general the last weeks before a release are mostly
+     dedicated to (Unix) portability issues.
+
+     So we *need* beta-testers!  To be one is fairly simple: subscribe
+     to the mailing-list where the betas are announced and distributed.
+
+_Translation_
+     The interface of a2ps is under `GNU gettext' which means that all
+     the messages can be translated, without having to look at the code
+     of a2ps: you don't need to be a programmer at all.  All the
+     details are available on the a2ps translation page
+     (http://www.inf.enst.fr/~demaille/a2ps/po/).
+
+_Style Sheets_
+     Since a2ps is evolving and getting more powerful, the style sheets
+     should be checked and improved.  There are too many so that the
+     authors work on them.  Therefore if you feel your favorite
+     language is not honored as it should be, improve the style sheet!
+     (*note Pretty Printing:: for details.)
+
+_Encodings_
+     a2ps is wide open to any 8-bit encoding.  If your language is not
+     covered today by a2ps, you can easily provide the support yourself.
+     Honestly, the trickiest part is to find correct *free* fonts that
+     support your mother tongue (*note Encoding Files::, to know more).
+
+_Fonts_
+     There are still some characters missing in Ogonkify. See the list
+     of missing characters
+     (http://www.dcs.ed.ac.uk/home/jec/ogonkify/missing.html) and the
+     Ogonkify home page (http://www.dcs.ed.ac.uk/home/jec/ogonkify/)
+     for details.
+
+_Documentation_
+     If you feel something is missing or is unclear, send us your
+     contributions.
+
+_Porting_
+     Porting a program to special architectures (MS-DOS, OS/2 etc.), or
+     building special packages (e.g., RPM) requires having an access to
+     these architectures.  If you feel like maintaining such a port,
+     tell us.
+
+_Features_
+     Well, if you feel like doing something else, go ahead!  But
+     contact us, because we have quite a big stack of things we want to
+     do or have started to do, and synchronizing might be useful.
+
+
+File: a2ps.info,  Node: User Guide,  Next: Invoking a2ps,  Prev: Introduction,  Up: Top
+
+User's Guide
+************
+
+   This chapter is devoted to people who don't know a2ps yet: we try to
+give a soft and smooth introduction to the most useful features.  For a
+reference manual, see *Note Invoking a2ps::.  For the definition of some
+words, see *Note Glossary::, for questions you have, see *Note FAQ::.
+
+* Menu:
+
+* Purpose::                     What a2ps is made for
+* How to print::                The basis
+* Important parameters::        What needs to be set
+* Localizing::                  How to have a2ps speaking your language
+* Interfacing::                 Using a2ps from common programs
+
+
+File: a2ps.info,  Node: Purpose,  Next: How to print,  Prev: User Guide,  Up: User Guide
+
+Purpose
+=======
+
+   a2ps is a program that takes a text file (i.e., human readable), and
+makes a PostScript file out of it.  Typically output is sent to a
+printer.
+
+
+File: a2ps.info,  Node: How to print,  Next: Important parameters,  Prev: Purpose,  Up: User Guide
+
+How to print
+============
+
+   To print a file `doc.txt', just give it to a2ps: the default setting
+should be the one you'd like:
+     gargantua ~ $ a2ps doc.txt
+     [doc.txt (plain): 9 pages on 5 sheets]
+     [Total: 9 pages on 5 sheets] sent to the default printer
+
+   a2ps sent the file `doc.txt' to the default printer, writing two
+columns of text on a single face of the sheet.  Indeed, by default
+a2ps uses the option `-2', standing for two virtual pages.
+
+* Menu:
+
+* Basics for Printing::         Printing text files
+* Special Printers::            Some useful fake printers
+* Using Delegations::           Printing special files (PS, DVI etc.)
+* Printing Duplex::             Doing Fancy Things
+* Checking the Defaults::       Is it set the way you want?
+
+
+File: a2ps.info,  Node: Basics for Printing,  Next: Special Printers,  Prev: How to print,  Up: How to print
+
+Basics for Printing
+-------------------
+
+   Say you want to print the C file `bar.c', and its header `foo.h', on
+4 virtual pages, and save it into the file `foobar.ps'.  Just hit:
+     gargantua $ a2ps foo.h bar.c -4 -o foobar.ps
+     [foo.h (C): 1 page on 1 sheet]
+     [bar.c (C): 3 pages on 1 sheet]
+     [Total: 4 pages on 2 sheets] saved into the file `foobar.ps'
+
+   The option `-4' tells a2ps to make four virtual pages: two rows by
+two columns.  The option `-o foobar.ps' (which is the short version of
+`--output=foobar.ps') specifies the output file. Long options must
+always be separated by spaces, though short options with no arguments
+may be grouped.
+
+   Note too that the options may be specified before or after the
+files, it does not matter.
+
+   If you send `foobar.ps' to a printer, you'll discover that the
+keywords were highlighted, that the strings and comments have a
+different face.  Indeed, a2ps is a "pretty-printer": if it knows the
+(programming) language in which your file is written, it will try to
+make it look nice and clear on the paper.
+
+   But too bad: `foo.h' is only one virtual page long, and `bar.c'
+takes three.  Moreover, the comments are essential in those files.  And
+even worse: the system's default printer is out of ink.  Thanks god,
+precious options may help you:
+     gargantua $ a2ps -4 -Av foo.h bar.c --prologue=gray -P lw
+     [foo.h (C): 1 page on 1 sheet]
+     [bar.c (C): 3 pages on 1 sheet]
+     [Total: 4 pages on 1 sheet] sent to the printer `lw'
+
+   Here the option `-A' is a short cut for the option `--file-align'
+which specifies how different files should be separated.  This option
+allows several symbolic arguments: `virtual', `rank', `page', `sheet'
+(*Note Sheet Options::, for more details).  The value `virtual' means
+not to start each file on a different virtual pages.
+
+   So to fill the page is asked by `--file-align=virtual', or `-A
+virtual'.  But symbolic arguments can be abbreviated when there are no
+ambiguity, so here, you can just use `-Av'.
+
+   The option `-P lw' means to print on the printer named `lw', and
+finally, the long option `--prologue' requires the use one of the
+alternative printing styles.  There are other prologues (*Note Input
+Options::, option `--prologue'), and you can even design yours (*note
+Designing PostScript Prologues::).
+
+
+File: a2ps.info,  Node: Special Printers,  Next: Using Delegations,  Prev: Basics for Printing,  Up: How to print
+
+Special Printers
+----------------
+
+   There are three special printers pre-defined.
+
+   The first one, `void', sends the output to the trash.  Its main use
+is to see how many pages would have been used.
+     gargantua ~ $ a2ps -P void parsessh.c
+     [parsessh.c (C): 33 pages on 17 sheets]
+     [Total: 33 pages on 17 sheets] sent to the printer `void'
+
+   The second, `display' sends the output to `Ghostview', so that you
+can check the output without printing.  Of course if you don't have
+`Ghostview', it won't work...  And it is up to you to configure another
+displaying application (*note Your Printers::).
+
+   The last, `file' saves the output into a file named after the file
+you printed (e.g., saves into `foo.ps' when you print `foo.c').
+
+
+File: a2ps.info,  Node: Using Delegations,  Next: Printing Duplex,  Prev: Special Printers,  Up: How to print
+
+Using Delegations
+-----------------
+
+   a2ps can decide that a2ps itself is not the right tool to do what
+you want.  In that case it delegates the task to other programs.  What
+you should retain from this, is, _forget that there are delegations_.
+Indeed, the interface with the delegations has been designed so that
+you don't need to be aware that they exist to use them.  Do as usual.
+
+   As an example, if you need to print a PostScript file, just hit:
+     gargantua ~ $ a2ps article.ps -d
+     [article.ps (ps, delegated to PsNup): 7 pages on 4 sheets]
+     [Total: 8 pages on 4 sheets] sent to the default printer
+
+   While honoring your defaults settings, a2ps delegates the task to put
+two virtual pages per physical page to `psnup', a powerful filter part
+of the famous `psutils' by Angus Duggan.
+
+   Suppose now that you want to display a Texinfo file. Then, provided
+you have all the programs a2ps needs, just hit
+     gargantua ~ $ a2ps a2ps.texi -P display
+     [a2ps.texi (texinfo, delegated to texi2dvi): 75 pages on 38 sheets]
+     [Total: 76 pages on 38 sheets] sent to the printer `display'
+
+   Once the read documentation, you know you want to print just pages
+10 to 20, plus the cover.  Just hit:
+     gargantua ~ $ a2ps a2ps.texi --pages=1,10-20 -d
+     [a2ps.texi (texinfo, delegated to texi2dvi): 13 pages on 7 sheets]
+     [Total: 14 pages on 7 sheets] sent to the default printer
+
+   A final word: compressed files can be treated in the very same way:
+     gargantua ~ $ a2ps a2ps.texi.gz -a1,10-20 -d
+     [a2ps.texi (compressed, delegated to Gzip-a2ps): 13 pages on 7 sheets]
+     [Total: 14 pages on 7 sheets] sent to the default printer
+
+   You should be aware that:
+   - the option `-Z' enables the delegations if they are not (see
+     `--list=defaults' for your settings);
+
+   - the set of delegations is customizable, to know the delegations
+     your a2ps knows, consult `a2ps --list=delegations'.
+
+
+File: a2ps.info,  Node: Printing Duplex,  Next: Checking the Defaults,  Prev: Using Delegations,  Up: How to print
+
+Printing Duplex
+---------------
+
+   If you still want to save more paper, and you are amongst the set of
+happy users of Duplex printers, a2ps will also be able to help you
+(*Note Glossary::, for definitions).  The option to specify Duplex
+printing is `--sides=MODE' (*note PostScript Options::).
+
+   Here is how to print the documentation in Duplex and send it to the
+Duplex printer `margot':
+     quasimodo ~ a2ps/doc $ a2ps -s2 -Pmargot a2ps.texi
+     [a2ps.texi (texinfo, delegated to texi2dvi): 109 pages on 28 sheets]
+     [Total: 110 pages on 28 sheets] sent to the printer `margot'
+This is also valid for several files.
+
+   Actually, you can do something even more tricky: print a small book!
+This is much more complicated than printing Duplex, because the pages
+needs to be completely reorganized another way.  This is precisely the
+job of `psbook', yet another PsUtil from Angus Duggan.  But there is a
+user option which encapsulates the magic sequence of options: `book'.
+Therefore, just run
+     quasimodo a2ps/doc $ a2ps -=book -Pmargot a2ps.texi
+     [a2ps.texi (texinfo, delegated to texi2dvi): 109 pages on 109 sheets]
+     [Total: 109 pages on 109 sheets] sent to the printer `margot'
+
+and voila` !, a booklet printed on margot!
+
+   We strongly discourage you to try with several files at once, because
+the tools then easily get lost.  And, after all, the result will be
+exactly the same once you collated all the booklets together.
+
+   Another limitation is that this does not work if it is not sent to a
+printer.  This kind of weird limitations will be solved in the future.
+
+
+File: a2ps.info,  Node: Checking the Defaults,  Prev: Printing Duplex,  Up: How to print
+
+Checking the Defaults
+---------------------
+
+   If a2ps did not have the behavior expected, this may be because of
+the default settings given by your system administrator.  Checking
+those default values is easy:
+     ~ % a2ps --list=defaults
+                     Configuration status of a2ps 4.12a
+                     ==================================
+     Sheets:
+     -------
+       medium          = A4, portrait
+       page layout     = 1 x 1, rows first
+       borders         = yes
+       file alignment  = page
+       interior margin = 0
+     _More stuff deleted here_
+     Internals:
+     ----------
+       verbosity level     = 2
+       file command        = /usr/bin/file -L
+       temporary directory = /tmp
+       library path        =
+             /home/akim/.a2ps
+             /usr/share/a2ps/sheets
+             /usr/share/a2ps/ps
+             /usr/share/a2ps/encoding
+             /usr/share/a2ps/afm
+             /usr/share/ogonkify/afm
+             /usr/share/a2ps/ppd
+             /usr/share/a2ps/fonts
+             /usr/share/ogonkify/fonts
+             /usr/share/a2ps
+
+   Remember that the on-line help is always available.  Moreover, if
+your screen is small, you may _pipe_ it into `more'.  Just trust this:
+     a2ps --help | more
+
+
+File: a2ps.info,  Node: Important parameters,  Next: Localizing,  Prev: How to print,  Up: User Guide
+
+Important parameters
+====================
+
+   Many things are parameterizable in a2ps, but two things are just
+essential to make sure everything goes right:
+*The paper*
+     Make sure that the paper a2ps uses is the same as your printer
+     (*Note Sheet Options::, option `--medium').
+
+*The encoding*
+     Make sure that the _encoding_ a2ps uses is the same as the
+     standard alphabet in your country (*Note Input Options::, option
+     `--encoding').
+
+   Both values may be checked with `a2ps --list=defaults'.
+
+
+File: a2ps.info,  Node: Localizing,  Next: Interfacing,  Prev: Important parameters,  Up: User Guide
+
+Localizing
+==========
+
+   a2ps provides some Native Language Support, that is speaking your
+mother tongue.  It uses three special features for non-English
+languages:
+_the tongue_
+     i.e., the language used by the interface,
+
+_the date_
+     i.e., the format and the words used in the language to specify a
+     date.
+
+   To enable these features, properly set your environment variable
+`LANG' (see the documentation of your system, for instance `man
+locale', `man environ' etc.).
+
+   The problem with this approach is that a lot more than just messages
+and time information is affected: especially the way numbers are written
+changes, what may cause problems with `awk' and such.
+
+   So if you just want messages and time format to be localized, then
+define:
+     set LC_MESSAGES=fr ; export LC_MESSAGES
+     set LC_TIME=fr     ; export LC_TIME
+
+
+File: a2ps.info,  Node: Interfacing,  Prev: Localizing,  Up: User Guide
+
+Interfacing with Other Programs
+===============================
+
+   Here are some tips on how to use a2ps with other programs.
+
+* Menu:
+
+* Interfacing With a Mailer::   Printing Mails or News
+* Netscape::                    Interfacing with Netscape
+
+
+File: a2ps.info,  Node: Interfacing With a Mailer,  Next: Netscape,  Prev: Interfacing,  Up: Interfacing
+
+Interfacing With a Mailer
+-------------------------
+
+   When you print from a mailer (or a news reader), your mailer calls a
+tool, say a2ps on a part of the whole mailbox.  This makes it difficult
+for a2ps to guess that the file is of the type `mail'.  Therefore, for
+better results, make sure to tell a2ps the files are mails.  The user
+option `mail' (or `longmail' for longer inputs) encapsulates most
+typical tuning users want to print mails (for instance, don't print all
+the headers).
+
+   Most specifically, if your mailer is:
+`elm'
+     Once you are in elm, hit `o' to enter in the options edition menu,
+     hit `p' to edit the printer command, and enter `a2ps -=mail %s
+     -d'.  The option `-d' means to print on the default printer.
+
+`pine'
+     Jan Chrillesen <jan@chrillesen.dk> suggests us how to use a2ps
+     with the Pine mail-reader.  Add the following to `.pinerc' (of
+     course you can put it in `pine.conf' as well):
+          # Your printer selection
+          printer=a2ps -=mail -d
+          
+          # Special print command
+          personal-print-command=a2ps -=mail -d
+
+
+File: a2ps.info,  Node: Netscape,  Prev: Interfacing With a Mailer,  Up: Interfacing
+
+Netscape
+--------
+
+   This is actually valid for any program that generates PostScript that
+you want to post-process with a2ps.  Use the following command:
+     a2ps
+
+Not too hard, isn't it?
+
+   Nevertheless, this setting suppose your world is OK, your `file(1)'
+detects correctly PostScript files, and your a2ps is configured to
+delegate.  In case one one these conditions is not met, use:
+     a2ps -ZEps
+
+   Do not forget to tell Netscape whether your printer supports colors,
+and the type of paper it uses.
+
+
+File: a2ps.info,  Node: Invoking a2ps,  Next: Configuration Files,  Prev: User Guide,  Up: Top
+
+Invoking a2ps
+*************
+
+   Calling a2ps is fairly simple:
+     a2ps OPTIONS... FILES...
+
+   If no FILES... are given, a2ps prints its standard input.  If `-'
+appears in the FILES..., it designates the standard input too.
+
+* Menu:
+
+* Options::                     Command line options
+* Escapes::                     Strings ready to use in the headers
+
+
+File: a2ps.info,  Node: Options,  Next: Escapes,  Prev: Invoking a2ps,  Up: Invoking a2ps
+
+Command line options
+====================
+
+   To read the options and arguments that you give, a2ps uses GNU
+`getopt', hence:
+
+   - the options (short with arguments or long) must be separated by
+     spaces.
+
+   - the order between options and files does not matter: `a2ps -4m
+     main.c' and `a2ps main.c -4m' are identical.
+
+   - the order between options *does matter*, especially between
+     options that influence the same parameters.  For instance `a2ps -1
+     -l132' is not the same as `a2ps -l132 -1' (the latter being
+     equivalent to `a2ps -1').
+
+   - short options may be grouped together: `a2ps -4mg main.c -P
+     printer'
+
+   - when there are no ambiguities, long options can be abbreviated,
+     e.g., `--pro' will be understood as `--prologue',
+
+   - `--' ends the options.  Anything behind `--' is considered to be a
+     file: `a2ps -- -2' prints the file `-2'(1).
+
+
+   Here after a BOOLEAN is considered as true (i.e. setting the option
+on), if BOOLEAN is `yes', or `1'; as false if it equals `no' or `0';
+and raise an error otherwise.  The corresponding short option takes no
+arguments, but corresponds to a positive answer.
+
+   When an argument is presented between square brackets, it means that
+it is optional.  Optional arguments to short option must never be
+separated from the option.
+
+* Menu:
+
+* Tasks Options::               Exclusive options
+* Global Options::              Settings involving the whole process
+* Sheet Options::               Specify the layout on the sheet
+* Page Options::                Specify the virtual pages
+* Headings Options::            Specify the headers you want
+* Input Options::               How to process the input files
+* Pretty Print Options::        Source files support
+* Output Options::              What should be done of the output
+* PostScript Options::          PostScript specific options
+
+   ---------- Footnotes ----------
+
+   (1) A classical Unix trick to make the difference between the option
+`-2', and the file `-2' is to type `./-2'.
+
+
+File: a2ps.info,  Node: Tasks Options,  Next: Global Options,  Prev: Options,  Up: Options
+
+Tasks Options
+-------------
+
+   Task options specify the task a2ps will perform.  It will not print,
+it executes the task and exits successfully.
+
+ - Option: --version
+     print version and exit successfully.
+
+ - Option: --help
+     Print a short help, and exit successfully.
+
+ - Option: --copyright
+     Display Copyright and copying conditions, and exit successfully.
+
+ - Option: --guess
+     Act like `file' does: display the (key of the) type of the FILES.
+
+     For instance, on a `C' file, you expect it to answer `c', and upon
+     a PostScript file, `ps'.
+
+     This can be very useful on broken systems to understand why a file
+     is printed with a bad style sheet (*note Style Sheet Files::).
+
+ - Option: --which
+     Look in the library for the files which names are given as
+     arguments.  For instance:
+
+          ~ % a2ps --which bw.pro gray.pro
+          /usr/local/share/a2ps/ps/bw.pro
+          /usr/local/share/a2ps/ps/gray.pro
+
+     If there are several library files matching the name, only the
+     first one is reported: this allows to check which occurrence of a
+     file is used by a2ps.
+
+ - Option: --glob
+     Look in the library for the files which names match the patterns
+     given as arguments.  For instance:
+
+          ~ % a2ps --glob 'g*.pro'
+          /usr/local/share/a2ps/ps/gray.pro
+          /usr/local/share/a2ps/ps/gray2.pro
+
+ - Option: --list=TOPIC
+     Display a report on a2ps' status with respect to TOPIC, and exit
+     successfully.  TOPIC can be any non-ambiguous abbreviation of:
+    `defaults'
+    `options'
+          Give an extensive report on a2ps configuration and
+          installation.
+
+    `features'
+          Known media, encodings, languages, prologues, printers,
+          variables, delegations and user options are reported.  In a
+          word, anything that you may define.
+
+    `delegations'
+          Detailed list of the delegations.  *Note Your Delegations::.
+
+    `encodings'
+          Detailed list of known encodings.  *Note Some Encodings::.
+
+    `media'
+          Detailed list of known media. *Note Your Media::.
+
+    `prologues'
+          Detailed list of PostScript prologues.  *Note Designing
+          PostScript Prologues::.
+
+    `printers'
+          Detailed list of printers and named outputs.  *Note Your
+          Printers::.
+
+    `style-sheets'
+          Detailed list of the known style sheets. *Note Known Style
+          Sheets::.
+
+    `user-options'
+          Detailed list of the user options. *Note Your Shortcuts::.
+
+    `variables'
+          Detailed list of the variables.  *Note Your Variables::.
+
+     There are also options meant for the maintainers only, presented
+     for sake of completeness.
+    `texinfo-style-sheets'
+    `ssh-texi'
+          Detailed list of known style sheets in Texinfo format.  If the
+          `sheet' verbosity is set, report version numbers,
+          requirements and ancestors.
+
+    `html-style-sheets'
+    `ssh-html'
+          Detailed list of the style sheets in `HTML' format.
+
+    `texinfo-encodings'
+    `edf-texi'
+          Detailed list of encodings, in Texinfo format.
+
+    `texinfo-prologues'
+    `pro-texi'
+          Detailed list of prologues, in Texinfo format.
+
+
+
+File: a2ps.info,  Node: Global Options,  Next: Sheet Options,  Prev: Tasks Options,  Up: Options
+
+Global Options
+--------------
+
+   These options are related to the interface between you and a2ps.
+
+ - Option: -q
+ - Option: --quiet
+ - Option: --silent
+     be really quiet
+
+ - Option: -v[LEVEL]
+ - Option: --verbose[=LEVEL]
+     tell what we are doing.  At
+        - LEVEL = 0, report nothing,
+
+        - LEVEL = 1, a2ps just prints the total number of pages printed,
+
+        - LEVEL = 2 (default), it reports it for each file,
+
+        - above, it gives internal details.
+     There is also an interface made for the maintainer with finer
+     grained selection of the verbosity level.  LEVEL is a list of
+     tokens (non ambiguous abbreviations are valid) separated by either
+     `,' or `+'.  The tokens may be:
+    `configuration'
+    `options'
+          reading the configurations files and the options,
+
+    `encodings'
+          the encodings,
+
+    `expert'
+          more detailed information is provided: PPD listings is
+          exhaustive,
+
+    `files'
+          inputs and outputs,
+
+    `fonts'
+          the fonts,
+
+    `escapes'
+    `variables'
+    `meta-sequences'
+          the expansion of escapes and variables,
+
+    `parsers'
+          any parsing process (style sheets, PPD files etc.),
+
+    `pathwalk'
+    `pw'
+          the search for files,
+
+    `ppd'
+          PPD processing,
+
+    `sheets'
+          the style sheets,
+
+    `stats'
+          statistics on some internal data structures,
+
+    `tools'
+          launched programs or shell commands ; triggers the escape
+          `?V' on (*note Available Escapes::),
+
+    `all'
+          all the messages.
+
+     When a2ps is launched it consults the environment variable
+     `A2PS_VERBOSITY'.  If it is set, this defines the verbosity level
+     for the whole session (options `--verbose', and `-q' etc.  have
+     then no influence).  The valid values for `A2PS_VERBOSITY' are
+     exactly the valid arguments of the option `--verbose'.  This helps
+     tracking down configuration problems that occur _before_ a2ps had
+     even a chance to read the command line.
+
+ - Option: -=SHORTCUT
+ - Option: --user-option=SHORTCUT
+     use the SHORTCUT defined by the user. *Note Your Shortcuts::.
+     Shortcuts may be freely mixed with regular options and arguments.
+
+     There are a few predefined user-options:
+    `lp'
+          emulates a line printer, i.e., turn off most `pretty'
+          features.
+
+    `mail'
+    `longmail'
+          preferred options to print a mail or a news.  `longmail'
+          prints more text on a single sheet.
+
+    `manual'
+          make the job be printed on the manually fed tray.
+
+
+ - Option: --debug
+     enable debugging features.  They are:
+        - print the overall BoundingBox in PostScript;
+
+        - down load a PostScript debugger which helps understanding why
+          a printer may reject a file.
+
+ - Option: -D KEY[=VALUE]
+ - Option: --define=KEY[=VALUE]
+     Without VALUE, unset the variable KEY.  Otherwise, set it to
+     VALUE. *Note Your Variables::, for more details.  Note that
+     `-Dfoo=' gives FOO an empty value, though `-Dfoo' unsets foo.
+
+
+File: a2ps.info,  Node: Sheet Options,  Next: Page Options,  Prev: Global Options,  Up: Options
+
+Sheet Options
+-------------
+
+   This options specify the general layout, how the sheet should be
+used.
+
+ - Option: -M MEDIUM
+ - Option: --medium=MEDIUM
+     use output medium MEDIUM.  See the output of `a2ps --list=media'
+     for the list of supported media.  Typical values are `A3', `A4',
+     `A5', `B4', `B5', `Letter', `Legal'.
+
+     `A4dj', `Letterdj' are also defined for Desk Jet owners, since
+     that printer needs bigger margins.
+
+     The special MEDIUM `libpaper' means that you want a2ps to ask the
+     library `libpaper' for the medium to use.  This choice is valid
+     only if `libpaper' was available when a2ps was configured.  See
+     the man page of `paperconf' for more information.
+
+ - Option: -r
+ - Option: --landscape
+     print in landscape mode
+
+ - Option: -R
+ - Option: --portrait
+     print in portrait mode
+
+ - Option: --columns=NUM
+     specify the number of columns of virtual pages per physical page.
+
+ - Option: --rows=NUM
+     specify the number of rows of virtual pages per physical page.
+
+ - Option: --major=DIRECTION
+     specify whether the virtual pages should be first filled in rows
+     (DIRECTION = `rows') or in columns (DIRECTION = `columns').
+
+ - Option: -1
+     1 x 1 portrait, 80 chars/line, major rows (i.e. alias for
+     `--columns=1 --rows=1 --portrait --chars-per-line=80
+     --major=rows').
+
+ - Option: -2
+     2 x 1 landscape, 80 chars/line, major rows.
+
+ - Option: -3
+     3 x 1 landscape, 80 chars/line, major rows.
+
+ - Option: -4
+     2 x 2 portrait, 80 chars/line, major rows.
+
+ - Option: -5
+     5 x 1 landscape, 80 chars/line, major rows.
+
+ - Option: -6
+     3 x 2 landscape, 80 chars/line, major rows.
+
+ - Option: -7
+     7 x 1 landscape, 80 chars/line, major rows.
+
+ - Option: -8
+     4 x 2 landscape, 80 chars/line, major rows.
+
+ - Option: -9
+     3 x 3 portrait, 80 chars/line, major rows.
+
+ - Option: -j
+ - Option: --borders=BOOLEAN
+     print borders around virtual pages.
+
+ - Option: -A MODE
+ - Option: --file-align=MODE
+     Align separate files according to MODE.  This option allows the
+     printing of more than one file on the same page.  MODE can be any
+     one of:
+    `virtual'
+          Each file starts on the next available virtual page (i.e.,
+          leave no empty virtuals).
+
+    `rank'
+          Each file starts at the beginning of the next row or column
+          depending on the `--major' setting.
+
+    `page'
+          Each file starts on a new page.
+
+    `sheet'
+          Each file starts on a new sheet.  In Simplex mode, this is
+          the same as `page', in Duplex mode, files always start on a
+          front side.
+
+    an integer NUM
+          Each file starts on a page which is a multiple of NUM plus 1.
+          For instance, for `2', the files must start on odd pages.
+
+ - Option: --margin[=NUM]
+     Specify the size of the margin (NUM PostScript points, or 12
+     points without arguments) to leave in the inside (i.e. left for the
+     front side page, and right for the back side).  This is intended
+     to ease the binding.
+
+
+File: a2ps.info,  Node: Page Options,  Next: Headings Options,  Prev: Sheet Options,  Up: Options
+
+Page Options
+------------
+
+   This options are related to the content of the virtual pages.
+
+   Please note that the options `-f', `-L', `-l', `-m', and `-1' ..
+`-9' all have an influence on the font size.  Only the last one will
+win (i.e., `a2ps -L66 -l80' is the same as `a2ps -l80').
+
+ - Option: --line-numbers[=NUMBER]
+     print the line numbers from NUMBER lines to NUMBER lines.  Default
+     is `1'.
+
+ - Option: -C
+     Alias for `--line-numbers=5'.
+
+ - Option: -f SIZE[UNIT]
+ - Option: --font-size=SIZE[UNIT]
+     scale font to SIZE for body text. SIZE is a float number, and UNIT
+     can be `cm' for centimeters, `points' for PostScript points, and
+     `in' for inches.  Default unit in `points'.
+
+     To change the fonts used, change the current prologue (*note
+     Designing PostScript Prologues::.
+
+ - Option: -l NUM
+ - Option: --chars-per-line=NUM
+     Set the font size so that NUM columns appear per virtual pages.
+     NUM is the real number of columns devoted to the body of the text,
+     i.e., no matter whether lines are numbered or not.
+
+ - Option: -L NUM
+ - Option: --lines-per-page=NUM
+     Set the font size so that NUM lines appear per virtual pages.
+     This is useful for printing preformatted documents which have a
+     fixed number of lines per page.  The minimum number of lines per
+     page is set at 40 and maximum is at 160. If a number less than 40
+     is supplied, scaling will be turned off.
+
+ - Option: -m
+ - Option: --catman
+     Understand UNIX manual *output* ie: 66 lines per page and possible
+     bolding and underlining sequences.  The understanding of bolding
+     and underlining is there by default even if `--catman' is not
+     specified.  You may want to use the `ul' prologue (*Note Input
+     Options::, option `--prologue') if you prefer underlining over
+     italics.
+
+     If your file is actually a UNIX manual _input_, i.e., a roff file,
+     then depending whether you left a2ps delegate or not, you will get
+     a readable version of the text described, or a pretty-printed
+     version of the describing file (*note Your Delegations::).
+
+ - Option: -T NUM
+ - Option: --tabsize=NUM
+     set tabulator size to NUM.  This option is ignored if
+     `--interpret=no' is given.
+
+ - Option: --non-printable-format=FORMAT
+     specify how non-printable chars are printed. FORMAT can be
+    `caret'
+          Use classical Unix representation: `^A', `M-^B' etc.
+
+    `space'
+          A space is written instead of the non-printable character.
+
+    `question-mark'
+          A `?' is written instead of the non-printable character.
+
+    `octal'
+          For instance `\001', `177' etc.
+
+    `hexa'
+          For instance `\x01', `\xfe' etc.
+
+    `emacs'
+          For instance `C-h', `M-C-c' etc.
+
+
+File: a2ps.info,  Node: Headings Options,  Next: Input Options,  Prev: Page Options,  Up: Options
+
+Headings Options
+----------------
+
+   These are the options through which you may define the information
+you want to see all around the pages.
+
+   All these options support TEXT as an argument, which is composed of
+plain strings and escapes.  *Note Escapes::, for details.
+
+ - Option: -B
+ - Option: --no-header
+     no page headers at all.
+
+ - Option: -b[TEXT]
+ - Option: --header[=TEXT]
+     set the page header
+
+ - Option: --center-title[=TEXT]
+ - Option: --left-title[=TEXT]
+ - Option: --right-title[=TEXT]
+     Set virtual page center, left and right titles to TEXT.
+
+ - Option: -u[TEXT]
+ - Option: --underlay[=TEXT]
+     use TEXT as "under lay" (or "water mark"), i.e., in a light gray,
+     and under every page.
+
+ - Option: --left-footer[=TEXT]
+ - Option: --footer[=TEXT]
+ - Option: --right-footer[=TEXT]
+     Set sheet footers to TEXT.
+

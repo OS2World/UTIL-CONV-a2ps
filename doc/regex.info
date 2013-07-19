@@ -1,0 +1,109 @@
+This is regex.info, produced by makeinfo version 4.0 from regex.texi.
+
+INFO-DIR-SECTION C library code
+START-INFO-DIR-ENTRY
+* Regex: (regex).                  Regular expression library.
+END-INFO-DIR-ENTRY
+
+  This file documents the GNU regular expression library.
+
+  Copyright (C) 1992, 1993 Free Software Foundation, Inc.
+
+  Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+  Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled "GNU General Public License" is included exactly as in
+the original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+  Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that the section entitled "GNU General Public License"
+may be included in a translation approved by the Free Software
+Foundation instead of in the original English.
+
+
+Indirect:
+regex.info-1: 1173
+regex.info-2: 50967
+regex.info-3: 90000
+
+Tag Table:
+(Indirect)
+Node: Top1173
+Node: Overview4673
+Node: Regular Expression Syntax6858
+Node: Syntax Bits8028
+Node: Predefined Syntaxes14130
+Node: Collating Elements vs. Characters17982
+Node: The Backslash Character18945
+Ref: The Backslash Character-Footnote-121299
+Node: Common Operators22092
+Node: Match-self Operator23544
+Node: Match-any-character Operator24039
+Node: Concatenation Operator24618
+Node: Repetition Operators25115
+Node: Match-zero-or-more Operator25534
+Node: Match-one-or-more Operator27582
+Node: Match-zero-or-one Operator28439
+Node: Interval Operators29293
+Node: Alternation Operator31089
+Node: List Operators32588
+Ref: List Operators-Footnote-135166
+Node: Character Class Operators35367
+Node: Range Operator36996
+Ref: Range Operator-Footnote-138890
+Node: Grouping Operators39025
+Node: Back-reference Operator40344
+Node: Anchoring Operators43166
+Node: Match-beginning-of-line Operator43540
+Node: Match-end-of-line Operator44872
+Node: GNU Operators45611
+Node: Word Operators45860
+Node: Non-Emacs Syntax Tables46484
+Node: Match-word-boundary Operator47559
+Node: Match-within-word Operator47952
+Node: Match-beginning-of-word Operator48349
+Node: Match-end-of-word Operator48682
+Node: Match-word-constituent Operator49002
+Node: Match-non-word-constituent Operator49328
+Node: Buffer Operators49639
+Node: Match-beginning-of-buffer Operator50046
+Node: Match-end-of-buffer Operator50344
+Node: GNU Emacs Operators50624
+Node: Syntactic Class Operators50967
+Node: Emacs Syntax Tables51373
+Node: Match-syntactic-class Operator52028
+Node: Match-not-syntactic-class Operator52625
+Node: What Gets Matched?53215
+Node: Programming with Regex53864
+Node: GNU Regex Functions54302
+Node: GNU Pattern Buffers55143
+Ref: GNU Pattern Buffers-Footnote-158271
+Node: GNU Regular Expression Compiling58367
+Node: GNU Matching61245
+Node: GNU Searching63164
+Node: Matching/Searching with Split Data64975
+Node: Searching with Fastmaps66430
+Node: GNU Translate Tables68982
+Ref: GNU Translate Tables-Footnote-170827
+Node: Using Registers70952
+Node: Freeing GNU Pattern Buffers77059
+Node: POSIX Regex Functions77651
+Node: POSIX Pattern Buffers78324
+Node: POSIX Regular Expression Compiling78766
+Node: POSIX Matching82886
+Node: Reporting Errors84838
+Node: Using Byte Offsets86095
+Node: Freeing POSIX Pattern Buffers86907
+Node: BSD Regex Functions87511
+Node: BSD Regular Expression Compiling87930
+Node: BSD Searching89300
+Node: Copying90000
+Node: Index109162
+
+End Tag Table

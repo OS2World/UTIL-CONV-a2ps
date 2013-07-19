@@ -1,0 +1,1490 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+File: a2ps.info,  Node: Input Options,  Next: Pretty Print Options,  Prev: Headings Options,  Up: Options
+
+Input Options
+-------------
+
+ - Option: -a[PAGE RANGE]
+ - Option: --pages[=PAGE RANGE]
+     With no argument, print all the page, otherwise select the pages to
+     print.  PAGE RANGE is a list of interval, such as `-a1': print
+     only the first page, `-a-3,4,6,10-': print the first 3 pages, page
+     4 and 6, and all the page after 10 (included).  Giving `toc'
+     prints the table of content whatever its page number is.
+
+     The pages referred to are the _input_ pages, not the output pages,
+     that is, in `-2', printing with `-a1' will print the first virtual
+     page, i.e., you will get half the page filled.
+
+     Note that page selection does work with the delegations (*note
+     Your Delegations::).
+
+ - Option: -c
+ - Option: --truncate-lines=BOOLEAN
+     Cut lines too large to be printed inside the borders.  The maximum
+     line size depends on format and font size used and whether line
+     numbering is enabled.
+
+ - Option: -i
+ - Option: --interpret=BOOLEAN
+     interpret tab and ff chars.  This means that `^L' jumps to a new
+     (virtual) pages, `tab' advances to the next tabulation.
+
+ - Option: --end-of-line=TYPE
+     Specify what sequence of characters denotes the end of line.  TYPE
+     can be:
+    `n'
+    `unix'
+          `\n'.
+
+    `r'
+    `mac'
+          `\r'.
+
+    `nr'
+          `\n\r'.  As far as we know, this type of end-of-line is not
+          used.
+
+    `pc'
+    `rn'
+          `\r\n'. This is the type of end-of-line on MS-DOS.
+
+    `any'
+    `auto'
+          Any of the previous cases. This last case prevents the bad
+          surprises with files from PC (trailing `^M').
+
+ - Option: -X KEY
+ - Option: --encoding=KEY
+     Use the input encoding identified by KEY.  *Note Some Encodings::,
+     and the result of `a2ps --list=encodings' to know what encodings
+     are supported.  Typical values are `ASCII', `latin1'... `latin6',
+     `isoN' etc.
+
+ - Option: --stdin=FILENAME
+     Give the name FILENAME to the files read through the standard
+     input.
+
+ - Option: -t NAME
+ - Option: --title=NAME
+     Give the name NAME to the document.  Escapes can be used (*note
+     Escapes::).
+
+     This is used for instance in the name given to the document from
+     within the PostScript code (so that `Ghostview' and others can
+     display a file with its real title, instead of just the PostScript
+     file name).
+
+     It is *not* the name of the output.  It is just a logical title.
+
+ - Option: --prologue=PROLOGUE
+     Use PROLOGUE as the PostScript prologue for a2ps.  PROLOGUE must
+     be in a file named `PROLOGUE.pro', which must be in a directory of
+     your library path (*note Library Files::).  Available prologues
+     are:
+
+    `bold'
+          This style is meant to replace the old option `-b' of a2ps
+          4.3.  It is a copy of the black and white prologue, but in
+          which all the fonts are in Bold.
+
+    `bw'
+          Style is plain: pure black and white, with standard fonts.
+
+    `color'
+          Colors are used to highlight the keywords.
+
+    `diff'
+          This style is meant to be used with the `udiff', `wdiff'
+          style sheets, to underline the differences.  New things are
+          in bold on a diff background, while removed sequences are in
+          italic.
+
+    `fixed'
+          This style uses exclusively fixed size fonts.  You should use
+          this style if you want the tabulations to be properly printed.
+
+          There are no means to use a fixed size Symbol font, therefore
+          you should not use the heavy highlighting style.
+
+    `gray'
+          Gray background is used for comments and labels.
+
+    `gray2'
+          Black background is used for comments and labels.
+
+    `matrix'
+          The layout is the same as `bw', but alternating gray and
+          white lines.  There are two macros defining the behavior:
+          `pro.matrix.cycle' defines the length of the cycle (number of
+          white and gray lines).  It defaults to 6.  `pro.matrix.gray'
+          defines the number of gray lines.  Default is 3.
+
+    `ul'
+          This style uses bold faces and underlines, but never italics.
+          This is particularly meant for printing formatted man pages.
+
+
+ - Option: --print-anyway=BOOLEAN
+     force binary printing.  By default, the whole print job is stopped
+     as soon as a binary file is detected.  To detect such a file we
+     make use of a very simple heuristic: if the first sheet of the
+     file contains more than 40% of non-printing characters, it's a
+     binary file.  a2ps also asks `file(1)' what it thinks of the type
+     of the file.  If `file(1)' answers `data', the file will also be
+     considered as binary, hence not printed.
+
+ - Option: -Z
+ - Option: --delegate=BOOLEAN
+     Enable delegation of some files to delegated applications.  If
+     delegating is on, then a2ps will _not_ process the file by itself,
+     but will call an application which handles the file in another
+     way.  If delegation is off, then a2ps will process _every_ file
+     itself.
+
+     Typically most people don't want to pretty-print a PostScript
+     source file, but want to print what describes that file.  Then set
+     the delegations on.
+
+     See *Note Your Delegations:: for information on delegating, and
+     option `--list=delegations' for the applications your a2ps knows.
+
+ - Option: --toc[=FORMAT]
+     Generate a Table of Contents, which FORMAT is an escape (*note
+     Escapes::) processed as a PreScript file (*note PreScript::).  If
+     no FORMAT is given (i.e., you wrote `--toc'), use the default
+     table of contents shape (`#{toc}').  If the given format is empty
+     (i.e., you wrote `--toc='), don't issue the table of contents.
+
+     Note that it is most useful to define a variable (*note Your
+     Variables::), for instance, in a configuration file:
+
+          Variable: toc.mine \
+          \\Keyword{Table of Content}\n\
+          #-1!f\
+          |$2# \\keyword{$-.20n} sheets $3s< to $3s> ($2s#) \
+          pages $3p<-$3p> $4l# lines\n||\
+          \\Keyword{End of toc}\n
+
+     and to give that variable as argument to `--toc': `a2ps *.c
+     --toc=#{toc.mine}'.
+
+     Note too that you can generate only the table of content using
+     `--pages':
+          a2ps *.c --toc -atoc
+
+
+File: a2ps.info,  Node: Pretty Print Options,  Next: Output Options,  Prev: Input Options,  Up: Options
+
+Pretty Printing Options
+-----------------------
+
+   These options are related to the pretty printing features of a2ps.
+
+ - Option: --highlight-level=LEVEL
+     Specify the LEVEL of highlighting.  LEVEL can be
+    `none'
+          no highlighting
+
+    `normal'
+          regular highlighting
+
+    `heavy'
+          even more highlighting.  See the documentation of the style
+     sheets (`--list=style-sheets') for a description of `heavy'
+     highlighting.
+
+ - Option: -g
+     Alias for `--highlight-level=heavy'.
+
+ - Option: -E [LANGUAGE]
+ - Option: --pretty-print[=LANGUAGE]
+     With no arguments, set automatic style selection on.  Otherwise,
+     set style to LANGUAGE.  Note that setting LANGUAGE to `plain'
+     turns off pretty-printing.  *Note Known Style Sheets::, and the
+     output of `--list=style-sheets' for the available style sheets.
+
+     If LANGUAGE is `KEY.ssh', then don't look in the library path, but
+     use the file `KEY.SSH'.  This is to ease debugging non installed
+     style sheets.
+
+ - Option: --strip-level=NUM
+     Depending on the value of NUM:
+    `0'
+          everything is printed;
+
+    `1'
+          regular comments are not printed
+
+    `2'
+          strong comments are not printed
+
+    `3'
+          no comment is printed.
+
+     This option is valuable for instance in `java' in which case strong
+     comments are the so called documentation comments, or in `SDL' for
+     which some graphical editors pollutes the specification with
+     internal data as comments.
+
+     Note that the current implementation is not satisfactory: some
+     undesired blank lines remain.  This is planed to be fixed.
+
+
+File: a2ps.info,  Node: Output Options,  Next: PostScript Options,  Prev: Pretty Print Options,  Up: Options
+
+Output Options
+--------------
+
+   These are the options to specify what you want to do out of what
+a2ps produces.  Only a single destination is possible at a time, i.e.,
+if ever there are several options `-o', `-P' or `-d', the last one is
+honored.
+
+ - Option: -o FILE
+ - Option: --output=FILE
+     leave output to file FILE.  If FILE is `-', leave output to the
+     standard output.
+
+ - Option: --version-control=TYPE
+     to avoid loosing a file, a2ps offers backup services.  This is
+     enabled when the output file already exists, is regular (that is,
+     no backup is done on special files such as `/dev/null'), and is
+     writable (in this case, disabling version control makes a2ps fail
+     the very same way as if version control was disabled: permission
+     denied).
+
+     The type of backups made can be set with the `VERSION_CONTROL'
+     environment variable, which can be overridden by this option.  If
+     `VERSION_CONTROL' is not set and this option is not given, the
+     default backup type is `existing'.  The value of the
+     `VERSION_CONTROL' environment variable and the argument to this
+     option are like the GNU `Emacs' `version-control' variable; they
+     also recognize synonyms that are more descriptive.  The valid
+     values are (unique abbreviations are accepted):
+    `none'
+    `off'
+          Never make backups (override existing files).
+
+    `t'
+    `numbered'
+          Always make numbered backups.
+
+    `nil'
+    `existing'
+          Make numbered backups of files that already have them, simple
+          backups of the others.
+
+    `never'
+    `simple'
+          Always make simple backups.
+
+
+ - Option: --suffix=SUFFIX
+     The suffix used for making simple backup files can be set with the
+     `SIMPLE_BACKUP_SUFFIX' environment variable, which can be
+     overridden by this option.  If neither of those is given, the
+     default is `~', as it is in `Emacs'.
+
+ - Option: -P NAME
+ - Option: --printer=NAME
+     send output to printer NAME.  See item `Printer:' and `Unknown
+     printer:' in *Note Your Printers:: and results of option
+     `--list=defaults' to see the bindings between printer names and
+     commands.
+
+     It is possible to pass additional options to `lpr' or `lp' via the
+     variable `lp.options', for more information see *Note Pass Options
+     to lpr::.
+
+ - Option: -d
+     send output to the default printer. See item `DefaultPrinter:' in
+     *Note Your Printers::.
+
+
+File: a2ps.info,  Node: PostScript Options,  Prev: Output Options,  Up: Options
+
+PostScript Options
+------------------
+
+   The following options are related only to variations you want to
+produce onto a PostScript output.
+
+ - Option: --ppd[=KEY]
+     With no argument, set automatic PPD selection, otherwise set the
+     PPD to KEY.  FIXME: what to read.
+
+ - Option: -n NUM
+ - Option: --copies=NUM
+     print NUM copies of each page
+
+ - Option: -s DUPLEX-MODE
+ - Option: --sides=DUPLEX-MODE
+     Specify the number of sheet sides, or, more generally, the Duplex
+     mode (*note Glossary::). The valid values for DUPLEX-MODE are:
+    `1'
+    `simplex'
+          One page per sheet.
+
+    `2'
+    `duplex'
+          Two pages per sheet, DuplexNoTumble mode.
+
+    `tumble'
+          Two pages per sheet, DuplexTumble mode.  Not only does this
+     option require Duplex from the printer, but it also enables duplex
+     features from a2ps (e.g., the margin changes from front pages to
+     back pages etc.).
+
+ - Option: -S KEY[:VALUE]
+ - Option: --setpagedevice=KEY[:VALUE]
+     Pass a page device definition to the generated PostScript output.
+     If no VALUE is given, KEY is removed from the definitions.  Note
+     that several `--setpagedevice' can be accumulated.
+
+     For example, command
+
+          ubu $ a2ps -SDuplex:true -STumble:true NEWS
+          [NEWS (plain): 15 pages on 8 sheets]
+          [Total: 15 pages on 8 sheets] sent to the default printer
+
+     prints file `report.pre' in duplex (two sides) tumble (suitable for
+     landscape documents).  This is also valid for delegated files:
+          a2ps -SDuplex:true -STumble:true a2ps.texi
+
+     Page device operators are implementation dependent but they are
+     standardized.  *Note Page Device Options::, for details.
+
+ - Option: --statusdict=KEY[:VALUE]
+ - Option: --statusdict=KEY[::VALUE]
+     Pass a statusdict definition to the generated PostScript output.
+     `statusdict' operators and variables are implementation dependent;
+     see the documentation of your printer for details.  *Note
+     Statusdict Options::, for details.  Several `--statusdict' can be
+     accumulated.
+
+     If no VALUE is given, KEY is removed from the definitions.
+
+     With a single colon, pass a call to an operator, for instance:
+
+          a2ps --statusdict=setpapertray:1 quicksort.c
+
+     prints file `quicksort.c' by using paper from the paper tray 1
+     (assuming that printer supports paper tray selection).
+
+     With two colons, define variable KEY to equal VALUE.  For instance:
+
+          a2ps --statusdict=papertray::1 quicksort.c
+
+     produces
+
+            /papertray 1 def
+
+     in the PostScript.
+
+ - Option: -k
+ - Option: --page-prefeed
+     enable page prefeeding.  It consists in positioning the sheet in
+     the printing area while the PostScript is interpreted (instead of
+     waiting the end of the interpretation of the page before pushing
+     the sheet).  It can lead to an significant speed up of the
+     printing.
+
+     a2ps quotes the access to that feature, so that non supporting
+     printers won't fail.
+
+ - Option: -K
+ - Option: --no-page-prefeed
+     disable page prefeeding.
+
+
+File: a2ps.info,  Node: Escapes,  Prev: Options,  Up: Invoking a2ps
+
+Escapes
+=======
+
+   The escapes are some sequences of characters that will be replaced
+by their values.  They are very much like variables.
+
+* Menu:
+
+* Use of Escapes::              Where they are used
+* Structure of the Escapes::    Their syntax
+* Available Escapes::           Detailed list
+
+
+File: a2ps.info,  Node: Use of Escapes,  Next: Structure of the Escapes,  Prev: Escapes,  Up: Escapes
+
+Use of Escapes
+--------------
+
+   They are used in several places in a2ps:
+_Page markers_
+     Headers, footers, titles and the water mark (*note Headings
+     Options::), in general to print the name of file, page number etc.
+     On a new sheet a2ps first draws the water mark, then the content
+     of the first page, then the frame of the first page, (ditto with
+     the others), and finally the sheet header and footers.  This order
+     must be taken into account for some escapes (e.g., `$l.', `$l^').
+
+_Named output_
+     To specify the generic name of the file to produce, or how to
+     access a printer (*note Your Printers::).
+
+_Delegation_
+     To specify the command associated to a delegation (*note Your
+     Delegations::).
+
+_Table of Content_
+     To specify an index/table of content printed at the end of the job.
+
+_Variables in PostScript prologue_
+     To allow the user to change some parameters to your prologues
+     (*note Designing PostScript Prologues::).
+
+
+File: a2ps.info,  Node: Structure of the Escapes,  Next: Available Escapes,  Prev: Use of Escapes,  Up: Escapes
+
+General Structure of the Escapes
+--------------------------------
+
+   All format directives can also be given in format
+
+   ESCAPE WIDTH DIRECTIVE
+
+where
+ESCAPE
+     In general
+    `%'
+          escapes are related to general information (e.g., the current
+          date, the user's name etc.),
+
+    `#'
+          escapes are related to the output (e.g., the output file
+          name) or to the options you gave (e.g., the number of virtual
+          pages etc.), or to special constructions (e.g., enumerations
+          of the files, or tests etc.),
+
+    `$'
+          escapes are related to the current input file (e.g., its name,
+          its current page number etc.),
+
+    `\'
+          introduces classical escaping, or quoting, sequences (e.g.,
+          `\n', `\f' etc.).
+
+WIDTH
+     Specifies the width of the column to which the escape is printed.
+     There are three forms for WIDTH
+    `+PADDINGINTEGER'
+          the result of the expansion is prefixed by the character
+          PADDING so that the whole result is as long as INTEGER.  For
+          instance `$+.10n' with a file name `$n'=`foo.c' gives
+          `.....foo.c'.
+
+          If no PADDING is given, ` ' (white space) is used.
+
+    `-PADDINGINTEGER'
+          Idem as above, except that completion is done on the left:
+          `$+.10n' gives `foo.c.....'.
+
+    `INTEGER'
+          which is a short cut for `+INTEGER'. For example, escape
+          `$5P' will expand to something like `   12'.
+
+DIRECTIVE
+     *Note Available Escapes::.
+
+
+File: a2ps.info,  Node: Available Escapes,  Prev: Structure of the Escapes,  Up: Escapes
+
+Available Escapes
+-----------------
+
+   Supported escapes are:
+`\\'
+     character `\'
+
+`\%'
+     character `%'
+
+`\$'
+     character `$'
+
+`\#'
+     character `#'
+
+`#?COND|IF_TRUE|IF_FALSE|'
+     this may be used for conditional assignment.  The separator
+     (presented here as `|') may be any character.  IF_TRUE and
+     IF_FALSE may be defined exactly the same way as regular headers,
+     included escapes and the `#?' construct.
+
+     The available tests are:
+    `#?1'
+    `#?2'
+    `#?3'
+          true if tag 1, 2 or 3 is not empty.  See item `$t1' for
+          explanation.
+
+    `#?d'
+          true if Duplex printing is requested (`-s2').
+
+    `#?j'
+          true if bordering is asked (`-j').
+
+    `#?l'
+          true if printing in landscape mode.
+
+    `#?o'
+          true if only one virtual page per page (i.e., `#v' is 1).
+
+    `#?p'
+          a page range has been specified (i.e., `#p' is not empty).
+
+    `#?q'
+          true if a2ps is in quiet mode.
+
+    `#?r'
+          true if major is rows (`--major=rows').
+
+    `#?v'
+          true if printing on the back side of the sheet (verso).
+
+    `#?V'
+          true if verbosity level includes the `tools' flag (*Note
+          Global Options::. option `--verbosity').
+
+`#!KEY|IN|BETWEEN|'
+     Used for enumerations.  The separator (presented here as `|') may
+     be any character.  IN and BETWEEN are escapes.
+
+     The enumerations may be:
+    `#!$'
+          enumeration of the command line options.  In this case IN in
+          never used, but is replaced by the arguments.
+
+    `#!f'
+          enumeration of the input files in the other they were given.
+
+    `#!F'
+          enumeration of the input files in the alphabetical order of
+          their names.
+
+    `#!s'
+          enumeration of the files appearing in the current sheet.
+
+     For instance, the escapes `The files printed were: #!f|$n|, |.'
+     evaluated with input `a2ps NEWS main.c -o foo.ps', gives `The
+     files printed were: NEWS, main.c.'.
+
+     As an exception, `#!' escapes use the WIDTH as the maximum number
+     of objects to enumerate if it is positive, e.g., `#10!f|$n|, |'
+     lists only the ten first file names.  If WIDTH is negative, then
+     it does not enumerate the -WIDTH last objects (e.g., `#-1!f|$n|,
+     |' lists all the files but the last).
+
+`${VAR}'
+     value of the environment variable VAR if defined, nothing
+     otherwise.
+
+`${VAR:-WORD}'
+     if the environment variable VAR is defined, then its value,
+     otherwise WORD.
+
+`${VAR:+WORD}'
+     if the environment variable VAR is defined, then WORD, otherwise
+     nothing.
+
+`$[NUM]'
+     value of the NUMth argument given on the command line.  Note that
+     $[0] is the name under which a2ps has been called.
+
+`#{KEY}'
+     expansion of the value of the variable KEY if defined, nothing
+     otherwise (*note Your Variables::)
+
+`#{KEY:-WORD}'
+     if the variable VAR is defined, then the expansion of its,
+     otherwise WORD.
+
+`#{KEY:+WORD}'
+     if the variable VAR is defined, then WORD, otherwise nothing.
+
+`#.'
+     the extension corresponding to the current output language (e.g.
+     `ps').
+
+`%*'
+     current time in 24-hour format with seconds `hh:mm:ss'
+
+`$*'
+     file modification time in 24-hour format with seconds `hh:mm:ss'
+
+`$#'
+     the sequence number of the current input file
+
+`%#'
+     the total number of files
+
+`%a'
+     the localized equivalent for `Printed by USER NAME'.  USER NAME is
+     obtained from the variable `user.name' (*note Predefined
+     Variables::).
+
+`%A'
+     the localized equivalent for `Printed by USER NAME from HOST
+     NAME'. The variables `user.name' and `user.host' are used (*note
+     Predefined Variables::).
+
+`%c'
+     trailing component of the current working directory
+
+`%C'
+     current time in `hh:mm:ss' format
+
+`$C'
+     file modification time in `hh:mm:ss' format
+
+`%d'
+     current working directory
+
+`$d'
+     directory part of the current file (`.' if the directory part is
+     empty).
+
+`%D'
+     current date in `yy-mm-dd' format
+
+`$D'
+     file modification date in `yy-mm-dd' format
+
+`%D{STRING}'
+     format current date according to STRING with the `strftime(3)'
+     function.
+
+`$D{STRING}'
+     format file's last modification date according to STRING with the
+     `strftime(3)' function.
+
+`%e'
+     current date in localized short format (e.g., `Jul 4, 76' in
+     English, or `14 Juil 89' in French).
+
+`$e'
+     file modification date in localized short format.
+
+`%E'
+     current date in localized long format (e.g., `July 4, 76' in
+     English, or `Samedi 14 Juillet 89' in French).
+
+`$E'
+     file modification date in localized long format.
+
+`$f'
+     full file name (with directory and suffix).
+
+`\f'
+     character `\f' (`form feed').
+
+`#f0'
+`#f9'
+     ten temporary file names.  You can do anything you want with them,
+     a2ps removes them at the end of the job.  It is useful for the
+     delegations (*note Your Delegations::) and for the printer
+     commands (*note Your Printers::).
+
+`%F'
+     current date in `dd.mm.yyyy' format.
+
+`$F'
+     file modification date in `dd.mm.yyyy' format.
+
+`#h'
+     medium height in PostScript points
+
+`$l^'
+     top most line number of the current page
+
+`$l.'
+     current line number.  To print the page number and the line
+     interval in the right title, use `--right-title="$q:$l^-$l."'.
+
+`$l#'
+     number of lines in the current file.
+
+`%m'
+     the host name up to the first `.' character
+
+`%M'
+     the full host name
+
+`\n'
+     the character `\n' (`new line').
+
+`%n'
+     shortcut for the value of the variable `user.login' (*note
+     Predefined Variables::).
+
+`$n'
+     input file name without the directory part.
+
+`%N'
+     shortcut for the value of the variable `user.name' (*note
+     Predefined Variables::).
+
+`$N'
+     input file name without the directory, and without its suffix
+     (e.g., on `foo.c', it will produce `foo').
+
+`#o'
+     name of the output, before substitution (i.e., argument of `-P',
+     or of `-o').
+
+`#O'
+     name of the output, after substitution.  If output goes to a file,
+     then the name of the file.  If the output is a symbolic printer
+     (*note Your Printers::), the result of the evaluation.  For
+     instance, if the symbolic printer `file' is defined as `> $n.%.',
+     then `#O' returns `foo.c.ps' when printing `foo.c' to PostScript.
+     `#o' would have returned `file'.
+
+`#p'
+     the range of the page to print from this page.  For instance if
+     the user asked `--pages=1-10,15', and the current page is 8, then
+     `#p' evaluates to `1-3,8'.
+
+`$p^'
+     number of the first page of this file appearing on the current
+     sheet.  Note that `$p.', evaluated at the end of sheet, is also
+     the number of the last page of this file appearing on this sheet.
+
+`$p-'
+     interval of the page number of the current file appearing on the
+     current sheet.  It is the same as `$p^-$p.', if `$p^' and `$p.'
+     are different, otherwise it is equal to `$p.'.
+
+`%p.'
+     current page number
+
+`$p.'
+     page number for this file
+
+`%p#'
+     total number of pages printed
+
+`$p#'
+     number of pages of the current file
+
+`$p<'
+     number of the first page of the current file
+
+`$p>'
+     number of the last page of the current file
+
+`%q'
+     localized equivalent for `Page %p.'
+
+`$q'
+     localized equivalent for `Page $p.'
+
+`%Q'
+     localized equivalent for `Page %p./%p#'
+
+`$Q'
+     localized equivalent for `Page $p./$p#'
+
+`$s<'
+     number of the first sheet of the current file
+
+`%s.'
+     current sheet number
+
+`$s.'
+     sheet number for the current file
+
+`$s>'
+     number of the last sheet of the current file
+
+`%s#'
+     total number of sheets
+
+`$s#'
+     number of sheets of the current file
+
+`%t'
+     current time in 12-hour am/pm format
+
+`$t'
+     file modification time in 12-hour am/pm format
+
+`$t1'
+`$t2'
+`$t3'
+     Content of tag 1, 2 and 3. Tags are pieces of text a2ps fetches in
+     the files, according to the style.  For instance, in `mail-folder'
+     style, tag 1 is the title of the mail, and tag 2 its author.
+
+`%T'
+     current time in 24-hour format `hh:mm'
+
+`$T'
+     file modification time in 24-hour format `hh:mm'
+
+`#v'
+     number of virtual sheets
+
+`%V'
+     the version string of a2ps.
+
+`#w'
+     medium width in PostScript points
+
+`%W'
+     current date in `mm/dd/yy' format
+
+`$W'
+     file modification date in `mm/dd/yy' format
+
+
+File: a2ps.info,  Node: Configuration Files,  Next: Library Files,  Prev: Invoking a2ps,  Up: Top
+
+Configuration Files
+*******************
+
+   a2ps reads several files before the command line options.  In the
+order, they are:
+  1. the system configuration file (usually `/usr/local/etc/a2ps.cfg')
+     unless you have defined the environment variable `A2PS_CONFIG', in
+     which case a2ps reads the file it points to;
+
+  2. the user's home configuration file (`$HOME/.a2ps/a2psrc')
+
+  3. the local file (`./.a2psrc')
+
+   Because a2ps needs architecture dependent information (such as the
+local `lpr' command) and architecture independent information (such as
+the type of your printers), users have found useful that `a2ps.cfg' be
+dedicated to architecture dependent information.  A sub configuration
+file, `a2ps-site.cfg' (*note Including Configuration Files::) is
+included from `a2ps.cfg'.
+
+   The file `a2ps.cfg' is updated when you update a2ps, while
+`a2ps-site.cfg' is not, to preserve local definitions.
+
+   In the configuration files, empty lines and lines starting with `#'
+are comments.
+
+   The other lines have all the following form:
+     TOPIC: ARGUMENTS
+
+where TOPIC: is a keyword related to what you are customizing, and
+ARGUMENTS the customization.  ARGUMENTS may be spread on several lines,
+provided that the last character of a line to continue is a `\'.
+
+   In the following sections, each TOPIC: is detailed.
+
+* Menu:
+
+* Including Configuration Files::  Isolating site specific values
+* Your Library Path::           Setting the files search path
+* Your Default Options::        Default state of a2ps
+* Your Media::                  Sheets dimensions
+* Your Printers::               How to access the printers
+* Your Shortcuts::              Your very own command line options
+* Your PostScript magic number::  Handling very old printers
+* Your Page Labels::            Page names as in `Ghostview'
+* Your Variables::              Short cut for long sequences
+* Your Delegations::            Delegating some files to other filters
+* Your Internal Details::       Details you might want to tune
+
+
+File: a2ps.info,  Node: Including Configuration Files,  Next: Your Library Path,  Prev: Configuration Files,  Up: Configuration Files
+
+Including Configuration Files
+=============================
+
+ - Configuration Setting: Include: FILE
+     Include (read) the configuration FILE.  if FILE is a relative path
+     (i.e., it does not start with `/'), then it is relatively to the
+     current configuration file.
+
+   This is especially useful for the site specific configuration file
+`etc/a2ps.cfg': you may tune your printers etc. in a separate file for
+easy upgrade of a2ps (and hence of its configuration files).
+
+
+File: a2ps.info,  Node: Your Library Path,  Next: Your Default Options,  Prev: Including Configuration Files,  Up: Configuration Files
+
+Your Library Path
+=================
+
+   To define the default library path, you can use:
+
+ - Configuration Setting: LibraryPath: PATH
+     Set the library path the PATH.
+
+ - Configuration Setting: AppendLibraryPath: PATH
+     Add PATH at the end of the current library path.
+
+ - Configuration Setting: PrependLibraryPath: PATH
+     Add PATH at the beginning of the current library path.
+
+   Note that for users configuration files, it is better not to set the
+library path, because the system's configuration has certainly been
+built to cope with your system's peculiarities.  Use
+`AppendLibraryPath:' and `PrependLibraryPath:'.
+
+
+File: a2ps.info,  Node: Your Default Options,  Next: Your Media,  Prev: Your Library Path,  Up: Configuration Files
+
+Your Default Options
+====================
+
+ - Configuration Setting: Options: OPTIONS+
+     Give a2ps a list of command line options. OPTIONS+ is any sequence
+     of regular command line options (*note Invoking a2ps::).
+
+     It is the correct way to define the default behavior you expect
+     from a2ps.  If for instance you want to use `Letter' as medium,
+     then use:
+
+          Options: --medium=Letter
+
+     It is exactly the same as always giving a2ps the option
+     `--medium=Letter' at run time.
+
+   The quoting mechanism is the same as that of a shell.  For instance
+     Options: --right-title="Page $p" --center-title="Hello World!"
+     Options: --title="arg 'Jack said \\\"hi\\\"' has double quotes"
+
+
+File: a2ps.info,  Node: Your Media,  Next: Your Printers,  Prev: Your Default Options,  Up: Configuration Files
+
+Your Media
+==========
+
+ - Configuration Setting: Medium: NAME DIMENSIONS
+     Define the medium NAME to have the DIMENSIONS (in PostScript
+     points, i.e., 1/72 of inch).
+
+     There are two formats supported:
+
+    long
+          in which you must give both the size of the whole sheet, and
+          the size of the printable area:
+               # A4 for Desk Jets
+               #      NAME     W      H     LLX   LLY   URX    URY
+               Medium: A4dj    595    842    24    50    571    818
+
+          where WxH are the dimension of the sheet, and the four other
+          stand for lower left x and y, upper right x and y.
+
+    short
+          in which a surrounding margin of 24 points is used
+               # A4
+               #      NAME     W      H
+               Medium: A4      595    842
+
+          is the same as
+
+               # A4
+               #      NAME     W      H
+               Medium: A4      595    842    24    24    571    818
+
+
+File: a2ps.info,  Node: Your Printers,  Next: Your Shortcuts,  Prev: Your Media,  Up: Configuration Files
+
+Your Printers
+=============
+
+   A general scheme is used, so that whatever the way you should address
+the printers on your system, the interface is still the same.  Actually,
+the interface is so flexible, that you should understand `named
+destination' when we write `printer'.
+
+ - Configuration Setting: Printer: NAME PPD-KEY DESTINATION
+ - Configuration Setting: Printer: NAME DESTINATION
+ - Configuration Setting: Printer: NAME PPD-KEY
+     Specify the destination of the output when the option `-P NAME' is
+     given.  If PPD-KEY is given, declare the printer NAME to be
+     described by the PPD file `PPD-KEY.ppd'.  If DESTINATION is not
+     given, used that of the `UnknownPrinter:'.
+
+     The DESTINATION must be of one of the following forms:
+    `| COMMAND'
+          in which case the output is piped into COMMAND.
+
+    `> FILE'
+          in which case the output is saved into FILE.
+
+ - Configuration Setting: UnknownPrinter: [PPD-KEY] DESTINATION
+     Specify the destination of the output when when the option `-P
+     NAME' is given, but there is no `Printer:' entry for NAME.
+
+ - Configuration Setting: DefaultPrinter: [PPD-KEY] DESTINATION
+     Specify the destination of the output when when the option `-d'
+     (send to default output) is given.
+
+   Escapes expansion is performed on DESTINATION (*note Escapes::).
+Recall that `#o' is evaluated to the destination name, i.e., the
+argument given to `-P'.
+
+   For instance
+     # My Default Printer is called dominique
+     DefaultPrinter: | lp -d dominique
+     
+     # `a2ps foo.c -P bar' will pipe into `lp -d bar'
+     UnknownPrinter: | lp -d #o
+     
+     # `a2ps -P foo' saves into the file `foo'
+     Printer: foo > foo.ps
+     Printer: wc | wc
+     Printer: lw | lp -d printer-with-a-rather-big-name
+     
+     # E.g. `a2ps foo.c bar.h -P file' will save into `foo.c.ps'
+     Printer: file > $n.#.
+     
+     # E.g. `a2ps foo.c bar.h -P home' will save into `foo.ps'
+     # in user's home
+     Printer: home > ${HOME}/$N.#.
+     
+     # Here we address a printer which is not PostScript
+     Printer: deskj | gs -q -sDEVICE=ljet3d -sOutputFile=- - \
+              | lpr -P laserwriter -h -l
+
+   MS-DOS users, and non-PostScript printer owners should take
+advantage in getting good configuration of these entries.
+
+
+File: a2ps.info,  Node: Your Shortcuts,  Next: Your PostScript magic number,  Prev: Your Printers,  Up: Configuration Files
+
+Your Shortcuts
+==============
+
+   You can define some kind of `Macro Options' which stand for a set of
+options.
+
+ - Configuration Setting: UserOption: SHORTCUT OPTIONS...
+     Define the SHORTCUT to be the list of OPTIONS....  When a2ps is
+     called with `-=SHORTCUT' (or `--user-option=SHORTCUT'), consider
+     the list of OPTIONS....
+
+   Examples are
+     # This emulates a line printer: no features at all
+     # call a2ps -=lp to use it
+     UserOption: lp -1m --pretty-print=plain -B --borders=no
+     
+     # When printing mail, I want to use the right style sheet with strong
+     # highlight level, and stripping `useless' headers.
+     UserOption: mail -Email -g --strip=1
+
+
+File: a2ps.info,  Node: Your PostScript magic number,  Next: Your Page Labels,  Prev: Your Shortcuts,  Up: Configuration Files
+
+Your PostScript magic number
+============================
+
+   a2ps produces full DSC conformant PostScript (*note Glossary::).
+Adobe said
+     Thou shalt start your PostScript DSC conformant files with
+          %!PS-Adobe-3.0
+
+   The bad news is that some printers will reject this header.  Then you
+may change this header without any worry since the PostScript produced
+by a2ps is also 100% PostScript level 1(1).
+
+ - Configuration Setting: OutputFirstLine: MAGIC-NUMBER
+     Specify the header of the produced PostScript file to be
+     MAGIC-NUMBER.  Typical values include `%!PS-Adobe-2.0', or just
+     `%!'.
+
+   ---------- Footnotes ----------
+
+   (1) That is to say, there are no PostScript printers that don't
+understand these files.
+
+
+File: a2ps.info,  Node: Your Page Labels,  Next: Your Variables,  Prev: Your PostScript magic number,  Up: Configuration Files
+
+Your Page Labels
+================
+
+   In the PostScript file is dropped information on where sheets begin
+and end, so that post processing tools know where is the physical page
+1, 2 etc.  With this information can be also stored a label, i.e., a
+human readable text (typically the logical page numbers), which is for
+instance what `Ghostview' shows as the list of page numbers.
+
+   a2ps lets you define what you want in this field.
+
+ - Configuration Setting: PageLabelFormat: FORMAT
+     Specify the FORMAT to use to label the PostScript pages.  FORMAT
+     can use Escapes (*note Escapes::).  Two variables are predefined
+     for this: `#{pl.short}' and `#{pl.long}'.
+
+
+File: a2ps.info,  Node: Your Variables,  Next: Your Delegations,  Prev: Your Page Labels,  Up: Configuration Files
+
+Your Variables
+==============
+
+   There are many places in a2ps where one would like to have uniform
+way of extending things.  It once became clear that "variables" where
+needed in a2ps.
+
+* Menu:
+
+* Defining Variables::          Syntax and conventions
+* Predefined Variables::        Builtin variables
+
+
+File: a2ps.info,  Node: Defining Variables,  Next: Predefined Variables,  Prev: Your Variables,  Up: Your Variables
+
+Defining Variables
+------------------
+
+ - Configuration Setting: Variable: KEY VALUE
+     Define the escape `#{KEY}' to be a short cut for VALUE.  KEY must
+     not have any character from `:(){}'.
+
+   As as example, here is a variable for `psnup', which encloses all
+the option passing one would like.  Delegations are then easier to
+write:
+     Variable: psnup psnup -#v -q #?j|-d|| #?r||-c| -w#w -h#h
+
+   It is strongly suggested to follow a `.' (dot) separated hierarchy,
+starting with:
+`del'
+     for variables that are related to delegations.
+
+`pro'
+     for variables used in prologues (*note Designing PostScript
+     Prologues::).  Please, specify the name of the prologue (e.g.,
+     `pro.matrix.gray').
+
+`ps'
+     for variables related to PostScript matters, such as the page label
+     (which is associated to `ps.page_label'), the header etc.
+
+`pl'
+     for page label formats. *Note Your Page Labels::, the option
+     `--page-label' in *Note Input Options::.
+
+`toc'
+     for toc formats.  See the option `--toc' in *Note Input Options::.
+
+`user'
+     for user related information.  *Note Predefined Variables::.
+
+   This naming convention has not fully stabilized.  We apologize for
+the inconvenience this might cause to users.
+
+
+File: a2ps.info,  Node: Predefined Variables,  Prev: Defining Variables,  Up: Your Variables
+
+Predefined Variables
+--------------------
+
+   There are a few predefined variables.  The fact that a2ps builds them
+at startup changes nothing to their status: they can be modified like
+any other variable using `--define' (*note Global Options::).
+
+   In what follows, there are numbers (i) like this, or (ii) this.  It
+means that a2ps first tries the solution (i), if a result is obtained
+(non empty value), this is the value given to the variable.  Otherwise
+it tries solution (ii), etc.  The rationale behind the order is usually
+from user modifiable values (e.g. environment variables) through
+system's hard coded values (e.g., calls to `getpwuid') and finally
+arbitrary values.
+
+`user.comments'
+     Comments on the user.  Computed by (i) the system's database (the
+     part of `pw_gecos' after the first `,'), (ii) not defined.
+
+`user.home'
+     The user's home directory.  Determined by (i) the environment
+     variable `HOME', (ii) the system's database (using `getpwuid'),
+     (iii) the empty string.
+
+`user.host'
+     The user's host name.  Assigned from (i) the system (`gethostname'
+     or `uname'), (ii) the empty string.
+
+`user.login'
+     The user's login (e.g. `bgates').  Computed by (i) the environment
+     variable `LOGNAME', (ii) the environment variable `USERNAME',
+     (iii) the system's database (using `getpwuid'), (iv) the translated
+     string `user'.
+
+`user.name'
+     The user's name (e.g. `William Gates').  Computed by (i) the
+     system's database (`pw_gecos' up to the first `,'), (ii)
+     capitalized value of the variable `user.login' unless it was the
+     translated string `user', (iii) the translated string `Unknown
+     User'.
+
+
+File: a2ps.info,  Node: Your Delegations,  Next: Your Internal Details,  Prev: Your Variables,  Up: Configuration Files
+
+Your Delegations
+================
+
+   There are some files you don't really want a2ps to pretty-print,
+typically page description files (e.g., PostScript files, `roff' files,
+etc.).  You can let a2ps delegate the treatment of these files to other
+applications.  The behavior at run time depends upon the option
+`--delegate' (*note Input Options::).
+
+* Menu:
+
+* Defining a Delegation::       Syntax of the definitions of the delegations
+* Guide Line for Delegations::  What should be respected
+* Predefined Delegations::      Making the best use of these delegations
+
+
+File: a2ps.info,  Node: Defining a Delegation,  Next: Guide Line for Delegations,  Prev: Your Delegations,  Up: Your Delegations
+
+Defining a Delegation
+---------------------
+
+ - Configuration Setting: Delegation: NAME IN:OUT COMMAND
+     Define the delegation NAME.  It is to be applied upon files of
+     type IN when output type is OUT(1) thanks to COMMAND.  Both IN and
+     OUT are a2ps type keys such as defined in `sheets.map' (*note The
+     Entry in sheets.map::).
+
+   COMMAND should produce the file on its standard output.  Of course
+escapes substitution is performed on COMMAND (*note Escapes::).  In
+particular, COMMAND should use the input file `$f'.
+
+     # In general, people don't want to pretty-print PostScript files.
+     # Pass the PostScript files to psnup
+     Delegation: PsNup ps:ps \
+             psselect #?V||-q| -p#?p|#p|-| $f | \
+             psnup -#v -q #?j|-d|| #?r||-c| -w#w -h#h
+
+   Advantage should be taken from the variables, to encapsulate the
+peculiarities of the various programs.
+     # Passes the options to psnup.
+     # The files (in and out) are to be given
+     Variable: psnup psnup -#v #?V||-q| #?j|-d|| #?r||-c| -w#w -h#h
+     
+     # Passes to psselect for PS page selection
+     Variable: psselect psselect #?V||-q| -p#?p|#p|-|
+     
+     # In general, people don't want to pretty-print PostScript files.
+     # Pass the PostScript files to psnup
+     Delegation: PsNup ps:ps     #{psselect} $f | #{psnup}
+
+   Temporary file names (`#f0' to `#f9') are available for complex
+commands.
+     # Pass DVI files to dvips.
+     # A problem with dvips is that even on failure it dumps its prologue,
+     # hence it looks like a success (output is produced).
+     # To avoid that, we use an auxiliary file and a conditional call to
+     # psnup instead of piping.
+     Delegation: dvips dvi:ps    #{dvips} $f -o #f0 && #{psnup} #f0
+
+   ---------- Footnotes ----------
+
+   (1) Current `a2ps' only handles PostScript output, i.e. OUT=`ps'
+
+
+File: a2ps.info,  Node: Guide Line for Delegations,  Next: Predefined Delegations,  Prev: Defining a Delegation,  Up: Your Delegations
+
+Guide Line for Delegations
+--------------------------
+
+   First of all, select carefully the applications you will use for the
+delegations.  If a filter is known to cause problems, try to avoid it in
+delegations(1).  As a thumb rule, you should check that the PostScript
+generating applications produce files that start by:
+     %!PS-Adobe-3.0
+
+   a2ps *needs* the `%%BeginSetup'-`%%EndSetup' section in order to
+output correctly the page device definitions.  It can happen that your
+filters don't output this section.  In that case, you should insert a
+call to `fixps' right after the PostScript generation:
+     ########## ROFF files
+     # Pass the roff files to groff.  Ask grog how groff should be called.
+     # Use fixps to ensure there is a %%BeginSetup/%%EndSetup section.
+     Delegation: Groff roff:ps	\
+        eval `grog -Tps '$f'` | fixps #?V!!-q! | #{d.psselect} | #{d.psnup}
+
+   There are some services expected from the delegations.  The
+delegations you may write should honor:
+the input file
+     available via the escape `$f'.  You should be aware that there are
+     people who have great fun having spaces or dollars in their file
+     names, so you probably should always use `'$f''.  Some other
+     variables are affected.  Yes, I know, we need a special mechanism
+     for `'' itself.  Well, we'll see that later `;-)'.
+
+the medium
+     the dimension of the medium selected by the user are available
+     through `#w' and `#h'.
+
+the page layout
+     the number of virtual pages is `#v'.
+
+the page range
+     the page range (in a form `1-2,4-6,10-' for instance) is available
+     by `#p'.
+
+the verbosity level
+     please, do not make your delegations verbose by default.  The
+     silent mode should always be requested, unless `#?V' is set (see
+     the above example with `groff').
+
+   If ever you need several commands, do not use `;' to separate them,
+since it may prevent detection of failure.  Use `&&' instead.
+
+   The slogan "_the sooner, the better_" should be applied here: in the
+processing chain, it is better to ask a service to the first
+application that supports it.  An example will make it clear: when
+processing a `DVI' file, `dvips' knows better the page numbers than
+`psselect' would.  So a `DVI' to PostScript delegation should ask the
+page selection (`#p') to `dvips', instead of using `psselect' later in
+the chain.  An other obvious reason here is plain efficiency (globally,
+less data is processed).
+
+   ---------- Footnotes ----------
+
+   (1) Because hiding its use into `a2ps' just makes it even more
+difficult to the users to know why it failed.  Let them use it by hand.
+
+
+File: a2ps.info,  Node: Predefined Delegations,  Prev: Guide Line for Delegations,  Up: Your Delegations
+
+Predefined Delegations
+----------------------
+
+   The purpose of this section is not to document all the predefined
+delegations, for this you should read the comments in the system
+configuration file `a2ps.cfg'.  We just want to explain some choices,
+and give hints on how to make the best use of these delegations.
+
+ - Delegation: dvips (DVI to PostScript)
+     There is a problem when you use a naive implementation of this
+     delegation: landscape jobs are not recognized, and therefore
+     n-upping generally fails miserably.  Therefore, a2ps tries to
+     guess if the file is landscape by looking for the keyword
+     `landscape' in it, using `strings(1)':
+          Delegation: dvips dvi:ps\
+           if strings $f | sed 3q | fgrep landscape > /dev/null 2>&1; then \
+             #{d.dvips} -T#hpt,#wpt $f -o #f0 && #?o|cat|#{d.psnup} -r| #f0;\
+           else \
+             #{d.dvips} $f -o #f0 && #{d.psnup} #f0; \
+           fi
+
+     In order to have that rule work correctly, it is expected from the
+     TeX, or LaTeX file to include something like:
+
+          \renewcommand{\printlandscape}{\special{landscape}}
+          \printlandscape
+
+     in the preamble.
+
+     We don't use a pipe because dvips always outputs data (its
+     prologue) even if it fails, what prevents error detection.
+
+ - Delegation: LaTeX (LaTeX to DVI)
+     We use a modern version of the shell script `texi2dvi', from the
+     package `Texinfo', which runs `makeindex', `bibtex' and `latex' as
+     many times as needed.  You should be aware that if the file
+     includes files from *other* directories, it may miss some
+     compilation steps.  Other cases (most typical) are well handled.
+
+
+File: a2ps.info,  Node: Your Internal Details,  Prev: Your Delegations,  Up: Configuration Files
+
+Your Internal Details
+=====================
+
+   There are settings that only meant for a2ps that you can tune by
+yourself.
+
+ - Configuration Setting: FileCommand: COMMAND
+     The command to run to call `file(1)' on a file.  If possible, make
+     it follow the symbolic links.
+
+
+File: a2ps.info,  Node: Library Files,  Next: Encodings,  Prev: Configuration Files,  Up: Top
+
+Library Files
+*************
+
+   To be general and to allow as much customization as possible, a2ps
+avoids to hard code its knowledge (encodings, PostScript routines,
+etc.), and tries to split it in various files.  Hence it needs a path,
+i.e., a list of directories, in which it may find the files it needs.
+
+   The exact value of this library path is available by `a2ps
+--list=defaults'.  Typically its value is:
+     gargantua ~ $ a2ps --list=defaults
+     Configuration status of a2ps 4.13
+     _More stuff deleted here_
+     Internals:
+       verbosity level     = 2
+       file command        = /usr/ucb/file -L
+       temporary directory =
+       library path        =
+             /inf/soft/infthes/demaille/.a2ps
+             /usr/local/share/a2ps/sheets
+             /usr/local/share/a2ps/ps
+             /usr/local/share/a2ps/encoding
+             /usr/local/share/a2ps/afm
+             /usr/local/share/a2ps/printers
+             /usr/local/share/a2ps
+
+   You may change this default path through the configuration files
+(*note Your Library Path::).
+
+   If you plan to define yourself some files for a2ps, they should be in
+one of those directories.
+
+* Menu:
+
+* Documentation Format::        Special tags to write a documentation
+* Map Files::                   Their general shape and rationale
+* Font Files::                  Using other fonts
+* Style Sheet Files::           Defining pretty printing rules
+

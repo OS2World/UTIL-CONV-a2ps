@@ -1,0 +1,510 @@
+# Makefile.in generated automatically by automake 1.4a from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_STRIP_FLAG =
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+
+@SET_MAKE@
+host_alias = @host_alias@
+host_triplet = @host@
+AMDEP = @AMDEP@
+AMTAR = @AMTAR@
+AS = @AS@
+AWK = @AWK@
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+COM_ = @COM_@
+COM_DISPLAY = @COM_DISPLAY@
+COM_LATEX = @COM_LATEX@
+COM_PS2PDF = @COM_PS2PDF@
+COM_PSUTILS = @COM_PSUTILS@
+COM_TEXI = @COM_TEXI@
+COM_acroread4 = @COM_acroread4@
+CPP = @CPP@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+DATADIRNAME = @DATADIRNAME@
+DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
+ECHO_C = @ECHO_C@
+ECHO_N = @ECHO_N@
+EMACS = @EMACS@
+ENCODING = @ENCODING@
+EXEEXT = @EXEEXT@
+EXTRA_CFLAGS = @EXTRA_CFLAGS@
+FILE_LINK = @FILE_LINK@
+GENCAT = @GENCAT@
+GMOFILES = @GMOFILES@
+GMSGFMT = @GMSGFMT@
+GNU_PACKAGE = @GNU_PACKAGE@
+GPERF = @GPERF@
+GT_NO = @GT_NO@
+GT_YES = @GT_YES@
+INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
+INSTOBJEXT = @INSTOBJEXT@
+INTLDEPS = @INTLDEPS@
+INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBOBJS = @LIBOBJS@
+LIBTOOL = @LIBTOOL@
+LIBVERSION = @LIBVERSION@
+LN_S = @LN_S@
+LPR = @LPR@
+LPR_QUEUE_OPTION = @LPR_QUEUE_OPTION@
+LTALLOCA = @LTALLOCA@
+LTLIBOBJS = @LTLIBOBJS@
+MAKEINFO = @MAKEINFO@
+MEDIUM = @MEDIUM@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+MSGFMT = @MSGFMT@
+OBJDUMP = @OBJDUMP@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+POFILES = @POFILES@
+POSUB = @POSUB@
+PSFONT_PATH = @PSFONT_PATH@
+RANLIB = @RANLIB@
+U = @U@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+USE_NLS = @USE_NLS@
+VERSION = @VERSION@
+YACC = @YACC@
+file_prog = @file_prog@
+l = @l@
+lispdir = @lispdir@
+
+
+AUTOMAKE_OPTIONS = $(top_builddir)/lib/ansi2knr
+
+bin_PROGRAMS = a2ps
+
+DEFS = @DEFS@ -DLOCALEDIR=\"$(datadir)/locale\"
+
+a2ps_SOURCES = main.c \
+read.c sshread.c ssheet.c select.c generate.c 			\
+delegate.c regex.c buffer.c versions.c ffaces.c			\
+version-etc.c long-options.c					\
+parsessh.y lexssh.l lexps.l sheets-map.l
+
+
+noinst_HEADERS = main.h \
+read.h sshread.h ssheet.h select.h generate.h			\
+delegate.h regex.h buffer.h versions.h ffaces.h			\
+version-etc.h long-options.h					\
+yy2ssh.h lexps.h
+
+
+BUILT_SOURCES = parsessh.h
+
+YFLAGS = -dtv
+LEX = @LEX@
+# I don't really understand why I have to put srcdir here, but
+# it is needed for yacc and lex files (seems related to #line, but
+# I really don't understand why)...
+INCLUDES = -I.. -I$(srcdir) -I$(top_srcdir)/lib -I$(top_builddir)/intl
+
+a2ps_LDADD = $(top_builddir)/lib/liba2ps.la @INTLLIBS@ @LEXLIB@  -lm
+
+EXTRA_DIST = $(BUILT_SOURCES)
+subdir = src
+mkinstalldirs = $(SHELL) $(top_srcdir)/auxdir/mkinstalldirs
+CONFIG_HEADER = ../config.h
+CONFIG_CLEAN_FILES = 
+bin_PROGRAMS =  a2ps$(EXEEXT)
+PROGRAMS =  $(bin_PROGRAMS)
+
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+ANSI2KNR = $(top_builddir)/lib/ansi2knr
+am_a2ps_OBJECTS =  main$U.o read$U.o sshread$U.o ssheet$U.o select$U.o \
+generate$U.o delegate$U.o regex$U.o buffer$U.o versions$U.o ffaces$U.o \
+version-etc$U.o long-options$U.o parsessh$U.o lexssh$U.o lexps$U.o \
+sheets-map$U.o
+a2ps_OBJECTS =  $(am_a2ps_OBJECTS)
+a2ps_DEPENDENCIES =  $(top_builddir)/lib/liba2ps.la
+a2ps_LDFLAGS = 
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CFLAGS = @CFLAGS@
+LEXLIB = @LEXLIB@
+YLWRAP = $(top_srcdir)/auxdir/ylwrap
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+DIST_SOURCES =  $(a2ps_SOURCES)
+HEADERS =  $(noinst_HEADERS)
+
+DIST_COMMON =  $(noinst_HEADERS) Makefile.am Makefile.in lexps.c \
+lexssh.c parsessh.c sheets-map.c
+
+
+DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+
+GZIP_ENV = --best
+depcomp = $(SHELL) $(top_srcdir)/auxdir/depcomp
+DEP_FILES =  @AMDEP@ $(DEPDIR)/buffer$U.Po $(DEPDIR)/delegate$U.Po \
+$(DEPDIR)/ffaces$U.Po $(DEPDIR)/generate$U.Po $(DEPDIR)/lexps$U.Po \
+$(DEPDIR)/lexssh$U.Po $(DEPDIR)/long-options$U.Po $(DEPDIR)/main$U.Po \
+$(DEPDIR)/parsessh$U.Po $(DEPDIR)/read$U.Po $(DEPDIR)/regex$U.Po \
+$(DEPDIR)/select$U.Po $(DEPDIR)/sheets-map$U.Po $(DEPDIR)/ssheet$U.Po \
+$(DEPDIR)/sshread$U.Po $(DEPDIR)/version-etc$U.Po \
+$(DEPDIR)/versions$U.Po
+SOURCES = $(a2ps_SOURCES)
+OBJECTS = $(am_a2ps_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .c .l .lo .o .y
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-binPROGRAMS:
+
+clean-binPROGRAMS:
+	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+distclean-binPROGRAMS:
+
+maintainer-clean-binPROGRAMS:
+
+install-binPROGRAMS: $(bin_PROGRAMS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    f="`echo $$p|sed -e 's/$(EXEEXT)$$//' -e '$(transform)' -e 's/$$/$(EXEEXT)/'`"; \
+	    echo " $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/$$f"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/$$f; \
+	  else :; fi; \
+	done
+
+uninstall-binPROGRAMS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  f="`echo $$p|sed -e 's/$(EXEEXT)$$//' -e '$(transform)' -e 's/$$/$(EXEEXT)/'`"; \
+	  echo " rm -f $(DESTDIR)$(bindir)/$$f"; \
+	  rm -f $(DESTDIR)$(bindir)/$$f; \
+	done
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+$(top_builddir)/lib/ansi2knr: $(top_builddir)/lib/ansi2knr.o
+	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) ansi2knr
+
+$(top_builddir)/lib/ansi2knr.o:
+	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) ansi2knr.o
+
+
+mostlyclean-kr:
+	-rm -f *_.c
+
+clean-kr:
+
+distclean-kr:
+
+maintainer-clean-kr:
+
+a2ps$(EXEEXT): $(a2ps_OBJECTS) $(a2ps_DEPENDENCIES)
+	@rm -f a2ps$(EXEEXT)
+	$(LINK) $(a2ps_LDFLAGS) $(a2ps_OBJECTS) $(a2ps_LDADD) $(LIBS)
+buffer_.c: buffer.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/buffer.c; then echo $(srcdir)/buffer.c; else echo buffer.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > buffer_.c
+delegate_.c: delegate.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/delegate.c; then echo $(srcdir)/delegate.c; else echo delegate.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > delegate_.c
+ffaces_.c: ffaces.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/ffaces.c; then echo $(srcdir)/ffaces.c; else echo ffaces.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > ffaces_.c
+generate_.c: generate.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/generate.c; then echo $(srcdir)/generate.c; else echo generate.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > generate_.c
+lexps_.c: lexps.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/lexps.c; then echo $(srcdir)/lexps.c; else echo lexps.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > lexps_.c
+lexssh_.c: lexssh.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/lexssh.c; then echo $(srcdir)/lexssh.c; else echo lexssh.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > lexssh_.c
+long-options_.c: long-options.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/long-options.c; then echo $(srcdir)/long-options.c; else echo long-options.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > long-options_.c
+main_.c: main.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/main.c; then echo $(srcdir)/main.c; else echo main.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > main_.c
+parsessh_.c: parsessh.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/parsessh.c; then echo $(srcdir)/parsessh.c; else echo parsessh.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > parsessh_.c
+read_.c: read.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/read.c; then echo $(srcdir)/read.c; else echo read.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > read_.c
+regex_.c: regex.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/regex.c; then echo $(srcdir)/regex.c; else echo regex.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > regex_.c
+select_.c: select.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/select.c; then echo $(srcdir)/select.c; else echo select.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > select_.c
+sheets-map_.c: sheets-map.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/sheets-map.c; then echo $(srcdir)/sheets-map.c; else echo sheets-map.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > sheets-map_.c
+ssheet_.c: ssheet.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/ssheet.c; then echo $(srcdir)/ssheet.c; else echo ssheet.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > ssheet_.c
+sshread_.c: sshread.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/sshread.c; then echo $(srcdir)/sshread.c; else echo sshread.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > sshread_.c
+version-etc_.c: version-etc.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/version-etc.c; then echo $(srcdir)/version-etc.c; else echo version-etc.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > version-etc_.c
+versions_.c: versions.c $(ANSI2KNR)
+	$(CPP) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) `if test -f $(srcdir)/versions.c; then echo $(srcdir)/versions.c; else echo versions.c; fi` | sed 's/^# \([0-9]\)/#line \1/' | $(ANSI2KNR) > versions_.c
+buffer_.o buffer_.lo delegate_.o delegate_.lo ffaces_.o ffaces_.lo \
+generate_.o generate_.lo lexps_.o lexps_.lo lexssh_.o lexssh_.lo \
+long-options_.o long-options_.lo main_.o main_.lo parsessh_.o \
+parsessh_.lo read_.o read_.lo regex_.o regex_.lo select_.o select_.lo \
+sheets-map_.o sheets-map_.lo ssheet_.o ssheet_.lo sshread_.o \
+sshread_.lo version-etc_.o version-etc_.lo versions_.o versions_.lo : \
+$(ANSI2KNR)
+.l.c:
+	$(SHELL) $(YLWRAP) "$(LEX)" $< $(LEX_OUTPUT_ROOT).c $@ -- $(AM_LFLAGS) $(LFLAGS)
+.y.c:
+	$(YACC) $(AM_YFLAGS) $(YFLAGS) $< && mv y.tab.c $*.c
+	if test -f y.tab.h; then \
+	if cmp -s y.tab.h $*.h; then rm -f y.tab.h; else mv y.tab.h $*.h; fi; \
+	else :; fi
+
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
+	list='$(SOURCES) $(HEADERS) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+		$(TAGS_FILES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || etags $(ETAGS_ARGS) $$tags  $$unique $(LISP)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pR $$d/$$file $(distdir); \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+@AMDEP@include $(DEPDIR)/buffer$U.Po
+@AMDEP@include $(DEPDIR)/delegate$U.Po
+@AMDEP@include $(DEPDIR)/ffaces$U.Po
+@AMDEP@include $(DEPDIR)/generate$U.Po
+@AMDEP@include $(DEPDIR)/lexps$U.Po
+@AMDEP@include $(DEPDIR)/lexssh$U.Po
+@AMDEP@include $(DEPDIR)/long-options$U.Po
+@AMDEP@include $(DEPDIR)/main$U.Po
+@AMDEP@include $(DEPDIR)/parsessh$U.Po
+@AMDEP@include $(DEPDIR)/read$U.Po
+@AMDEP@include $(DEPDIR)/regex$U.Po
+@AMDEP@include $(DEPDIR)/select$U.Po
+@AMDEP@include $(DEPDIR)/sheets-map$U.Po
+@AMDEP@include $(DEPDIR)/ssheet$U.Po
+@AMDEP@include $(DEPDIR)/sshread$U.Po
+@AMDEP@include $(DEPDIR)/version-etc$U.Po
+@AMDEP@include $(DEPDIR)/versions$U.Po
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf $(DEPDIR)
+
+maintainer-clean-depend:
+
+@AMDEP@CCDEPMODE = @CCDEPMODE@
+
+.c.o:
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(COMPILE) -c -o $@ $<
+
+.c.lo:
+@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LTCOMPILE) -c -o $@ $<
+
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am: install-binPROGRAMS
+install-exec: install-exec-am
+
+install-data-am:
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-binPROGRAMS
+uninstall: uninstall-am
+all-am: Makefile $(PROGRAMS) $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(bindir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+	-rm -f Makefile.in
+	-test -z "lexps.clexssh.csheets-map.cparsessh.c$(BUILT_SOURCES)" || rm -f lexps.c lexssh.c sheets-map.c parsessh.c $(BUILT_SOURCES)
+mostlyclean-am:  mostlyclean-binPROGRAMS mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-kr mostlyclean-tags \
+		mostlyclean-depend mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-binPROGRAMS clean-compile clean-libtool clean-kr \
+		clean-tags clean-depend clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-binPROGRAMS distclean-compile distclean-libtool \
+		distclean-kr distclean-tags distclean-depend \
+		distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-binPROGRAMS \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-kr maintainer-clean-tags \
+		maintainer-clean-depend maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-binPROGRAMS distclean-binPROGRAMS clean-binPROGRAMS \
+maintainer-clean-binPROGRAMS uninstall-binPROGRAMS install-binPROGRAMS \
+mostlyclean-compile distclean-compile clean-compile \
+maintainer-clean-compile mostlyclean-libtool distclean-libtool \
+clean-libtool maintainer-clean-libtool mostlyclean-kr distclean-kr \
+clean-kr maintainer-clean-kr tags mostlyclean-tags distclean-tags \
+clean-tags maintainer-clean-tags distdir mostlyclean-depend \
+distclean-depend clean-depend maintainer-clean-depend info-am info \
+dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+install-exec install-data-am install-data install-am install \
+uninstall-am uninstall all-redirect all-am all install-strip \
+installdirs mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

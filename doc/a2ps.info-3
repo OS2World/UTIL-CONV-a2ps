@@ -1,0 +1,1295 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+File: a2ps.info,  Node: Documentation Format,  Next: Map Files,  Prev: Library Files,  Up: Library Files
+
+Documentation Format
+====================
+
+   In various places a documentation can be given.  Since some parts of
+this document and of web pages are extracted from documentations, some
+tags are needed to provide a better layout.  The format is a mixture
+made out of Texinfo like commands, but built so that quick and easy
+processing can be made.
+
+   These tags are:
+`code('TEXT`)code'
+     Typeset TEXT like a piece of code.  This should be used for keys,
+     variables, options etc.  For instance the documentation of the
+     `bold' prologue mentions the `bw' prologue:
+          Documentation
+          This style is meant to replace the old option
+          code(-b)code of a2ps 4.3.  It is a copy of the
+          black and white prologue, but in which all the
+          fonts are in Bold.
+          EndDocumentation
+
+`href('LINK`)href('TEXT`)href'
+     Specifies a hyper text LINK displayed as TEXT.
+
+`@example'
+`@end example'
+     They must be alone on the line.  The text between these tags is
+     displayed in a code-like fonts.  This should be used for including
+     a piece of code.  For instance, in the documentation of the `gnuc'
+     style sheet:
+          documentation is
+           "Declaration of functions are highlighted"
+           "emph(only)emph if you start the function name"
+           "in the first column, and it is followed by an"
+           "opening parenthesis.  In other words, if you"
+           "write"
+           "@example"
+           "int main (void)"
+           "@end example"
+           "it won't work.  Write:"
+           "@example"
+           "int"
+           "main (void)"
+           "@end example"
+          end documentation
+
+`@itemize'
+`@item' TEXT
+`@end itemize'
+     Typeset a list of items. The opening and closing tags must be
+     alone on the line.
+
+
+File: a2ps.info,  Node: Map Files,  Next: Font Files,  Prev: Documentation Format,  Up: Library Files
+
+Map Files
+=========
+
+   Many things are defined through files.  There is a general scheme to
+associate an object to the files to use: map files.  They are typically
+used to:
+   - resolve aliases.  For instance the ISO-8859-1 encoding is also
+     called ISO Latin 1, or Latin 1 for short.  The `encoding.map' file
+     will map these three names to the same Encoding Description File.
+
+   - cope with broken files systems.  For instance,
+     the-one-you-know-I-don't-need-to-name cannot handle files named
+     `Courier-BoldOblique.afm': it is the same as `Courier-Bold.afm'.
+     The `fonts.map' file is here to associate a font file name to a
+     font name.
+
+   The syntax of these files is:
+   - any empty line, or any line starting by a `#' is a comment.
+
+   - a line with the format
+          `***'              PATH
+
+     requests that the file designated by PATH be included at this
+     point.
+
+   - any other line has the format
+
+          KEY               VALUE
+
+     meaning that when looking for KEY (e.g., name of a font, an
+     encoding etc.), a2ps should use VALUE (e.g., font file name,
+     encoding description file name etc.).
+
+   The map files used in a2ps are:
+`encoding.map'
+     Resolving encodings aliases.
+
+`fonts.map'
+     Mapping font names to font file names.
+
+`sheets.map'
+     Rules to decide what style sheet to use.
+
+
+File: a2ps.info,  Node: Font Files,  Next: Style Sheet Files,  Prev: Map Files,  Up: Library Files
+
+Font Files
+==========
+
+   Even when a PostScript printer knows the fonts you want to use, using
+these fonts requires some description files.
+
+* Menu:
+
+* Fonts Map File::              Mapping a font name to a file name
+* Fonts Description Files::     Needed files to use a Font
+* Adding More Font Support::    Using even more Fonts
+
+
+File: a2ps.info,  Node: Fonts Map File,  Next: Fonts Description Files,  Prev: Font Files,  Up: Font Files
+
+Fonts Map File
+--------------
+
+   *Note Map Files::, for a description of the map files.  This file
+associates the FONT-KEY to a FONT name. For instance:
+     Courier                 pcrr
+     Courier-Bold            pcrb
+     Courier-BoldOblique     pcrbo
+     Courier-Oblique         pcrro
+
+associates to font named `Courier', the key `pcrr'.  To be recognized,
+the font name must be exact: `courier' and `COURIER' are not admitted.
+
+
+File: a2ps.info,  Node: Fonts Description Files,  Next: Adding More Font Support,  Prev: Fonts Map File,  Up: Font Files
+
+Fonts Description Files
+-----------------------
+
+   There are two kinds of data a2ps needs to use a font:
+   - the AFM file (`FONT-KEY.afm'), which describes the metrics
+     information corresponding to FONT;
+
+   - in the case FONT is not known from the printer, the PFA or PFB
+     file which is down loaded to the printer.  These files are
+     actually the PostScript programs which execution produces the
+     characters to be drawn on the page, in this FONT.
+
+
+File: a2ps.info,  Node: Adding More Font Support,  Prev: Fonts Description Files,  Up: Font Files
+
+Adding More Font Support
+------------------------
+
+   a2ps can use as many fonts as you want, provided that you teach it
+the name of the files in which are stored the fonts (*note Fonts Map
+File::).  To this end, a very primitive but still useful shell script is
+provided: `make_fonts_map.sh'.
+
+   First, you need to find the directories which store the fonts you
+want to use, and extend the library path so that a2ps sees those
+directories.  For instance, add:
+     AppendLibraryPath: /usr/local/share/ghostscript/fonts
+
+   Then run `make_fonts_map.sh'.  It should be located in the `afm/'
+directory of the system's a2ps hierarchy.  Typically
+`/usr/local/share/a2ps/afm/make_fonts_map.sh'.
+
+   This script asks a2ps for the library path, wanders in this path
+collecting `AFM' files, and digging information in them.
+
+   Once the script has finished, a file `fonts.map.new' was created.
+Check its integrity, and if it's correct, either replace the old
+`fonts.map' with it, or rename `fonts.map.new' as `fonts.map' and place
+it higher in the the library path (for instance in your `~/.a2ps/'
+directory).
+
+
+File: a2ps.info,  Node: Style Sheet Files,  Prev: Font Files,  Up: Library Files
+
+Style Sheet Files
+=================
+
+   The style sheets are defined in various files.  See *note Pretty
+Printing:: for the structure of these files.  As for most other
+features, there is main file, a road map, which defines in which
+condition a style sheet should be used (*note Map Files::).  This file
+is `sheets.map'.
+
+   Its format is simple:
+     STYLE-KEY: PATTERNS
+
+or
+     include(FILE)
+
+   The PATTERNS need not be on separate lines.  There are two kinds of
+patterns:
+/PATTERN/FLAGS
+     if the current file name matches PATTERN, then select style
+     STYLE-KEY (i.e. file `STYLE-KEY.ssh').
+
+<PATTERN>FLAGS
+     if the result of a call to `file(1)' matches PATTERN, then select
+     style STYLE-KEY.
+
+   Currently FLAGS can only be `i', standing for an insentive match.
+Please note that the matching is not truly case insensitive: rather, a
+lower case version of the string is compared to the PATTERN as is,
+i.e., the PATTERN should itself be lower case.
+
+   The special STYLE-KEY `binary' tells a2ps to consider that the file
+should not be printed, and will be ignored, unless option
+`--print-anyway' is given.
+
+   If a style name can't be found, the plain style is used.
+
+   The map file is read bottom up, so that the "last" match is honored.
+
+   Two things are to retain from this:
+  1. if the file is presented through `stdin', then a2ps will run
+     `file(1)'.  However, unless you specify a fake file name with
+     `--stdin', pattern matching upon the name is turn off.  In general
+     you can expect correct delegations, but almost never pretty
+     printing.
+
+  2. if `file' is wrong on some files, a2ps may use bad style sheets.
+     In this case, do try option `--guess', compare it with the output
+     of `file', and if the culprit is `file', go and complain to your
+     system administrator :-), or fix it by defining your own filename
+     pattern matching rules.
+
+   Consider the case of Texinfo files as an example (the language in
+which this documentation is written).  Files are usually named
+`foo.texi', `bar.txi', or even `baz.texinfo'.  `file(1)' is able to
+recognize Texinfo files:
+
+     doc % file a2ps.texi
+     a2ps.texi: Texinfo source text
+
+Therefore the sheets.map would look like:
+
+     # Texinfo files
+     texinfo:  /*.txi/  /*.texi/  /*.texinfo/
+               <Texinfo source*>
+
+
+File: a2ps.info,  Node: Encodings,  Next: Pretty Printing,  Prev: Library Files,  Up: Top
+
+Encodings
+*********
+
+   a2ps is trying to support the various usual encodings that its users
+use.  This chapter presents what an encoding is, how the encodings
+support is handled within a2ps, and some encodings it supports.
+
+* Menu:
+
+* What is an Encoding::         The concept of encoding explained
+* Encoding Files::              How a2ps handles the encodings
+
+
+File: a2ps.info,  Node: What is an Encoding,  Next: Encoding Files,  Prev: Encodings,  Up: Encodings
+
+What is an Encoding
+===================
+
+   This section is actually taken from the web pages of Alis
+Technologies inc. (http://www.alis.com/)
+
+   Document encoding is the most important but also the most sensitive
+and explosive topic in Internet internationalization. It is an essential
+factor since most of the information distributed over the Internet is in
+text format. But the history of the Internet is such that the
+predominant - and in some cases the only possible - encoding is the very
+limited ASCII, which can represent only a handful of languages, only
+three of which are used to any great extent: English, Indonesian and
+Swahili.
+
+   All the other languages, spoken by more than 90% of the world's
+population, must fall back on other character sets. And there is a
+plethora of them, created over the years to satisfy writing constraints
+and constantly changing technological limitations.  The ISO
+international character set registry contains only a small fraction;
+IBM's character registry is over three centimeters thick; Microsoft and
+Apple each have a bunch of their own, as do other software manufacturers
+and editors.
+
+   The problem is not that there are too few but rather too many
+choices, at least whenever Internet standards allow them. And the
+surplus is a real problem; if every Arabic user made his own choice
+among the three dozen or so codes available for this language, there is
+little likelihood that his "neighbor" would do the same and that they
+would thus be able to understand each other. This example is rather
+extreme, but it does illustrate the importance of standards in the area
+of internationalization. For a group of users sharing the same language
+to be able to communicate,
+
+  1. the code used in the shared document must always be identified
+     (labeling)
+
+  2. they must agree on a small number of codes - only one, if possible
+     (standards);
+
+  3. their software must recognize and process all codes (versatility)
+
+   Certain character sets stand out either because of their status as an
+official national or international standard, or simply because of their
+widespread use.
+
+   First off, there is the ISO 8859 standards series that standardize a
+dozen character sets that are useful for a large number of languages
+using the Latin, Cyrillic, Arabic, Greek and Hebrew alphabets. These
+standards have a limited range of application (8 bits per character, a
+maximum of 190 characters, no combining) but where they suffice (as they
+do for 10 of the 20 most widely used languages), they should be used on
+the Internet in preference to other codes. For all other languages,
+national standards should preferably be chosen or, if none are
+available, a well-known and widely-used code should be the second
+choice.
+
+   Even when we limit ourselves to the most widely used standards, the
+overabundance remains considerable, and this significantly complicates
+life for truly international software developers and users of several
+languages, especially when such languages can only be represented by a
+single code. It was to resolve this problem that both Unicode and the
+ISO 10646 International standard were created. Two standards? Oh no!
+Their designers soon realized the problem and were able to cooperate to
+the extent of making the character set "repertoires" and coding
+identical.
+
+   ISO 10646 (and Unicode) contain over 30,000 characters capable of
+representing most of the living languages within a single code. All of
+these characters, except for the _Han_ (Chinese characters also used in
+Japanese and Korean), have a name.  And there is still room to encode
+the missing languages as soon as enough of the necessary research is
+done.  Unicode can be used to represent several languages, using
+different alphabets, within the same electronic document.
+
+
+File: a2ps.info,  Node: Encoding Files,  Prev: What is an Encoding,  Up: Encodings
+
+Encoding Files
+==============
+
+* Menu:
+
+* Encoding Map File::           Mapping an encoding name to a file name
+* Encoding Description Files::  Specifying an encoding
+* Some Encodings::              Classical or standard encodings
+
+   The support of the encodings in a2ps is completely taken out of the
+code.  That is to say, adding, removing or changing anything in its
+support for an encoding does not require programming, nor even being a
+programmer.
+
+   *Note What is an Encoding::, if you want to know more about this.
+
+
+File: a2ps.info,  Node: Encoding Map File,  Next: Encoding Description Files,  Prev: Encoding Files,  Up: Encoding Files
+
+Encoding Map File
+-----------------
+
+   *Note Map Files::, for a description of the map files.
+
+   The meaningful lines of the `encoding.map' file have the form:
+     ALIAS      KEY
+     iso-8859-1 latin1
+     latin1     latin1
+     l1         latin1
+
+where
+ALIAS
+     specifies any name under which the encoding may be used.  It
+     influences the option `--encoding', but also the encodings
+     dynamically required, as for instance in the `mail' style sheet
+     (support for MIME).
+
+     When ENCODING is asked, the lower case version of ENCODING must be
+     equal to ALIAS.
+
+KEY
+     specifies the prefix of the file describing the encoding
+     (`KEY.edf', *Note Encoding Description Files::).
+
+
+File: a2ps.info,  Node: Encoding Description Files,  Next: Some Encodings,  Prev: Encoding Map File,  Up: Encoding Files
+
+Encoding Description Files
+--------------------------
+
+   The encoding description file describing the encoding KEY is named
+`KEY.edf'.  It is subject to the same rules as any other a2ps file:
+   - please make the name portable: alpha-numerical, at most 8
+     characters,
+
+   - empty lines and lines starting by `#' are ignored.
+
+
+   The entries are
+`Name:'
+     Specifies the full name of the encoding.  Please, try to use the
+     official name if there is one.
+          Name: ISO-8859-1
+
+`Documentation/EndDocumentation'
+     Introduces the documentation on the encoding (*note Documentation
+     Format::).  Typical informations expected are the other important
+     names this encoding has, and the languages it covers.
+          Documentation
+          Also known as ISO Latin 1, or Latin 1.  It is a superset
+          of ASCII, and covers most West-European languages.
+          EndDocumentation
+
+`Substitute:'
+     Introduces a font substitution.  The most common fonts (e.g.,
+     `Courier', `Times-Roman'...) do not support many encodings (for
+     instance it does not support Latin 2).  To avoid that Latin 2 users
+     have to replace everywhere calls to `Courier', a2ps allows to
+     specify that whenever a font is called in an encoding, then
+     another font should be used.
+
+     For instance in `iso2.edf' one can read:
+          # Fonts from Ogonkify offer full support of ISO Latin 2
+          Substitute: Courier              Courier-Ogonki
+          Substitute: Courier-Bold         Courier-Bold-Ogonki
+          Substitute: Courier-BoldOblique  Courier-BoldOblique-Ogonki
+          Substitute: Courier-Oblique      Courier-Oblique-Ogonki
+
+`Default:'
+     Introduces the name of the font that should be used when a font
+     (not substituted as per the previous item) is called but provides
+     to poor a support of the encoding.  The `Courier' equivalent is
+     the best choice.
+          Default: Courier-Ogonki
+
+`Vector:'
+     Introduces the PostScript encoding vector, that is a list of the
+     256 PostScript names of the characters.  Note that only the
+     printable characters are named in PostScript (e.g., `bell' in ASCII
+     (`^G') should not be named).  The special name `.notdef' is to be
+     used when the character is not printable.
+
+     *Warning.*  Make sure to use real, official, PostScript names.
+     Using names such as `c123' may be the sign you use unusual names.
+     On the other hand PostScript names such as `afii8879' are common.
+
+
+File: a2ps.info,  Node: Some Encodings,  Prev: Encoding Description Files,  Up: Encoding Files
+
+Some Encodings
+--------------
+
+   Most of the following information is a courtesy of Alis Technologies
+inc. (http://www.alis.com/) and of Roman Czyborra
+<zcyborra@cs.tu-berlin.de>'s page about The ISO 8859 Alphabet Soup
+(http://czyborra.com/charsets/).  *Note What is an Encoding::, is an
+instructive presentation of the encodings.
+
+   The known encodings are:
+
+ - Encoding: ASCII (`ascii.edf')
+     US-ASCII.
+
+ - Encoding: HPRoman (`hp.edf')
+     The 8 bits Roman encoding for HP.
+
+ - Encoding: IBM-CP437 (`ibm-cp437.edf')
+     This encoding is meant to be used for PC files with drawing lines.
+
+ - Encoding: IBM-CP850 (`ibm-cp850.edf')
+     Several characters may be missing, especially Greek letters and
+     some mathematical symbols.
+
+ - Encoding: ISO-8859-1 (`iso1.edf')
+     The ISO-8859-1 character set, often simply referred to as Latin 1,
+     covers most West European languages, such as French, Spanish,
+     Catalan, Basque, Portuguese, Italian, Albanian, Rhaeto-Romanic,
+     Dutch, German, Danish, Swedish, Norwegian, Finnish, Faroese,
+     Icelandic, Irish, Scottish, and English, incidentally also
+     Afrikaans and Swahili, thus in effect also the entire American
+     continent, Australia and the southern two-thirds of Africa. The
+     lack of the ligatures Dutch IJ, French OE and ,,German" quotation
+     marks is considered tolerable.
+
+     The lack of the new C=-resembling Euro currency symbol U+20AC has
+     opened the discussion of a new Latin0.
+
+ - Encoding: ISO-8859-2 (`iso2.edf')
+     The Latin 2 character set supports the Slavic languages of Central
+     Europe which use the Latin alphabet. The ISO-8859-2 set is used for
+     the following languages: Czech, Croat, German, Hungarian, Polish,
+     Romanian, Slovak and Slovenian.
+
+     Support is provided thanks to Ogonkify.
+
+ - Encoding: ISO-8859-3 (`iso3.edf')
+     This character set is used for Esperanto, Galician, Maltese and
+     Turkish.
+
+     Support is provided thanks to Ogonkify.
+
+ - Encoding: ISO-8859-4 (`iso4.edf')
+     Some letters were added to the ISO-8859-4 to support languages
+     such as Estonian, Latvian and Lithuanian. It is an incomplete
+     precursor of the Latin 6 set.
+
+     Support is provided thanks to Ogonkify.
+
+ - Encoding: ISO-8859-5 (`iso5.edf')
+     The ISO-8859-5 set is used for various forms of the Cyrillic
+     alphabet. It supports Bulgarian, Byelorussian, Macedonian, Serbian
+     and Ukrainian.
+
+     The Cyrillic alphabet was created by St. Cyril in the 9th century
+     from the upper case letters of the Greek alphabet. The more ancient
+     Glagolithic (from the ancient Slav glagol, which means "word"), was
+     created for certain dialects from the lower case Greek letters.
+     These characters are still used by Dalmatian Catholics in their
+     liturgical books. The kings of France were sworn in at Reims using
+     a Gospel in Glagolithic characters attributed to St. Jerome.
+
+     Note that Russians seem to prefer the KOI8-R character set to the
+     ISO set for computer purposes. KOI8-R is composed using the lower
+     half (the first 128 characters) of the corresponding American ASCII
+     character set.
+
+ - Encoding: ISO-8859-7 (`iso7.edf')
+     ISO-8859-7 was formerly known as ELOT-928 or ECMA-118:1986.  It is
+     meant for modern Greek.
+
+ - Encoding: ISO-8859-9 (`iso9.edf')
+     The ISO 8859-9 set, or Latin 5, replaces the rarely used Icelandic
+     letters from Latin 1 with Turkish letters.
+
+     Support is provided thanks to Ogonkify.
+
+ - Encoding: ISO-8859-10 (`iso10.edf')
+     Latin 6 (or ISO-8859-10) adds the last letters from Greenlandic and
+     Lapp which were missing in Latin 4, and thereby covers all
+     Scandinavia.
+
+     Support is provided thanks to Ogonkify.
+
+ - Encoding: ISO-8859-13 (`iso13.edf')
+     Latin7 (ISO-8859-13) is going to cover the Baltic Rim and
+     re-establish the Latvian (lv) support lost in Latin6 and may
+     introduce the local quotation marks.
+
+     Support is provided thanks to Ogonkify.
+
+ - Encoding: ISO-8859-15 (`iso15.edf')
+     The new Latin9 nicknamed Latin0 aims to update Latin1 by replacing
+     some less needed symbols (some fractions and accents) with
+     forgotten French and Finnish letters and placing the U+20AC Euro
+     sign in the cell of the former international currency sign.
+
+     Very few fonts yet offer the possibility to print the Euro sign.
+
+ - Encoding: KOI8 (`koi8.edf')
+     KOI-8 (+Ëë) is a subset of ISO-IR-111 that can be used in Serbia,
+     Belarus etc.
+
+ - Encoding: MS-CP1250 (`ms-cp1250.edf')
+     Microsoft's CP-1250 encoding (aka CeP).
+
+ - Encoding: Macintosh (`mac.edf')
+     For the Macintosh encoding.  The support is not sufficient, and a
+     lot of characters may be missing at the end of the job (especially
+     Greek letters).
+
+
+File: a2ps.info,  Node: Pretty Printing,  Next: PostScript,  Prev: Encodings,  Up: Top
+
+Pretty Printing
+***************
+
+   The main feature of a2ps is its pretty-printing capabilities.  Two
+different levels of pretty printing can be reached:
+   - basic (normal highlight level) in which what you print is what you
+     wrote.
+
+   - string (heavy highlight level), in which in general, some keywords
+     are replaced by a Symbol character which best represents them.  For
+     instance, in most languages `<=' and `>=' will be replaced by the
+     corresponding single character from the font Symbol.
+
+   Note that the difference is up to the author of the style sheet.
+
+* Menu:
+
+* Syntactic limits::            What can't be done
+* Known Style Sheets::          Some supported languages
+* Type Setting Style Sheets::   a2ps as a tiny word processor
+* Faces::                       Encoding the look of pieces of text
+* Style sheets semantics::      What is to be defined
+* Style Sheets Implementation::  How they should be defined
+* A tutorial on style sheets::  Step by step example
+
+
+File: a2ps.info,  Node: Syntactic limits,  Next: Known Style Sheets,  Prev: Pretty Printing,  Up: Pretty Printing
+
+Syntactic limits
+================
+
+   a2ps is _not_ a powerful syntactic pretty-printer: it just handles
+lexical structures, i.e., if in your favorite language
+     IF IF == THEN THEN THEN := ELSE ELSE ELSE := IF
+
+is legal, then a2ps is not the tool you need.  Indeed a2ps just looks
+for some keywords, or some "sequences".
+
+
+File: a2ps.info,  Node: Known Style Sheets,  Next: Type Setting Style Sheets,  Prev: Syntactic limits,  Up: Pretty Printing
+
+Known Style Sheets
+==================
+
+ - Style Sheet: 68000 (`68000.ssh')
+     Althought designed at the origin for the 68k's assembler, this
+     style sheet seems to handle rather well other dialects.
+
+ - Style Sheet: a2ps configuration file (`a2psrc.ssh')
+     Meant to print files such as `a2ps.cfg', or `.a2ps/a2psrc', etc.
+
+ - Style Sheet: a2ps style sheet (`ssh.ssh')
+     Second level of highligthing (option `-g')) substitutes the LaTeX
+     symbols.
+
+ - Style Sheet: Ada (`ada.ssh')
+     This style sheets cover Ada 95.  If you feel the need for Ada 83,
+     you'll have to design another style sheet.
+
+ - Style Sheet: ASN.1 (`asn1.ssh')
+     Written by Philippe Coucaud.  ASN.1 (Abstract Syntax Notation One)
+     is used to define the protocol data units (PDUs) of all
+     application layer protocols to date.
+
+ - Style Sheet: Autoconf (`autoconf.ssh')
+     Suitable for both `configure.in' and library `m4' files.
+
+ - Style Sheet: AWK (`awk.ssh')
+     Written by Edward Arthur.  This style is devoted to the AWK
+     pattern scanning and processing language.  It is supposed to
+     support classic awk, nawk and gawk.
+
+ - Style Sheet: B (`b.ssh')
+     Written by Philippe Coucaud.  B is a formal specification method
+     mostly used to describe critical systems.  It is based on the
+     mathematical sets theory.
+
+ - Style Sheet: BC (`bc.ssh')
+     bc is an arbitrary precision calculator language.
+
+ - Style Sheet: Bourne Shell (`sh.ssh')
+     Some classical program names, or builtin, are highlighted in the
+     second level of pretty-printing.
+
+ - Style Sheet: C (`c.ssh')
+     This style does not highlight the function definitions.  Another
+     style which highlights them, GNUish C, is provided (gnuc.ssh).  It
+     works only if you respect some syntactic conventions.
+
+ - Style Sheet: C Shell (`csh.ssh')
+     Written by Jim Diamond.  Some classical program names, and/or
+     builtins, are highlighted in the second level of pretty-printing.
+
+ - Style Sheet: C++ (`cxx.ssh')
+     Should handle all known variations of C++.  Most declarations
+     (classes etc.) are not highlighted as they should be.  Please,
+     step forward!
+
+ - Style Sheet: CAML (`caml.ssh')
+     This style is obsolete: use OCaml instead.
+
+ - Style Sheet: ChangeLog (`chlog.ssh')
+     This style covers the usual ChangeLog files.
+
+ - Style Sheet: Claire (`claire.ssh')
+     Claire is a high-level functional and object-oriented language with
+     advanced rule processing capabilities. It is intended to allow the
+     programmer to express complex algorithms with fewer lines and in an
+     elegant and readable manner.
+
+     To provide a high degree of expressivity, Claire uses:
+        -  A very rich type system including type intervals and
+          second-order  types (with dual static/dynamic typing),
+
+        -  Parametric classes and methods,
+
+        -  An object-oriented logic with set extensions,
+
+        -  Dynamic versioning that supports easy exploration of search
+          spaces.
+     To achieve its goal of readability, Claire uses
+        -  set-based programming with an intuitive syntax,
+
+        -  simple-minded object-oriented programming,
+
+        -  truly polymorphic and parametric functional programming,
+
+        -  a powerful-yet-readable extension of DATALOG to express
+          logical conditions,
+
+        -  an entity-relation approach with explicit relations,
+          inverses,  unknown values and relational
+
+        -  operations.
+     More information on claire can be found on claire home page
+     (http://www.ens.fr/~laburthe/claire.html).
+
+ - Style Sheet: Common Lisp (`clisp.ssh')
+     Written by Juliusz Chroboczek.  It is not very clear what should
+     be considered as a `keyword' in Common Lisp.  I like binders,
+     control structures and declarations to be highlighted, but not
+     assignments.
+
+     Names of defstructs are not highlighted because this would not work
+     with defstruct options.
+
+ - Style Sheet: Coq Vernacular (`coqv.ssh')
+     This style is devoted to the Coq v 5.10 vernacular language.
+
+ - Style Sheet: CORBA IDL (`cidl.ssh')
+     Written by Bob Phillips.  A first attempt at a style sheet for OMG
+     CORBA IDL.  I believe I captured all the keywords for CORBA 2.2
+     IDL.  I also stole code from gnuc.ssh to print the method names in
+     bold face.  I'm not sure I quite like my own choices for
+     Keyword_strong and Keyword, so I'm looking for feedback.  Note
+     that, as with gnuc.ssh, for a method name to be noted as such, the
+     left parenthesis associated with the argument list for the method
+     must appear on the same line as the method name.
+
+ - Style Sheet: CPP (`cpp.ssh')
+     C traditional preprocessor handling, mostly meant to be inherited.
+
+ - Style Sheet: dc_shell (`dc_shell.ssh')
+     Written by Philippe Le Van.  Synopsys Design Compiler is a
+     synthesis tool used by electronic companies for the design of
+     their chips.  This sheet is very incomplete, we have a lot of
+     keywords to add, eventually options to highlight...  The
+     Label_strong style is used for commands which change the design.
+
+ - Style Sheet: Eiffel (`eiffel.ssh')
+     Eiffel is an object oriented language that also includes a
+     comprehensive approach to software construction: a method.
+
+     The language itself is not just a programming language but also
+     covers analysis, design and implementation.
+
+     Heavy highlight uses symbols to represent common math operators.
+
+ - Style Sheet: Emacs Lisp (`elisp.ssh')
+     Written by Didier Verna.  This style sheet includes support for
+     some extensions dumped with XEmacs.
+
+ - Style Sheet: Encapsulated PostScript (`eps.ssh')
+     Illegal PostScript operators are highlighted as Errors.
+
+ - Style Sheet: Extended Tcl (`tclx.ssh')
+     Written by Phil Hollenback.  Extensions to plain Tcl.
+
+ - Style Sheet: Fortran (`fortran.ssh')
+     Written by Denis Girou,  Alexander Mai.  There are several Fortran
+     dialects, depending whether, on the one hand, you use Fortran 77
+     or Fortran 90/95, and, on the other hand, Fixed form comments, or
+     Free form comments.
+
+     The style sheets `for77kwds' and `for90kwds' implements keywords
+     only, while the style sheets `for-fixed' and `for-free' implements
+     comments only.
+
+     This style sheet tries to support any of the various flavors
+     (Fortran 77/90/95, fixed or free form).  For more specific uses,
+     you should use either:
+        - for77-fixed, for Fortran 77 fixed form,
+
+        - for77-free, for Fortran 77 free form,
+
+        - for90-fixed, for Fortran 90/95 fixed form,
+
+        - for90-free, for Fortran 90/95 free form.
+
+ - Style Sheet: Fortran 77 Fixed (`for77-fixed.ssh')
+     Written by Denis Girou,  Alexander Mai.  Dedicated to Fortran 77
+     in fixed form, i.e., comments are lines starting with c, C, or *,
+     and only those lines are comments.
+
+ - Style Sheet: Fortran 77 Free (`for77-free.ssh')
+     Written by Denis Girou,  Alexander Mai.  Dedicated to Fortran 77
+     in free form, i.e., comments are introduced by !  anywhere on the
+     line, and nothing else is a comment.
+
+ - Style Sheet: Fortran 77 Keywords (`for77kwds.ssh')
+     Written by Denis Girou,  Alexander Mai.  This sheet implements
+     only Fortran 77 keywords, and avoids implementing comments
+     support. This is to allow for implementation of either fixed or
+     free source form.
+
+     See the documentation of the style sheet `fortran' for more
+     details.
+
+ - Style Sheet: Fortran 90 Fixed (`for90-fixed.ssh')
+     Written by Denis Girou,  Alexander Mai.  Dedicated to Fortran
+     90/95 in fixed form, i.e., comments are lines starting with c, C,
+     or *, and only those lines are comments.
+
+ - Style Sheet: Fortran 90 Free (`for90-free.ssh')
+     Written by Denis Girou,  Alexander Mai.  Dedicated to Fortran
+     90/95 in free form, i.e., comments are introduced by !  anywhere
+     on the line, and nothing else is a comment.
+
+ - Style Sheet: Fortran 90 Keywords (`for90kwds.ssh')
+     Written by Denis Girou,  Alexander Mai.  This sheet implements the
+     superset which Fortran 90 and Fortran 95 provide over Fortran 77.
+
+     See the documentation of the style sheet `fortran' for more
+     details.
+
+ - Style Sheet: Fortran Fixed (`for-fixed.ssh')
+     Written by Denis Girou,  Alexander Mai.  Implements comments of
+     Fortran in fixed form, i.e., comments are lines starting with c,
+     C, or *, and only those lines are comments.  No other highlighting
+     is done.
+
+     See the documentation of the style sheet `fortran' for more
+     details.
+
+ - Style Sheet: Fortran Free (`for-free.ssh')
+     Written by Denis Girou,  Alexander Mai.  Dedicated to Fortran in
+     free form, i.e., comments are introduced by !  anywhere on the
+     line, and nothing else is a comment.
+
+ - Style Sheet: GNUish C (`gnuc.ssh')
+     Declaration of functions are highlighted _only_ if you start the
+     function name in the first column, and it is followed by an
+     opening parenthesis.  In other words, if you write
+          int main (void)
+     it won't work.  Write:
+          int
+          main (void)
+
+ - Style Sheet: GNUMakefile (`gmake.ssh')
+     Written by Alexander Mai.  Special tokens of GNUmakefiles and non
+     terminal declarations are highlighted.
+
+ - Style Sheet: Haskell (`haskell.ssh')
+     Written by Ilya Beylin.  Haskell: non-strict functional
+     programming language   http::/www.haskell.org/
+
+ - Style Sheet: HTML (`html.ssh')
+     Written by  Wesley J. Chun.  This style is meant to pretty print
+     HTML source files, not to simulate its interpretation (i.e.,
+     `<bold>foo</bold>' does not print `foo' in bold).  If you really
+     meant to print the result of the HTML file _interpreted_, then you
+     should turn the delegations on, and make sure `a2ps' has HTML
+     delegations.
+
+ - Style Sheet: IDL (`idl.ssh')
+     Written by Robert S. Mallozzi,  Manfred Schwarb.  Style sheet for
+     IDL 5.2 (Interactive Data Language).  Obsolete routines are not
+     supported.  http://www.rsinc.com.
+
+ - Style Sheet: InstallShield 5 (`is5rul.ssh')
+     Written by Alex.  InstallShield5 _TM_ RUL script.
+
+ - Style Sheet: Java (`java.ssh')
+     Written by Steve Alexander.  Documentation comments are mapped to
+     strong comments, and any other comment is plain comment.
+
+ - Style Sheet: JavaScript (`js.ssh')
+     Written by Scott Pakin.  Keywords used are everything listed in
+     the Client-Side JavaScript Reference 1.3, plus "undefined" (why
+     isn't that listed?) and "prototype".  I omitted the semi-standard
+     a2ps optional operators for equality, because JavaScript's use of
+     both strict- and non-strict equality might ambiguate the output.
+     Finally, regular expressions are formatted like strings.
+
+ - Style Sheet: LACE (`lace.ssh')
+     This is meant for the Eiffel equivalent of the Makefiles.
+
+ - Style Sheet: Lex (`lex.ssh')
+     In addition to the C constructs, it highlights the declaration of
+     states, and some special `%' commands.
+
+ - Style Sheet: Lout (`lout.ssh')
+     Written by Jean-Baptiste Nivoit.  This is the style for Lout files.
+
+ - Style Sheet: Mail Folder (`mail.ssh')
+     To use from elm and others, it is better to specify `-g -Email',
+     since the file sent to printer is no longer truly a mail folder.
+     This style also suits to news.  `--strip' options are also useful
+     (they strip "useless" headers).
+
+     Whenever the changes of encoding are clear, a2ps sets itself the
+     encoding for the parts concerned.
+
+     Tag 1 is the subject, and Tag 2 the author of the mail/news.
+
+     Note: This style sheet is _very_ difficult to write.  Please don't
+     report behavior you don't like.  Just send me improvements, or
+     write a Bison parser for mails.
+
+ - Style Sheet: Makefile (`make.ssh')
+     Special tokens, and non terminal declarations are highlighted.
+
+ - Style Sheet: Management Information Base (`mib.ssh')
+     Written by Kelly Wiles.  The MIB file is of ASN.1 syntax.
+
+ - Style Sheet: Maple (`maple.ssh')
+     Written by Richard J Mathar.  Some classical program names, and/or
+     builtins, are highlighted in the second level of pretty-printing.
+
+ - Style Sheet: MATLAB 4 (`matlab4.ssh')
+     Written by Marco De la Cruz.  Note that comments in the code
+     should have a space after the %.
+
+ - Style Sheet: Modula 2 (`modula2.ssh')
+     Written by Peter Bartke.
+
+ - Style Sheet: Modula 3 (`modula3.ssh')
+     Modula-3 is a member of the Pascal family of languages. Designed in
+     the late 1980s at Digital Equipment Corporation and Olivetti,
+     Modula-3 corrects many of the deficiencies of Pascal and Modula-2
+     for practical software engineering. In particular, Modula-3 keeps
+     the simplicity of type safety of the earlier languages, while
+     providing new facilities for exception handling, concurrency,
+     object-oriented programming, and automatic garbage collection.
+     Modula-3 is both a practical implementation language for large
+     software projects and an excellent teaching language.
+
+     This sheet was designed based on Modula 3 home page
+     (http://www.research.digital.com/SRC/modula-3/html/home.html).
+
+ - Style Sheet: o2c (`o2c.ssh')
+
+ - Style Sheet: Oberon (`oberon.ssh')
+     Created by N. Wirth, Oberon is the successor of the Pascal and
+     Modula-2 family of programming languages. It was specifically
+     designed for systems programming, and was used to create the
+     Oberon system in cooperation with J. Gutknecht. A few years later,
+     the Oberon language was extended with additional object-oriented
+     features to result in the programming language Oberon-2.
+
+     Implementation of the sheet based on The Oberon Reference Site
+     (http://www.math.tau.ac.il/~laden/Oberon.html).
+
+ - Style Sheet: Objective C (`objc.ssh')
+     Written by Paul Shum.
+
+ - Style Sheet: OCaml (`ocaml.ssh')
+     Written by Markus Mott.  This style should also suit other
+     versions of ML (caml light, SML etc.).
+
+ - Style Sheet: OCaml Yacc (`mly.ssh')
+     Written by Jean-Baptiste Nivoit.  Should handle CAML Special Light
+     parser files.
+
+ - Style Sheet: Octave (`octave.ssh')
+     Written by C.P. Earls.
+
+ - Style Sheet: Oracle parameter file (`initora.ssh')
+     Written by Pierre Mareschal.  For init.ora parameter files.
+
+ - Style Sheet: Oracle PL/SQL (`plsql.ssh')
+     Written by Pierre Mareschal.  This style is to be checked.
+
+ - Style Sheet: Oracle SQL (`sql.ssh')
+     Written by Pierre Mareschal.  a2ps-sql Pretty Printer Version
+     1.0.0 beta - 18-MAR-97 For comments, support for - /*..*/ and //.
+     This style is to be checked.
+
+ - Style Sheet: Oracle SQL-PL/SQL-SQL*Plus (`oracle.ssh')
+     Written by Pierre Mareschal.  18-MAR-97 For comments, support for
+     - /*..*/ and //.  This style is to be checked.
+
+ - Style Sheet: Pascal (`pascal.ssh')
+     The standard Pascal is covered by this style.  But some extension
+     have been added too, hence modern Pascal programs should be
+     correctly handled.  Heavy highlighting maps mathematical symbols
+     to their typographic equivalents.
+
+ - Style Sheet: Perl (`perl.ssh')
+     Written by Denis Girou.  As most interpreted languages, Perl is
+     very free on its syntax, what leads to significant problems for a
+     pretty printer.  Please, be kind with our try.  Any improvement is
+     most welcome.
+
+ - Style Sheet: PostScript (`ps.ssh')
+     Only some keywords are highlighted, because otherwise listings are
+     quickly becoming a big bold spot.
+
+ - Style Sheet: PostScript Printer Description (`ppd.ssh')
+     Support for Adobe's PPD files.
+
+ - Style Sheet: Pov-Ray (`pov.ssh')
+     Written by Jean-Baptiste Nivoit.  Should handle Persistence Of
+     Vision input files.
+
+ - Style Sheet: PreScript (`pre.ssh')
+     This style defines commands in the canonic syntax of a2ps.  It is
+     meant to be used either as an input language, and to highlight the
+     table of contents etc.
+
+     It can be a good choice of destination language for people who
+     want to produce text to print (e.g. pretty-printing, automated
+     documentation etc.) but who definitely do not want to learn
+     PostScript, nor to require the use of LaTeX.
+
+ - Style Sheet: PreTeX (`pretex.ssh')
+     This style sheets provides LaTeX-like commands to format text.  It
+     is an alternative to the PreScript style sheet, in which formating
+     commands are specified in a more a2ps related syntax.
+
+     It provides by the use of LaTeX like commands, a way to describe
+     the pages that this program should produce.
+
+ - Style Sheet: Prolog (`prolog.ssh')
+     Help is needed on this sheet.
+
+ - Style Sheet: Promela (`promela.ssh')
+     There is no way for this program to highlight send and receive
+     primitives.
+
+ - Style Sheet: Python (`python.ssh')
+     Python is an easy to learn, powerful programming language. It has
+     efficient high-level data structures and a simple but effective
+     approach to object-oriented programming. Python's elegant syntax
+     and dynamic typing, together with its interpreted nature, make it
+     an ideal language for scripting and rapid application development
+     in many areas on most platforms.
+
+     The Python interpreter and the extensive standard library are
+     freely available in source or binary form for all major platforms
+     from the Python web site (http://www.python.org), and can be
+     freely distributed.
+
+     The same site also contains distributions of and pointers to many
+     free third party Python modules, programs and tools, and additional
+     documentation.
+
+     The Python interpreter is easily extended with new functions and
+     data types implemented in C or C++ (or other languages callable
+     from C). Python is also suitable as an extension language for
+     customizable applications.
+
+ - Style Sheet: Reference Card (`card.ssh')
+     This style sheet is meant to process help messages generated by
+     Unix applications.  It highlights the options (-short or -long),
+     and their arguments.  Normal use of this style sheet is through
+     the shell script card (part of the a2ps package), but a typical
+     hand-driven use is:
+          program --help | a2ps -Ecard
+
+ - Style Sheet: REXX (`rexx.ssh')
+     Written by Alexander Mai.  This style sheet supports REXX.  You
+     can get information about REXX from the REXX Language Association
+     (http://www.rexxla.org).
+
+ - Style Sheet: Sather (`sather.ssh')
+     Sather is an object oriented language designed to be simple,
+     efficient, safe, flexible and non-proprietary. One way of placing
+     it in the `space of languages' is to say that it aims to be as
+     efficient as C, C++, or Fortran, as elegant as and safer than
+     Eiffel, and support higher-order functions and iteration
+     abstraction as well as Common Lisp, CLU or Scheme.
+
+     Implementation of the sheet based on the Sather home page
+     (http://www.icsi.berkeley.edu/~sather/index.html).
+
+     Heavy highlighting uses symbols for common mathematical operators.
+
+ - Style Sheet: Scheme (`scheme.ssh')
+     This style sheet is looking for a maintainer and/or comments.
+
+ - Style Sheet: SDL-88 (`sdl88.ssh')
+     Written by Jean-Philippe Cottin.  -strip-level=2 is very useful:
+     it cancels the graphical information left by graphic editors.
+     Only the pure specification is then printed.
+
+ - Style Sheet: Sed (`sed.ssh')
+     Comments and labels are highlighted.  Other ideas are welcome!  A
+     lot of work is still needed.
+
+ - Style Sheet: Shell (`shell.ssh')
+     This style sheet is not meant to be used directly, but rather an as
+     ancestor for shell style sheets.
+
+ - Style Sheet: SQL 92 (`sql92.ssh')
+     Written by Pierre Mareschal.  18-MAR-97 This style is to be
+     checked.
+
+ - Style Sheet: Standard ML (`sml.ssh')
+     Written by Franklin Chen,  Daniel Wang.  This style sheet takes
+     advantage of the Symbol font to replace many ASCII operators with
+     their natural graphical representation.  This is enabled only at
+     heavy highlighting.
+
+ - Style Sheet: Symbols (`symbols.ssh')
+     This style sheet should be a precursor for any style sheet which
+     uses LaTeX like symbols.
+
+ - Style Sheet: TC Shell (`tcsh.ssh')
+     Written by Jim Diamond.  C shell with file name completion and
+     command line editing.
+
+ - Style Sheet: TeX (`tex.ssh')
+     Written by Denis Girou.  This is the style for (La)TeX files.
+     It's mainly useful for people who develop (La)TeX packages.  With
+     `-g', common mathematical symbols are represented graphically.
+
+ - Style Sheet: Texinfo (`texinfo.ssh')
+     Heavy highlighting prints the nodes on separate pages which title
+     is the name of the node.
+
+ - Style Sheet: TeXScript (`texscript.ssh')
+     TeXScript is the new name of what used to be called PreScript.
+     New PreScript has pure a2ps names, PreTeX has pure TeX names, and
+     TeXScript mixes both.
+
+ - Style Sheet: Tiger (`tiger.ssh')
+     Tiger is a toy language that serves as example of the book Modern
+     Compiler Implementation
+     (http://www.cs.princeton.edu/~appel/modern/) by Andrew W. Appel.
+
+ - Style Sheet: tk (`tk.ssh')
+     Written by  Larry W. Virden.  Since everything, or almost, is a
+     string, what is printed is not always what you would like.
+
+ - Style Sheet: Tool Command Language (`tcl.ssh')
+     Written by  Larry W. Virden.  Since everything, or almost, is a
+     string, what is printed is not always what you would like.
+
+ - Style Sheet: Unified Diff (`udiff.ssh')
+     This style is meant to be used onto the output unidiffs, that is
+     to say output from `diff -u'.
+
+     Typical use of this style is:
+          diff -u old new | a2ps -Eudiff
+
+     The prologue `diff' helps to highlight the differences (`a2ps
+     -Ewdiff --prologue=diff').
+
+ - Style Sheet: Unity (`unity.ssh')
+     Written by Jean-Philippe Cottin.  The graphic conversion of the
+     symbols (option `-g') is nice.
+
+ - Style Sheet: VERILOG (`verilog.ssh')
+     Written by Edward Arthur.  This style is devoted to the VERILOG
+     hardware description language.
+
+ - Style Sheet: VHDL (`vhdl.ssh')
+     Written by Thomas Parmelan.  Non-textual operators are not
+     highlighted.  Some logical operators are printed as graphical
+     symbols in the second level of pretty-printing.
+
+ - Style Sheet: Visual Basic for Applications (`vba.ssh')
+     Written by Dirk Eddelbuettel.
+
+ - Style Sheet: Visual Tcl (`vtcl.ssh')
+     Written by Phil Hollenback.  All the Vtcl keywords that aren't in
+     Tcl or TclX.
+
+ - Style Sheet: VRML (`vrml.ssh')
+     Written by Nadine Richard.  According to    Grammar Definition
+     Version 2.0 ISO/IEC CD 14772
+     (http://vag.vrml.org/VRML2.0/FINAL/spec/part1/grammar.html).
+
+ - Style Sheet: wdiff (`wdiff.ssh')
+     This style is meant to be used onto the output of Franc,ois
+     Pinard's program `wdiff'.  `wdiff' is a utility that underlines
+     the differences of words between to files.  Where `diff' make only
+     the difference between lines that have changed, `wdiff' reports
+     words that have changed inside the lines.
+
+     Typical use of this style is:
+          wdiff old new | a2ps -Ewdiff
+
+     `wdiff' can be found in usual GNU repositories.  The prologue
+     `diff' helps to highlight the differences (`a2ps -Ewdiff
+     --prologue=diff').
+
+ - Style Sheet: XS (`xs.ssh')
+     Written by Kestutis Kupciunas.  This style covers Perl XS language.
+
+ - Style Sheet: Yacc (`yacc.ssh')
+     Special tokens, and non terminal declarations are highlighted.
+
+ - Style Sheet: Z Shell (`zsh.ssh')
+     Zsh is a UNIX command interpreter (shell) usable as an interactive
+     login shell and as a shell script command processor.  Of the
+     standard shells, zsh most closely resembles ksh but includes many
+     enhancements.  Zsh has comand line editing, builtin spelling
+     correction, programmable command completion, shell functions (with
+     autoloading), a history mechanism, and a host of other features.
+
+     This style sheet highlights some classical program names and
+     builtins in the second level of pretty-printing.
+
+
+File: a2ps.info,  Node: Type Setting Style Sheets,  Next: Faces,  Prev: Known Style Sheets,  Up: Pretty Printing
+
+Type Setting Style Sheets
+=========================
+
+   This section presents a few style sheets that define page description
+languages (compared to most other style sheet meant to pretty print
+source files).
+
+* Menu:
+
+* Symbol::                      Access to the glyphs of the Symbol font
+* PreScript::                   Typesetting in an a2ps like syntax
+* PreTeX::                      Typesetting in a LaTeX like syntax
+* TeXScript::                   Typesetting in a mixture of both
+
+
+File: a2ps.info,  Node: Symbol,  Next: PreScript,  Prev: Type Setting Style Sheets,  Up: Type Setting Style Sheets
+
+Symbol
+------
+
+   The style sheet `Symbol' introduces easy to type keywords to obtain
+the special characters of the PostScript font `Symbol'.  The keywords
+are named to provide a LaTeX taste.  These keywords are also the names
+used when designing a style sheet, hence to get the full list, see
+*Note A Bit of Syntax::.
+
+   If you want to know the correspondence, it is suggested to print the
+style sheet file of `Symbol':
+     a2ps -g symbol.ssh
+
+
+File: a2ps.info,  Node: PreScript,  Next: PreTeX,  Prev: Symbol,  Up: Type Setting Style Sheets
+
+PreScript
+---------
+
+   `PreScript' has been designed in conjunction with a2ps.  Since bold
+sequences, special characters etc. were implemented in a2ps, we thought
+it would be good to allow direct access to those features: `PreScript'
+became an input language for a2ps, where special font treatments are
+specified in an `ssh' syntax (*note Style Sheets Implementation::).
+
+   The main advantages for using `PreScript' are:
+   - it is fairly simple,
+
+   - a2ps is small and easy to install, hence it is available on every
+     UNIX platform.
+
+   It can be a good candidate for generation of PostScript output
+(syntactic pretty-printers, generation of various reports etc.).
+
+* Menu:
+
+* Syntax::                      Lexical specifications
+* PreScript Commands::
+* PreScript examples::
+

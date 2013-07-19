@@ -1,0 +1,211 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+Indirect:
+a2ps.info-1: 1677
+a2ps.info-2: 48861
+a2ps.info-3: 97328
+a2ps.info-4: 147032
+a2ps.info-5: 196675
+a2ps.info-6: 245577
+
+Tag Table:
+(Indirect)
+Node: Top1677
+Node: Introduction11463
+Node: Description12532
+Node: Reporting Bugs14601
+Node: a2ps Mailing List15917
+Node: Helping the Development16484
+Node: User Guide18902
+Node: Purpose19603
+Node: How to print19860
+Node: Basics for Printing20726
+Node: Special Printers23166
+Node: Using Delegations24032
+Node: Printing Duplex26077
+Node: Checking the Defaults27789
+Node: Important parameters29139
+Node: Localizing29761
+Node: Interfacing30713
+Node: Interfacing With a Mailer31039
+Node: Netscape32249
+Node: Invoking a2ps32849
+Node: Options33305
+Ref: Options-Footnote-135306
+Node: Tasks Options35422
+Node: Global Options38729
+Node: Sheet Options41910
+Node: Page Options45054
+Node: Headings Options47915
+Node: Input Options48861
+Node: Pretty Print Options55248
+Node: Output Options57000
+Node: PostScript Options59564
+Node: Escapes62744
+Node: Use of Escapes63109
+Node: Structure of the Escapes64200
+Node: Available Escapes65837
+Node: Configuration Files74334
+Node: Including Configuration Files76450
+Node: Your Library Path77067
+Node: Your Default Options77835
+Node: Your Media78673
+Node: Your Printers79755
+Node: Your Shortcuts82155
+Node: Your PostScript magic number82968
+Ref: Your PostScript magic number-Footnote-183750
+Node: Your Page Labels83842
+Node: Your Variables84643
+Node: Defining Variables85064
+Node: Predefined Variables86427
+Node: Your Delegations88200
+Node: Defining a Delegation88890
+Ref: Defining a Delegation-Footnote-190803
+Node: Guide Line for Delegations90872
+Ref: Guide Line for Delegations-Footnote-193498
+Node: Predefined Delegations93637
+Node: Your Internal Details95432
+Node: Library Files95811
+Node: Documentation Format97328
+Node: Map Files99241
+Node: Font Files100699
+Node: Fonts Map File101133
+Node: Fonts Description Files101679
+Node: Adding More Font Support102269
+Node: Style Sheet Files103474
+Node: Encodings105886
+Node: What is an Encoding106343
+Node: Encoding Files110253
+Node: Encoding Map File110864
+Node: Encoding Description Files111692
+Node: Some Encodings114308
+Node: Pretty Printing119197
+Node: Syntactic limits120286
+Node: Known Style Sheets120728
+Node: Type Setting Style Sheets144976
+Node: Symbol145583
+Node: PreScript146148
+Node: Syntax147032
+Node: PreScript Commands147751
+Node: PreScript examples149148
+Node: PreTeX149490
+Node: Special characters149808
+Node: PreTeX Commands150500
+Node: Differences with LaTeX151935
+Node: TeXScript152866
+Node: Faces154332
+Node: Style sheets semantics155761
+Node: Name and key156604
+Node: Comments157464
+Node: Alphabets157819
+Node: Case sensitivity158316
+Node: P-Rules158567
+Node: Sequences161512
+Node: Optional entries162002
+Node: Style Sheets Implementation162407
+Node: A Bit of Syntax163444
+Node: Style Sheet Header166931
+Node: Syntax of the Words168519
+Node: Inheriting169499
+Node: Syntax for the P-Rules170447
+Node: Declaring keywords and operators172457
+Node: Declaring sequences174789
+Node: Checking a Style Sheet177671
+Node: A tutorial on style sheets178763
+Node: Example and syntax179568
+Node: Implementation180890
+Node: The Entry in sheets.map184375
+Node: More Sophisticated Rules185250
+Node: Distributed Style Sheets187448
+Node: PostScript189081
+Node: Good and Bad PostScript189668
+Node: Page Device Options193476
+Node: Statusdict Options194713
+Node: Colors in PostScript195747
+Node: a2ps PostScript Files196675
+Node: Designing PostScript Prologues197135
+Node: Definition of the faces198031
+Node: Prologue File Format199549
+Node: A prologue example200113
+Node: Contributions202110
+Node: card202897
+Node: Invoking card203704
+Node: Caution when Using card205284
+Node: fixps205767
+Node: Invoking fixps206392
+Node: fixnt207845
+Node: Invoking fixnt208450
+Node: pdiff208662
+Node: Invoking pdiff209126
+Node: psmandup210168
+Node: Invoking psmandup210743
+Ref: Invoking psmandup-Footnote-1212787
+Node: psset212969
+Node: Invoking psset213572
+Node: FAQ216349
+Node: Why Does ...?216910
+Node: It Prints Nothing217438
+Node: It Prints in Simplex218626
+Node: It Prints in Duplex219428
+Node: It Does Not Fit on the Paper220122
+Node: It Prints Junk220685
+Node: It Says my File is Binary221517
+Node: It Refuses to Change the Font Size223229
+Node: How Can I ...?224032
+Node: Leave Room for Binding224569
+Node: Print stdin224832
+Node: Change the Fonts225438
+Node: The Old Option -b?225746
+Node: Pass Options to lpr226233
+Node: Non PostScript Printers226963
+Node: Man Pages with Underlines228798
+Node: Please tell me...229145
+Node: Is a2ps Y2K compliant?229463
+Ref: Is a2ps Y2K compliant?-Footnote-1230104
+Node: The Options Have Changed230123
+Node: Why not using yacc231184
+Node: Glossary232280
+Node: Genesis242396
+Node: History242737
+Node: Thanks243547
+Node: Translators245577
+Node: Copying247070
+Node: Concept Index248880
+
+End Tag Table

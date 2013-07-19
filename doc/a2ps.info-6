@@ -1,0 +1,266 @@
+This is a2ps.info, produced by makeinfo version 4.0 from a2ps.texi.
+
+INFO-DIR-SECTION Printing Tools
+START-INFO-DIR-ENTRY
+* a2ps: (a2ps).                    PostScript Generating Utility
+* PreScript: (a2ps) PreScript.     Input language for a2ps
+* card: (a2ps) card.               Print Reference Cards
+* fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
+* fixnt: (a2ps) fixnt.             Fixing Microsoft NT PostScript Files
+* pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
+* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* psset: (a2ps) psset.             Inserting calls to setpagedevice
+END-INFO-DIR-ENTRY
+
+   This document describes GNU a2ps 4.13, a converter from various
+formats, included text, to PostScript converter, with pretty-printing
+abilities.
+
+   Copyright (C) 1988-1993 Miguel Santana Copyright (C) 1995-2000 Akim
+Demaille, Miguel Santana
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the section entitled "Copying" is included exactly as in the
+original, and provided that the entire resulting derived work is
+distributed under the terms of a permission notice identical to this
+one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the author.
+
+
+File: a2ps.info,  Node: Translators,  Prev: Thanks,  Up: Genesis
+
+Translators
+===========
+
+   Some people worked on the translation of a2ps:
+   - Daniele Ghiotti (Italian)
+
+   - Tomek Burdziak (Polish)
+
+   - Miguel A. Varo <mvaro@dlsi.ua.es> (Maintains Spanish and Catalan)
+
+   - Michael Wiedmann <mw@miwie.in-berlin.de> (Maintains German)
+
+   - Christian Kirsch <ck@held.mind.de> (German)
+
+   - Erwin Dieterich <bamse@gmx.de> (German)
+
+   - Juliusz Chroboczek <jec@dcs.ed.ac.uk> (Polish) He is also the
+     author of `Ogonkify' (*note Overview: (ogonkify)top.).
+
+   - Marcel van der Laan <Marcel.van.der.Laan@home.ict.nl> (Dutch)
+
+   - Lorenzo M. Catucci <lorenzo@argon.roma2.infn.it> (Maintains
+     Italian)
+
+   - Choi Jun Ho <junker@jazz.snu.ac.kr> (Korean)
+
+   - Turgut Uyar <uyar@cs.itu.edu.tr> (Turkish)
+
+   - Jiri Pavlovsky <pavlovsk@ff.cuni.cz> (Maintains Czech)
+
+   - Peter Nilsson <pnidv96@student.hv.se> (Maintains Swedish)
+
+   - Pedro Miguel Marques Morais <pmmm@camoes.rnl.ist.utl.pt>
+     (Maintains Portugese)
+
+   - Vladimir Vodolazkiy <voldemarus@geocities.com> (Russian) has a
+     home page (http://come.to/vodolaz).
+
+   - Paulo Matos <pjsm@students.fct.unl.pt> (Portugese)
+
+   - Jon Ross <jonr@sdata.no> (Maintains Norwegian)
+
+   - Igor Furlan <IgorF@ix.netcom.com> (Maintains Slovenian)
+
+   - Marcin 'Qrczak' Kowalczyk <qrczak@knm.org.pl> (Polish)
+
+   - Tijs van Bakel <smoke@casema.net> (Maintains Dutch)
+
+   - Dmitry S. Sivachenko <dima@Chg.RU> (Maintains Russian)
+
+
+
+File: a2ps.info,  Node: Copying,  Next: Concept Index,  Prev: Genesis,  Up: Top
+
+Copying
+*******
+
+   The subroutines and source code in the a2ps package are "free"; this
+means that everyone is free to use them and free to redistribute them
+on a free basis.  The a2ps-related programs are not in the public
+domain; they are copyrighted and there are restrictions on their
+distribution, but these restrictions are designed to permit everything
+that a good cooperating citizen would want to do.  What is not allowed
+is to try to prevent others from further sharing any version of these
+programs that they might get from you.
+
+   Specifically, we want to make sure that you have the right to give
+away copies of the programs that relate to a2ps, that you receive
+source code or else can get it if you want it, that you can change these
+programs or use pieces of them in new free programs, and that you know
+you can do these things.
+
+   To make sure that everyone has such rights, we have to forbid you to
+deprive anyone else of these rights.  For example, if you distribute
+copies of the a2ps-related code, you must give the recipients all the
+rights that you have.  You must make sure that they, too, receive or
+can get the source code.  And you must tell them their rights.
+
+   Also, for our own protection, we must make certain that everyone
+finds out that there is no warranty for the programs that relate to
+a2ps.  If these programs are modified by someone else and passed on, we
+want their recipients to know that what they have is not what we
+distributed, so that any problems introduced by others will not reflect
+on our reputation.
+
+   The precise conditions of the licenses for the programs currently
+being distributed that relate to a2ps are found in the General Public
+Licenses that accompany them.
+
+
+File: a2ps.info,  Node: Concept Index,  Prev: Copying,  Up: Top
+
+Concept Index
+*************
+
+* Menu:
+
+* %!:                                    Your PostScript magic number.
+* .a2ps:                                 Configuration Files.
+* .afm:                                  Fonts Description Files.
+* .edf:                                  Encoding Description Files.
+* .map:                                  Map Files.
+* .pfa:                                  Fonts Description Files.
+* .pfb:                                  Fonts Description Files.
+* ::                                     Your Shortcuts.
+* a2ps-site.cfg:                         Configuration Files.
+* a2ps.cfg:                              Configuration Files.
+* A2PS_CONFIG:                           Configuration Files.
+* A2PS_VERBOSITY:                        Global Options.
+* a2psrc:                                Configuration Files.
+* Adobe:                                 Glossary.
+* AFM <1>:                               Glossary.
+* AFM:                                   Fonts Description Files.
+* Alphabets:                             Alphabets.
+* Angus Duggan:                          Glossary.
+* AppendLibraryPath::                    Your Library Path.
+* banner:                                Pass Options to lpr.
+* Bug:                                   Reporting Bugs.
+* C-char:                                Declaring sequences.
+* C-string:                              Declaring sequences.
+* Charset:                               Glossary.
+* Code Set:                              Glossary.
+* Command line options:                  Options.
+* Configuration Files:                   Configuration Files.
+* Copying:                               Copying.
+* DefaultPrinter::                       Your Printers.
+* Delegate:                              Glossary.
+* Delegation::                           Defining a Delegation.
+* Delegations:                           Your Delegations.
+* display:                               Special Printers.
+* Document Structuring Conventions:      Glossary.
+* DSC <1>:                               Glossary.
+* DSC:                                   Good and Bad PostScript.
+* Duplex <1>:                            Glossary.
+* Duplex:                                PostScript Options.
+* DuplexNoTumble:                        Glossary.
+* DuplexTumble:                          Glossary.
+* EDF:                                   Encoding Description Files.
+* elm:                                   Interfacing With a Mailer.
+* Encoding <1>:                          Glossary.
+* Encoding:                              Input Options.
+* Escape:                                Your Variables.
+* Escapes:                               Escapes.
+* Face <1>:                              Glossary.
+* Face:                                  Faces.
+* file:                                  Special Printers.
+* First Page:                            Introduction.
+* Ghostscript:                           Glossary.
+* gs:                                    Glossary.
+* Headers:                               Headings Options.
+* Headings:                              Glossary.
+* Include::                              Including Configuration Files.
+* Key:                                   Glossary.
+* key:                                   Name and key.
+* Keyword:                               P-Rules.
+* lhs:                                   P-Rules.
+* libpaper:                              Sheet Options.
+* Library files:                         Library Files.
+* LibraryPath::                          Your Library Path.
+* Logical page:                          Glossary.
+* make_fonts_map.sh:                     Adding More Font Support.
+* Map files:                             Map Files.
+* Markers:                               Sequences.
+* Medium:                                Glossary.
+* Medium::                               Your Media.
+* Non PostScript printers:               Your Printers.
+* Operator:                              P-Rules.
+* Optimize for Portability:              Good and Bad PostScript.
+* Optimize for Speed:                    Good and Bad PostScript.
+* Optional entries:                      Optional entries.
+* Options:                               Options.
+* Options::                              Your Default Options.
+* OutputFirstLine::                      Your PostScript magic number.
+* P-rule:                                Glossary.
+* P-Rule:                                P-Rules.
+* Page:                                  Glossary.
+* Page Description Language:             Glossary.
+* Page device:                           PostScript Options.
+* Page prefeed:                          PostScript Options.
+* Page Range:                            Input Options.
+* PageLabelFormat::                      Your Page Labels.
+* paperconf:                             Sheet Options.
+* PCL:                                   Glossary.
+* PFA file:                              Glossary.
+* PFB file:                              Glossary.
+* pine:                                  Interfacing With a Mailer.
+* PostScript:                            Glossary.
+* PostScript Quality:                    Good and Bad PostScript.
+* PPD file:                              Glossary.
+* Predefined Variables:                  Predefined Variables.
+* PrependLibraryPath::                   Your Library Path.
+* PreScript:                             PreScript.
+* Pretty printing:                       Pretty Printing.
+* Printer::                              Your Printers.
+* ProcSet:                               Glossary.
+* Prologue <1>:                          Glossary.
+* Prologue:                              Input Options.
+* psutils:                               Glossary.
+* Raster Output Device:                  Glossary.
+* Regular expression:                    Syntax for the P-Rules.
+* rhs:                                   P-Rules.
+* Rule:                                  P-Rules.
+* Script:                                Glossary.
+* Separator:                             Alphabets.
+* Sequences:                             Sequences.
+* setpagedevice:                         PostScript Options.
+* Sheet:                                 Glossary.
+* sheets.map <1>:                        Name and key.
+* sheets.map:                            Style Sheet Files.
+* statusdict:                            PostScript Options.
+* Style sheet <1>:                       Glossary.
+* Style sheet:                           Style sheets semantics.
+* Symbol conversion:                     Pretty Printing.
+* TemporaryDirectory::                   Your Internal Details.
+* Tumble:                                Glossary.
+* Under lay:                             Headings Options.
+* UnknownPrinter::                       Your Printers.
+* UserOption::                           Your Shortcuts.
+* Variable:                              Your Variables.
+* Variable::                             Defining Variables.
+* Variables, predefined:                 Predefined Variables.
+* Virtual page:                          Glossary.
+* void:                                  Special Printers.
+* Water mark:                            Headings Options.
+
+

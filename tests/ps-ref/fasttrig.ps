@@ -1,0 +1,494 @@
+%%Page: (1) 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(UNIT) K
+( ) p
+(FastTrig) L
+(;) p n
+() N
+(\(*******************************************************************) C n
+() N
+(  Turbo-Pascal Unit for super fast trigonometric functions.) N
+(  \(c\) copyright 1990,91 by Klaus Hartnegg,) N
+(      H.v.Kleist-Str. 7, D-79331 Teningen, Germany.) N
+(      hartnegg@einstein.freinet.de) N
+(      Free for non-commercial use.) N
+() N
+() N
+(  SuperFastSin determines function value by lookup in tables \(arrays\)) N
+(  that get initialized on the first call to the function or by a) N
+(  explicit call to the initialization procedure.) N
+() N
+(  Accuracy is a function of memory that you allow to be used) N
+(  for the table.) N
+() N
+(  FastSin is 5 times faster than Turbo's sin.) N
+(  SuperFastSin is even 9.5 times faster but less accurate.) N
+(  \(times measured with FTRIGDEM on a 25 MHz 80386\)) N
+() N
+(  SuperFastSin simply looks up the nearest value in a table.) N
+(  FastSin uses taylor series of first order around 0.) N
+() N
+(***********************************************************************\)) N
+() p n
+() N
+(INTERFACE) l n
+() p n
+(type) K n
+(  FPtr_1r_1r = function \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+() N
+(var) K n
+(  FastSin, SuperFastSin : FPtr_1r_1r;) p n
+() N
+({ the variable FastSin behaves like) c n
+(Function FastSin          \(x : real\) : real; }) N
+() p n
+(Function) K
+( ) p
+(FastCos) l
+(          \(x : ) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(Function) K
+( ) p
+(SuperFastCos) l
+(     \(x : ) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(Function) K
+( ) p
+(FastTan) l
+(          \(x : ) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(Function) K
+( ) p
+(FastCot) l
+(          \(x : ) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+() N
+(Procedure) K
+( ) p
+(Init) l
+(;) p n
+({ this initialization will be called automatically upon the first) c n
+(  use of one of the functions but can be called explicitely to prevent) N
+(  unexpected delay in the middle of your program. }) N
+() p n
+() N
+(IMPLEMENTATION) N
+() N
+() N
+(const) K n
+(  Resolution = 256;) p n
+(  pi         = 3.1415926535897932385;) N
+(  Step       = pi / resolution;) N
+() N
+() N
+(var) K n
+(  Sinus       : ) p
+(array) K
+([0..Resolution] ) p
+(of) K
+( ) p
+(real) k
+(;) p n
+(  EndOfTaylor : ) S
+(integer) k
+(;) p n
+() N
+() N
+() N
+(const) K n
+(fasttrig.pas) (right) (1) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (1) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (2) 2
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(  initialized : ) p
+(boolean) k
+( = ) p
+(false) K
+(;) p n
+() N
+() N
+({$F+}) c n
+(Function) K
+( ) p
+(FastSin1) l
+( \(x : ) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(var) K
+( i  : ) p
+(integer) k
+(;) p n
+(    s  : ) S
+(real) k
+(;) p n
+(    negativ : ) S
+(boolean) k
+(;) p n
+(begin) K n
+(  negativ := \(x < 0\);) p n
+(  s := ) S
+(abs) k
+( \(x * \(Resolution / pi\)\);) p n
+(  i := ) S
+(trunc) k
+( \(s\);) p n
+(  ) S
+(if) K
+( ) p
+(odd) k
+(\(i ) p
+(div) k
+( Resolution\) ) p
+(then) K
+( negativ := ) p
+(not) K
+( negativ;) p n
+(  i := i ) S
+(mod) k
+( Resolution;) p n
+() N
+(  ) S
+(if) K
+( \(\(i <= EndOfTaylor\) ) p
+(or) K
+( \(i >= Resolution - EndOfTaylor\)\)) p n
+({  and \(abs \(frac\(s\) - 0.5\) > 0.25\) }) c
+( ) p
+(then) K
+( ) p
+(begin) K n
+(     x := ) p
+(abs) k
+( \(pi * frac \(x / pi\)\);) p n
+(     ) S
+(if) K
+( x > pi/2 ) p
+(then) K
+( x := ) p
+(abs) k
+(\(pi - x\);) p n
+(     ) S
+(if) K
+( negativ ) p
+(then) K
+( FastSin1 := -X ) p
+(else) K
+( FastSin1 := X;) p n
+(  ) S
+(end) K n
+(  ) p
+(else) K
+( ) p
+(if) K
+( negativ ) p
+(then) K
+( FastSin1 := - Sinus[i]) p n
+(  ) S
+(else) K
+( Fastsin1 := Sinus[i];) p n
+(end) K
+(;) p n
+() N
+() N
+() N
+(Function) K
+( ) p
+(SuperFastSin1) l
+( \(x : ) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(var) K
+( i  : ) p
+(integer) k
+(;) p n
+(    s  : ) S
+(real) k
+(;) p n
+(    negativ : ) S
+(boolean) k
+(;) p n
+(begin) K n
+(  i := ) p
+(trunc) k
+( \(x * \( Resolution / pi\) \);) p n
+(  negativ := ) S
+(false) K
+(;) p n
+(  ) S
+(if) K
+( i < 0 ) p
+(then) K
+( ) p
+(begin) K n
+(     negativ := ) p
+(true) K
+(;) p n
+(     i := -i;) N
+(  ) S
+(end) K
+(;) p n
+(  i := i ) S
+(mod) k
+( \(2 * Resolution\);) p n
+() N
+(  ) S
+(if) K
+( i > Resolution ) p
+(then) K
+( ) p
+(begin) K n
+(     negativ := ) p
+(not) K
+( negativ;) p n
+(     i := i - Resolution;) N
+(  ) S
+(end) K
+(;) p n
+(  ) S
+(if) K
+( negativ ) p
+(then) K
+( SuperFastSin1 := - Sinus[i]) p n
+(  ) S
+(else) K
+( SuperFastSin1 := Sinus[i];) p n
+(end) K
+(;) p n
+() N
+() N
+() N
+(Function) K
+( ) p
+(FastCos) l
+( \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(begin) K n
+(  Fastcos := Fastsin \(x + pi/2\);) p n
+(end) K
+(;) p n
+() N
+() N
+(Function) K
+( ) p
+(SuperFastCos) l
+( \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(begin) K n
+(  SuperFastcos := SuperFastsin \(x + pi/2\);) p n
+(end) K
+(;) p n
+() N
+() N
+(Function) K
+( ) p
+(FastTan) l
+( \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(begin) K n
+(  FastTan := FastSin\(x\) / FastCos\(x\);) p n
+(end) K
+(;) p n
+(fasttrig.pas) (right) (2) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (2) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3) 3
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p n
+() N
+(Function) K
+( ) p
+(FastCot) l
+( \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(begin) K n
+(  FastCot := FastCos\(x\) / FastSin\(x\);) p n
+(end) K
+(;) p n
+() N
+() N
+() N
+(Procedure) K
+( ) p
+(Init) l
+(;) p n
+(var) K
+( x : ) p
+(real) k
+(;) p n
+(    i : ) S
+(integer) k
+(;) p n
+(begin) K n
+(  ) p
+(if) K
+( @FastSin = @FastSin1 ) p
+(then) K
+( ) p
+(exit) K
+(; ) p
+({ is already installed }) c n
+() p n
+(  x := Step / 2;) N
+(  ) S
+(for) K
+( i := 0 ) p
+(to) K
+( Resolution ) p
+(do) K
+( ) p
+(begin) K n
+(     Sinus[i] := sin \(x\);) p n
+(     x := x + Step;) N
+(  ) S
+(end) K
+(;) p n
+() N
+(  EndOfTaylor := 0;) N
+(  x := Step / 2;) N
+(  ) S
+(while) K
+( ) p
+(abs) k
+(\( x - sin\(x\)\) < Step / 2 ) p
+(do) K
+( ) p
+(begin) K n
+(     ) p
+(inc) K
+( \(EndOfTaylor\);) p n
+(     x := x + Step;) N
+(  ) S
+(end) K
+(;) p n
+(  ) S
+(dec) K
+( \(EndOfTaylor,2\);) p n
+() N
+(  FastSin := FastSin1;) N
+(  SuperFastSin := SuperFastSin1;) N
+(end) K
+(;) p n
+() N
+() N
+() N
+(Function) K
+( ) p
+(FastSin_Init) l
+( \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(begin) K n
+(  Init;) p n
+(  FastSin_Init := FastSin\(x\);) N
+(end) K
+(;) p n
+() N
+() N
+(Function) K
+( ) p
+(SuperFastSin_Init) l
+( \(x:) p
+(real) k
+(\) : ) p
+(real) k
+(;) p n
+(begin) K n
+(  Init;) p n
+(  SuperFastSin_Init := SuperFastSin\(x\);) N
+(end) K
+(;) p n
+() N
+() N
+() N
+(BEGIN) K n
+(  FastSin := FastSin_Init;) p n
+(  SuperFastSin := SuperFastSin_init;) N
+(END) K
+(.) p n
+(fasttrig.pas) (right) (3) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (3) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

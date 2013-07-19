@@ -1,0 +1,548 @@
+%%Page: (1) 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(/*) c n
+( * Copyright \(c\) 1994 Sun Microsystems, Inc. All Rights Reserved.) N
+( *) N
+( * Permission to use, copy, modify, and distribute this software) N
+( * and its documentation for NON-COMMERCIAL purposes and without) N
+( * fee is hereby granted provided that this copyright notice) N
+( * appears in all copies. Please refer to the file "copyright.html") N
+( * for further important copyright and licensing information.) N
+( *) N
+( * SUN MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF) N
+( * THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED) N
+( * TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A) N
+( * PARTICULAR PURPOSE, OR NON-INFRINGEMENT. SUN SHALL NOT BE LIABLE FOR) N
+( * ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR) N
+( * DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.) N
+( */) N
+(/* This program could use some layout work, and the functionality) N
+( * could use some tweaking, but it seems to basically work.) N
+( */) N
+(import) K
+( java.awt.*;) p n
+(import) K
+( java.util.*;) p n
+(import) K
+( java.applet.Applet;) p n
+() N
+(public) K
+( ) p
+(class) K
+( ) p
+(Converter) L
+( ) p
+(extends) K
+( Applet {) p n
+(    Frame window;) N
+(    ConversionPanel metricPanel, usaPanel;) N
+(    Unit metricDistances[] = ) S
+(new) K
+( Unit[3];) p n
+(    Unit usaDistances[] = ) S
+(new) K
+( Unit[4];) p n
+() N
+(    ) S
+(/** Create the ConversionPanels \(one for metric, another for U.S.\).) C n
+(      * I used "U.S." because although Imperial and U.S. distance) N
+(      * measurements are the same, this program could be extended to) N
+(      * include volume measurements, which aren't the same.) N
+(      */) N
+(    ) p
+(public) K
+( ) p
+(void) k
+( init\(\) {) p n
+() S 8 T (setLayout\() S
+(new) K
+( GridLayout\(2,0,5,5\)\);) p n
+() N
+() S 8 T (metricDistances[0] = ) S
+(new) K
+( Unit\(") p
+(Centimeters) str
+(", 0.01\);) p n
+() S 8 T (metricDistances[1] = ) S
+(new) K
+( Unit\(") p
+(Meters) str
+(", 1.0\);) p n
+() S 8 T (metricDistances[2] = ) S
+(new) K
+( Unit\(") p
+(Kilometers) str
+(", 1000.0\);) p n
+() S 8 T (metricPanel = ) S
+(new) K
+( ConversionPanel\() p
+(this) k
+(, ") p
+(Metric System) str
+(",) p n
+() S 8 T () S 16 T () S 24 T () S 32 T (  ) S 40 T (  metricDistances\);) N
+() N
+() S 8 T (usaDistances[0] = ) S
+(new) K
+( Unit\(") p
+(Inches) str
+(", 0.0254\);) p n
+() S 8 T (usaDistances[1] = ) S
+(new) K
+( Unit\(") p
+(Feet) str
+(", 0.305\);) p n
+() S 8 T (usaDistances[2] = ) S
+(new) K
+( Unit\(") p
+(Yards) str
+(", 0.914\);) p n
+() S 8 T (usaDistances[3] = ) S
+(new) K
+( Unit\(") p
+(Miles) str
+(", 1613.0\);) p n
+() S 8 T (usaPanel = ) S
+(new) K
+( ConversionPanel\() p
+(this) k
+(, ") p
+(U.S. System) str
+(", usaDistances\);) p n
+() N
+() S 8 T (add\(metricPanel\);) N
+() S 8 T (add\(usaPanel\);) N
+(    }) N
+() N
+(    ) S
+(/** Does the conversion from metric to U.S., or vice versa, and) C n
+(      * updates the appropriate ConversionPanel. */) N
+(    ) p
+(void) k
+( convert\(ConversionPanel from\) {) p n
+() S 8 T (ConversionPanel to;) N
+() N
+() S 8 T () S
+(if) K
+( \(from == metricPanel\)) p n
+() S 8 T (    to = usaPanel;) N
+() S 8 T () S
+(else) K n
+() p 8 T (    to = metricPanel;) N
+() S 8 T () S
+(double) k
+( multiplier = from.getMultiplier\(\) / to.getMultiplier\(\);) p n
+() S 8 T (to.setValue\(from.getValue\(\) * multiplier\);) N
+(    }) N
+() N
+(Converter.java) (right) (1) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (1) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (2) 2
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(    ) p
+(/** Draws a box around this panel. */) C n
+(    ) p
+(public) K
+( ) p
+(void) k
+( paint\(Graphics g\) {) p n
+() S 8 T (Dimension d = size\(\);) N
+() S 8 T (g.drawRect\(0,0, d.width - 1, d.height - 1\);) N
+(    }) N
+() S 8 T () N
+(    ) S
+(/** Puts a little breathing space between) C n
+(      * the panel and its contents, which lets us draw a box) N
+(      * in the paint\(\) method.) N
+(      */) N
+(    ) p
+(public) K
+( Insets insets\(\) {) p n
+() S 8 T () S
+(return) K
+( ) p
+(new) K
+( Insets\(5,5,5,5\);) p n
+(    }) N
+() N
+(    ) S
+(public) K
+( ) p
+(static) K
+( ) p
+(void) k
+( main\(String args[]\) {) p n
+() S 8 T (Frame f = ) S
+(new) K
+( Frame\(") p
+(Converter Applet/Application) str
+("\);) p n
+() S 8 T (Converter converter = ) S
+(new) K
+( Converter\(\);) p n
+() N
+() S 8 T (converter.init\(\);) N
+() N
+() S 8 T (f.add\(") S
+(Center) str
+(", converter\);) p n
+() S 8 T (f.pack\(\);) N
+() S 8 T (f.show\(\);) N
+(    }) N
+() N
+(}) N
+() N
+() N
+(class) K
+( ) p
+(ConversionPanel) L
+( ) p
+(extends) K
+( Panel {) p n
+(    String title;) N
+(    TextField textField;) N
+(    Scrollbar slider;) N
+(    Choice unitChooser;) N
+(    ) S
+(int) k
+( min = 0;) p n
+(    ) S
+(int) k
+( max = 10000;) p n
+(    Converter controller;) N
+(    Unit units[];) N
+() N
+(    ) S
+(//TO DO: Should make both panels' choices the same width.) c n
+(    ConversionPanel\(Converter myController, String myTitle, Unit myUnits[]\) {) p n
+() S 8 T () S
+(super) K
+(\(\);) p n
+() S 8 T (GridBagConstraints c = ) S
+(new) K
+( GridBagConstraints\(\);) p n
+() S 8 T (GridBagLayout gridbag = ) S
+(new) K
+( GridBagLayout\(\);) p n
+() S 8 T (setLayout\(gridbag\);) N
+() S 8 T (controller = myController;) N
+() S 8 T (title = myTitle;) N
+() S 8 T (units = myUnits;) N
+() N
+() S 8 T () S
+(//Set up default constraints) c n
+() p 8 T (c.fill = GridBagConstraints.HORIZONTAL;) N
+() N
+() S 8 T () S
+(//Add the label) c n
+() p 8 T (Label label = ) S
+(new) K
+( Label\(title, Label.CENTER\);) p n
+() S 8 T (c.weightx = 0.0;) N
+() S 8 T (c.gridwidth = GridBagConstraints.REMAINDER;) N
+() S 8 T (gridbag.setConstraints\(label, c\);) N
+() S 8 T (add\(label\);) N
+() N
+() S 8 T () S
+(//Add the text field) c n
+() p 8 T (textField = ) S
+(new) K
+( TextField\(") p
+(0) str
+(", 10\);) p n
+() S 8 T (c.weightx = 1.0;) N
+() S 8 T (c.gridwidth = GridBagConstraints.RELATIVE;) N
+() S 8 T (gridbag.setConstraints\(textField, c\);) N
+() S 8 T (add\(textField\);) N
+() N
+() S 8 T () S
+(//Add the pop-up list \(Choice\)) c n
+(Converter.java) (right) (2) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (2) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3) 3
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p 8 T (unitChooser = ) S
+(new) K
+( Choice\(\);) p n
+() S 8 T () S
+(for) K
+( \() p
+(int) k
+( i = 0; i < units.length; i++\) {) p n
+() S 8 T (    unitChooser.addItem\(units[i].description\);) N
+() S 8 T (}) N
+() S 8 T (c.weightx = 0.0;) N
+() S 8 T (c.gridwidth = GridBagConstraints.REMAINDER;) N
+() S 8 T (gridbag.setConstraints\(unitChooser, c\);) N
+() S 8 T (add\(unitChooser\);) N
+() N
+() S 8 T () S
+(//Add the slider) c n
+() p 8 T (slider = ) S
+(new) K
+( Scrollbar\(Scrollbar.HORIZONTAL, 0, 100, min, max\);) p n
+() S 8 T (c.weightx = 0.0;) N
+() S 8 T (c.gridheight = 1;) N
+() S 8 T (c.gridwidth = GridBagConstraints.RELATIVE;) N
+() S 8 T (gridbag.setConstraints\(slider, c\);) N
+() S 8 T (add\(slider\);) N
+(    }) N
+() N
+(    ) S
+(/** Returns the multiplier \(units/meter\) for the currently) C n
+(      * selected unit of measurement.) N
+(      */) N
+(    ) p
+(double) k
+( getMultiplier\(\) {) p n
+() S 8 T () S
+(int) k
+( i = unitChooser.getSelectedIndex\(\);) p n
+() S 8 T () S
+(return) K
+( \(units[i].multiplier\);) p n
+(    }) N
+() N
+(    ) S
+(/** Draws a box around this panel. */) C n
+(    ) p
+(public) K
+( ) p
+(void) k
+( paint\(Graphics g\) {) p n
+() S 8 T (Dimension d = size\(\);) N
+() S 8 T (g.drawRect\(0,0, d.width - 1, d.height - 1\);) N
+(    }) N
+() S 8 T () N
+(    ) S
+(/** Puts a little breathing space between) C n
+(      * the panel and its contents, which lets us draw a box) N
+(      * in the paint\(\) method.) N
+(      * We add more pixels to the right, to work around a) N
+(      * Choice bug.) N
+(      */) N
+(    ) p
+(public) K
+( Insets insets\(\) {) p n
+() S 8 T () S
+(return) K
+( ) p
+(new) K
+( Insets\(5,5,5,8\);) p n
+(    }) N
+() N
+(    ) S
+(/** Gets the current value in the text field.) C n
+(      * That's guaranteed to be the same as the value) N
+(      * in the scroller \(subject to rounding, of course\).) N
+(      */) N
+(    ) p
+(double) k
+( getValue\(\) {) p n
+() S 8 T () S
+(double) k
+( f;) p n
+() S 8 T () S
+(try) K
+( {) p n
+() S 8 T (    f = Double.valueOf\(textField.getText\(\)\).doubleValue\(\); ) N
+() S 8 T (} ) S
+(catch) K
+( \(java.lang.NumberFormatException e\) {) p n
+() S 8 T (    f = 0.0;) N
+() S 8 T (}) N
+() S 8 T () S
+(return) K
+( f;) p n
+(    }) N
+() N
+(    ) S
+(/** Respond to user actions. */) C n
+(    ) p
+(public) K
+( ) p
+(boolean) k
+( handleEvent\(Event e\) {) p n
+() S 8 T () S
+(if) K
+( \(e.target ) p
+(instanceof) K
+( Scrollbar\) {) p n
+() S 8 T (    textField.setText\(String.valueOf\(slider.getValue\(\)\)\);) N
+() S 8 T (    controller.convert\() S
+(this) k
+(\);) p n
+() S 8 T (} ) S
+(else) K
+( ) p
+(if) K
+( \(\(e.target ) p
+(instanceof) K
+( TextField\) ) p n
+() S 8 T () S 16 T (   && \(e.id == Event.ACTION_EVENT\)\) {) N
+() S 8 T (    setSliderValue\(getValue\(\)\);) N
+() S 8 T (    controller.convert\() S
+(this) k
+(\);) p n
+() S 8 T (} ) S
+(else) K
+( ) p
+(if) K
+( \(\(e.target ) p
+(instanceof) K
+( Choice\) ) p n
+(Converter.java) (right) (3) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (3) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (4) 4
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+iso1dict begin
+(Test Files) 35.25 water
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 4.703931 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p 8 T () S 16 T (   && \(e.id == Event.ACTION_EVENT\)\) {) N
+() S 8 T (    controller.convert\() S
+(this) k
+(\);) p n
+() S 8 T (} ) N
+() S 8 T () S
+(return) K
+( ) p
+(false) k
+(;) p n
+(    }) N
+() N
+(    ) S
+(/** Set the values in the slider and text field. */) C n
+(    ) p
+(void) k
+( setValue\() p
+(double) k
+( f\) {) p n
+() S 8 T (setSliderValue\(f\);) N
+(        textField.setText\(String.valueOf\(f\)\);) N
+(    }) N
+() N
+(    ) S
+(/** Set the slider value. */) C n
+(    ) p
+(void) k
+( setSliderValue\() p
+(double) k
+( f\) {) p n
+() S 8 T () S
+(int) k
+( sliderValue = \() p
+(int) k
+(\)f;) p n
+() N
+() S 8 T () S
+(if) K
+( \(sliderValue > max\)) p n
+(   ) S 8 T (    sliderValue = max;) N
+() S 8 T () S
+(if) K
+( \(sliderValue < min\)) p n
+() S 8 T (    sliderValue = min;) N
+(        slider.setValue\(sliderValue\);) N
+(    }) N
+(}) N
+() N
+() N
+(class) K
+( ) p
+(Unit) L
+( {) p n
+(    String description;) N
+(    ) S
+(double) k
+( multiplier;) p n
+() N
+(    Unit\(String description, ) S
+(double) k
+( multiplier\) {) p n
+() S 8 T () S
+(super) K
+(\(\);) p n
+() S 8 T (this.description = description;) N
+() S 8 T (this.multiplier = multiplier;) N
+(    }) N
+() N
+(    ) S
+(public) K
+( String toString\(\) {) p n
+() S 8 T (String s = ") S
+(Meters/) str
+(" + description + ") p
+( = ) str
+(" + multiplier;) p n
+() S 8 T () S
+(return) K
+( s;) p n
+(    }) N
+(}) N
+(Converter.java) (right) (4) title
+border
+grestore
+(The room for the header) rhead
+(Printed by Somebody from a machine) (Right) (4) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

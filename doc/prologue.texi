@@ -1,0 +1,42 @@
+@table @samp
+@item bold
+This style is meant to replace the old option @code{-b} of a2ps 4.3.
+It is a copy of the black and white prologue, but in which all the fonts
+are in Bold.
+
+@item bw
+Style is plain: pure black and white, with standard fonts.
+
+@item color
+Colors are used to highlight the keywords.
+
+@item diff
+This style is meant to be used with the @code{udiff}, @code{wdiff}
+style sheets, to underline the differences.  New things are in bold
+on a diff background, while removed sequences are in italic.
+
+@item fixed
+This style uses exclusively fixed size fonts.  You should use this style
+if you want the tabulations to be properly printed.
+
+There are no means to use a fixed size Symbol font, therefore you should
+not use the heavy highlighting style.
+
+@item gray
+Gray background is used for comments and labels.
+
+@item gray2
+Black background is used for comments and labels.
+
+@item matrix
+The layout is the same as @samp{bw}, but alternating gray and white lines.
+There are two macros defining the behavior:
+@samp{pro.matrix.cycle} defines the length of the cycle (number of white
+and gray lines).  It defaults to 6.
+@samp{pro.matrix.gray} defines the number of gray lines.  Default is 3.
+
+@item ul
+This style uses bold faces and underlines, but never italics.  This is
+particularly meant for printing formatted man pages.
+
+@end table

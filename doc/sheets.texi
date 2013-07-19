@@ -1,0 +1,711 @@
+@deftp {Style Sheet} {68000} (@file{68000.ssh})
+Althought designed at the origin for the 68k's assembler, this style
+sheet seems to handle rather well other dialects.
+@end deftp
+
+@deftp {Style Sheet} {a2ps configuration file} (@file{a2psrc.ssh})
+Meant to print files such as @samp{a2ps.cfg}, or @samp{.a2ps/a2psrc}, etc.
+@end deftp
+
+@deftp {Style Sheet} {a2ps style sheet} (@file{ssh.ssh})
+Second level of highligthing (option @samp{-g})) substitutes the LaTeX symbols.
+@end deftp
+
+@deftp {Style Sheet} {Ada} (@file{ada.ssh})
+This style sheets cover Ada 95.  If you feel the need for Ada 83,
+you'll have to design another style sheet.
+@end deftp
+
+@deftp {Style Sheet} {ASN.1} (@file{asn1.ssh})
+Written by Philippe Coucaud.
+ASN.1 (Abstract Syntax Notation One) is used to define the protocol data
+units (PDUs) of all application layer protocols to date.
+@end deftp
+
+@deftp {Style Sheet} {Autoconf} (@file{autoconf.ssh})
+Suitable for both @code{configure.in} and library @code{m4} files.
+@end deftp
+
+@deftp {Style Sheet} {AWK} (@file{awk.ssh})
+Written by Edward Arthur.
+This style is devoted to the AWK pattern scanning and processing language.
+It is supposed to support classic awk, nawk and gawk.
+@end deftp
+
+@deftp {Style Sheet} {B} (@file{b.ssh})
+Written by Philippe Coucaud.
+B is a formal specification method mostly used to describe critical
+systems.  It is based on the mathematical sets theory.
+@end deftp
+
+@deftp {Style Sheet} {BC} (@file{bc.ssh})
+bc is an arbitrary precision calculator language.
+@end deftp
+
+@deftp {Style Sheet} {Bourne Shell} (@file{sh.ssh})
+Some classical program names, or builtin, are highlighted in the
+second level of pretty-printing.
+@end deftp
+
+@deftp {Style Sheet} {C} (@file{c.ssh})
+This style does not highlight the function definitions.
+Another style which highlights them, GNUish C, is provided (gnuc.ssh).
+It works only if you respect some syntactic conventions.
+@end deftp
+
+@deftp {Style Sheet} {C Shell} (@file{csh.ssh})
+Written by Jim Diamond.
+Some classical program names, and/or builtins, are highlighted in
+the second level of pretty-printing.
+@end deftp
+
+@deftp {Style Sheet} {C++} (@file{cxx.ssh})
+Should handle all known variations of C++.  Most declarations (classes
+etc.) are not highlighted as they should be.  Please, step forward!
+@end deftp
+
+@deftp {Style Sheet} {CAML} (@file{caml.ssh})
+This style is obsolete: use OCaml instead.
+@end deftp
+
+@deftp {Style Sheet} {ChangeLog} (@file{chlog.ssh})
+This style covers the usual ChangeLog files.
+@end deftp
+
+@deftp {Style Sheet} {Claire} (@file{claire.ssh})
+Claire is a high-level functional and object-oriented language with 
+advanced rule processing capabilities. It is intended to allow the 
+programmer to express complex algorithms with fewer lines and in an 
+elegant and readable manner. 
+
+To provide a high degree of expressivity, Claire uses: 
+@itemize @minus
+@item
+ A very rich type system including type intervals and second-order 
+ types (with dual static/dynamic typing),
+@item
+ Parametric classes and methods, 
+@item
+ An object-oriented logic with set extensions, 
+@item
+ Dynamic versioning that supports easy exploration of search spaces. 
+@end itemize
+To achieve its goal of readability, Claire uses 
+@itemize @minus
+@item
+ set-based programming with an intuitive syntax, 
+@item
+ simple-minded object-oriented programming, 
+@item
+ truly polymorphic and parametric functional programming, 
+@item
+ a powerful-yet-readable extension of DATALOG to express logical conditions,
+@item
+ an entity-relation approach with explicit relations, inverses, 
+ unknown values and relational
+@item
+ operations. 
+@end itemize
+More information on claire can be found on 
+@href{http://www.ens.fr/~laburthe/claire.html,claire home page}.
+@end deftp
+
+@deftp {Style Sheet} {Common Lisp} (@file{clisp.ssh})
+Written by Juliusz Chroboczek.
+It is not very clear what should be considered as a `keyword' in
+Common Lisp.  I like binders, control structures and declarations to
+be highlighted, but not assignments.
+
+Names of defstructs are not highlighted because this would not work
+with defstruct options.
+@end deftp
+
+@deftp {Style Sheet} {Coq Vernacular} (@file{coqv.ssh})
+This style is devoted to the Coq v 5.10 vernacular language.
+@end deftp
+
+@deftp {Style Sheet} {CORBA IDL} (@file{cidl.ssh})
+Written by Bob Phillips.
+A first attempt at a style sheet for OMG CORBA IDL.
+I believe I captured all the keywords for CORBA 2.2 IDL.
+I also stole code from gnuc.ssh to print the method names
+in bold face.  I'm not sure I quite like my own choices
+for Keyword_strong and Keyword, so I'm looking for feedback.
+Note that, as with gnuc.ssh, for a method name to be noted as such,
+the left parenthesis associated with the argument list for the method
+must appear on the same line as the method name. 
+@end deftp
+
+@deftp {Style Sheet} {CPP} (@file{cpp.ssh})
+C traditional preprocessor handling, mostly meant to be inherited.
+@end deftp
+
+@deftp {Style Sheet} {dc_shell} (@file{dc_shell.ssh})
+Written by Philippe Le Van.
+Synopsys Design Compiler is a synthesis tool used by 
+electronic companies for the design of their chips.
+This sheet is very incomplete, we have a lot of keywords to
+add, eventually options to highlight...
+The Label_strong style is used for commands which change the design.
+@end deftp
+
+@deftp {Style Sheet} {Eiffel} (@file{eiffel.ssh})
+Eiffel is an object oriented language that also includes a
+comprehensive approach to software construction: a method.
+
+The language itself is not just a programming language but also covers
+analysis, design and implementation.
+
+Heavy highlight uses symbols to represent common math operators.
+@end deftp
+
+@deftp {Style Sheet} {Emacs Lisp} (@file{elisp.ssh})
+Written by Didier Verna.
+This style sheet includes support for some extensions dumped with XEmacs.
+@end deftp
+
+@deftp {Style Sheet} {Encapsulated PostScript} (@file{eps.ssh})
+Illegal PostScript operators are highlighted as Errors.
+@end deftp
+
+@deftp {Style Sheet} {Extended Tcl} (@file{tclx.ssh})
+Written by Phil Hollenback.
+Extensions to plain Tcl.
+@end deftp
+
+@deftp {Style Sheet} {Fortran} (@file{fortran.ssh})
+Written by Denis Girou,  Alexander Mai.
+There are several Fortran dialects, depending whether, on the one
+hand, you use Fortran 77 or Fortran 90/95, and, on the other hand,
+Fixed form comments, or Free form comments.
+
+The style sheets @code{for77kwds} and @code{for90kwds} implements keywords only,
+while the style sheets @code{for-fixed} and @code{for-free} implements comments
+only.
+
+This style sheet tries to support any of the various flavors
+(Fortran 77/90/95, fixed or free form).  For more specific uses, you
+should use either:
+@itemize @minus
+@item
+for77-fixed, for Fortran 77 fixed form,
+@item
+for77-free, for Fortran 77 free form,
+@item
+for90-fixed, for Fortran 90/95 fixed form,
+@item
+for90-free, for Fortran 90/95 free form.
+@end itemize
+@end deftp
+
+@deftp {Style Sheet} {Fortran 77 Fixed} (@file{for77-fixed.ssh})
+Written by Denis Girou,  Alexander Mai.
+Dedicated to Fortran 77 in fixed form, i.e., comments are
+lines starting with c, C, or *, and only those lines are comments.
+@end deftp
+
+@deftp {Style Sheet} {Fortran 77 Free} (@file{for77-free.ssh})
+Written by Denis Girou,  Alexander Mai.
+Dedicated to Fortran 77 in free form, i.e., comments are introduced by !
+anywhere on the line, and nothing else is a comment.
+@end deftp
+
+@deftp {Style Sheet} {Fortran 77 Keywords} (@file{for77kwds.ssh})
+Written by Denis Girou,  Alexander Mai.
+This sheet implements only Fortran 77 keywords, and avoids implementing
+comments support. This is to allow for implementation of either fixed
+or free source form.
+
+See the documentation of the style sheet @code{fortran} for more details.
+@end deftp
+
+@deftp {Style Sheet} {Fortran 90 Fixed} (@file{for90-fixed.ssh})
+Written by Denis Girou,  Alexander Mai.
+Dedicated to Fortran 90/95 in fixed form, i.e., comments are
+lines starting with c, C, or *, and only those lines are comments.
+@end deftp
+
+@deftp {Style Sheet} {Fortran 90 Free} (@file{for90-free.ssh})
+Written by Denis Girou,  Alexander Mai.
+Dedicated to Fortran 90/95 in free form, i.e., comments are introduced by !
+anywhere on the line, and nothing else is a comment.
+@end deftp
+
+@deftp {Style Sheet} {Fortran 90 Keywords} (@file{for90kwds.ssh})
+Written by Denis Girou,  Alexander Mai.
+This sheet implements the superset which Fortran 90 and Fortran 95 provide
+over Fortran 77.
+
+See the documentation of the style sheet @code{fortran} for more details.
+@end deftp
+
+@deftp {Style Sheet} {Fortran Fixed} (@file{for-fixed.ssh})
+Written by Denis Girou,  Alexander Mai.
+Implements comments of Fortran in fixed form, i.e., comments are
+lines starting with c, C, or *, and only those lines are comments.
+No other highlighting is done.  
+
+See the documentation of the style sheet @code{fortran} for more details.
+@end deftp
+
+@deftp {Style Sheet} {Fortran Free} (@file{for-free.ssh})
+Written by Denis Girou,  Alexander Mai.
+Dedicated to Fortran in free form, i.e., comments are introduced by !
+anywhere on the line, and nothing else is a comment.
+@end deftp
+
+@deftp {Style Sheet} {GNUish C} (@file{gnuc.ssh})
+Declaration of functions are highlighted @emph{only} if you start
+the function name in the first column, and it is followed by an
+opening parenthesis.  In other words, if you write
+@example
+int main (void)
+@end example
+it won't work.  Write:
+@example
+int
+main (void)
+@end example
+@end deftp
+
+@deftp {Style Sheet} {GNUMakefile} (@file{gmake.ssh})
+Written by Alexander Mai.
+Special tokens of GNUmakefiles and non terminal declarations are highlighted.
+@end deftp
+
+@deftp {Style Sheet} {Haskell} (@file{haskell.ssh})
+Written by Ilya Beylin.
+Haskell: non-strict functional programming language
+  http::/www.haskell.org/
+@end deftp
+
+@deftp {Style Sheet} {HTML} (@file{html.ssh})
+Written by  Wesley J. Chun.
+This style is meant to pretty print HTML source files, not to simulate
+its interpretation (i.e., @samp{<bold>foo</bold>} does not print @samp{foo}
+in bold).  If you really meant to print the result of the HTML file
+@emph{interpreted}, then you should turn the delegations on, and make sure
+@samp{a2ps} has HTML delegations.
+@end deftp
+
+@deftp {Style Sheet} {IDL} (@file{idl.ssh})
+Written by Robert S. Mallozzi,  Manfred Schwarb.
+Style sheet for IDL 5.2 (Interactive Data Language).
+Obsolete routines are not supported.
+http://www.rsinc.com.
+@end deftp
+
+@deftp {Style Sheet} {InstallShield 5} (@file{is5rul.ssh})
+Written by Alex.
+InstallShield5 _TM_ RUL script.
+@end deftp
+
+@deftp {Style Sheet} {Java} (@file{java.ssh})
+Written by Steve Alexander.
+Documentation comments are mapped to strong comments, and any other
+comment is plain comment.
+@end deftp
+
+@deftp {Style Sheet} {JavaScript} (@file{js.ssh})
+Written by Scott Pakin.
+Keywords used are everything listed in the Client-Side JavaScript
+Reference 1.3, plus "undefined" (why isn't that listed?) and
+"prototype".  I omitted the semi-standard a2ps optional operators for
+equality, because JavaScript's use of both strict- and non-strict equality
+might ambiguate the output.  Finally, regular expressions are formatted
+like strings.
+@end deftp
+
+@deftp {Style Sheet} {LACE} (@file{lace.ssh})
+This is meant for the Eiffel equivalent of the Makefiles.
+@end deftp
+
+@deftp {Style Sheet} {Lex} (@file{lex.ssh})
+In addition to the C constructs, it highlights the declaration of
+states, and some special @samp{%} commands.
+@end deftp
+
+@deftp {Style Sheet} {Lout} (@file{lout.ssh})
+Written by Jean-Baptiste Nivoit.
+This is the style for Lout files.
+@end deftp
+
+@deftp {Style Sheet} {Mail Folder} (@file{mail.ssh})
+To use from elm and others, it is better to specify @samp{-g -Email},
+since the file sent to printer is no longer truly a mail folder.
+This style also suits to news.  @samp{--strip} options are also useful
+(they strip "useless" headers).
+
+Whenever the changes of encoding are clear, a2ps sets itself the
+encoding for the parts concerned.
+
+Tag 1 is the subject, and Tag 2 the author of the mail/news.
+
+Note: This style sheet is _very_ difficult to write.  Please don't
+report behavior you don't like.  Just send me improvements,
+or write a Bison parser for mails.
+@end deftp
+
+@deftp {Style Sheet} {Makefile} (@file{make.ssh})
+Special tokens, and non terminal declarations are highlighted.
+@end deftp
+
+@deftp {Style Sheet} {Management Information Base} (@file{mib.ssh})
+Written by Kelly Wiles.
+The MIB file is of ASN.1 syntax.
+@end deftp
+
+@deftp {Style Sheet} {Maple} (@file{maple.ssh})
+Written by Richard J Mathar.
+Some classical program names, and/or builtins, are highlighted in
+the second level of pretty-printing.
+@end deftp
+
+@deftp {Style Sheet} {MATLAB 4} (@file{matlab4.ssh})
+Written by Marco De la Cruz.
+Note that comments in the code should have a space after the %.
+@end deftp
+
+@deftp {Style Sheet} {Modula 2} (@file{modula2.ssh})
+Written by Peter Bartke.
+@end deftp
+
+@deftp {Style Sheet} {Modula 3} (@file{modula3.ssh})
+Modula-3 is a member of the Pascal family of languages. Designed in
+the late 1980s at Digital Equipment Corporation and Olivetti, Modula-3
+corrects many of the deficiencies of Pascal and Modula-2 for practical
+software engineering. In particular, Modula-3 keeps the simplicity of
+type safety of the earlier languages, while providing new facilities
+for exception handling, concurrency, object-oriented programming, and
+automatic garbage collection. Modula-3 is both a practical
+implementation language for large software projects and an excellent
+teaching language.
+
+This sheet was designed based on @href{http://www.research.digital.com/SRC/modula-3/html/home.html,Modula 3 home page}.
+@end deftp
+
+@deftp {Style Sheet} {o2c} (@file{o2c.ssh})
+@end deftp
+
+@deftp {Style Sheet} {Oberon} (@file{oberon.ssh})
+Created by N. Wirth, Oberon is the successor of the Pascal and
+Modula-2 family of programming languages. It was specifically designed
+for systems programming, and was used to create the Oberon system in
+cooperation with J. Gutknecht. A few years later, the Oberon language
+was extended with additional object-oriented features to result in the
+programming language Oberon-2.
+
+Implementation of the sheet based on @href{http://www.math.tau.ac.il/~laden/Oberon.html,The Oberon Reference Site}.
+@end deftp
+
+@deftp {Style Sheet} {Objective C} (@file{objc.ssh})
+Written by Paul Shum.
+@end deftp
+
+@deftp {Style Sheet} {OCaml} (@file{ocaml.ssh})
+Written by Markus Mott.
+This style should also suit other versions of ML (caml light, SML etc.).
+@end deftp
+
+@deftp {Style Sheet} {OCaml Yacc} (@file{mly.ssh})
+Written by Jean-Baptiste Nivoit.
+Should handle CAML Special Light parser files.
+@end deftp
+
+@deftp {Style Sheet} {Octave} (@file{octave.ssh})
+Written by C.P. Earls.
+@end deftp
+
+@deftp {Style Sheet} {Oracle parameter file} (@file{initora.ssh})
+Written by Pierre Mareschal.
+For init.ora parameter files.
+@end deftp
+
+@deftp {Style Sheet} {Oracle PL/SQL} (@file{plsql.ssh})
+Written by Pierre Mareschal.
+This style is to be checked.
+@end deftp
+
+@deftp {Style Sheet} {Oracle SQL} (@file{sql.ssh})
+Written by Pierre Mareschal.
+a2ps-sql Pretty Printer Version 1.0.0 beta - 18-MAR-97
+For comments, support for -- /*..*/ and //.
+This style is to be checked.
+@end deftp
+
+@deftp {Style Sheet} {Oracle SQL-PL/SQL-SQL*Plus} (@file{oracle.ssh})
+Written by Pierre Mareschal.
+18-MAR-97 
+For comments, support for -- /*..*/ and //.
+This style is to be checked.
+@end deftp
+
+@deftp {Style Sheet} {Pascal} (@file{pascal.ssh})
+The standard Pascal is covered by this style.
+But some extension have been added too, hence modern Pascal programs
+should be correctly handled.
+Heavy highlighting maps mathematical symbols to their typographic
+equivalents.
+@end deftp
+
+@deftp {Style Sheet} {Perl} (@file{perl.ssh})
+Written by Denis Girou.
+As most interpreted languages, Perl is very free on its syntax, what
+leads to significant problems for a pretty printer.  Please, be kind
+with our try.  Any improvement is most welcome.
+@end deftp
+
+@deftp {Style Sheet} {PostScript} (@file{ps.ssh})
+Only some keywords are highlighted, because otherwise listings are quickly
+becoming a big bold spot.
+@end deftp
+
+@deftp {Style Sheet} {PostScript Printer Description} (@file{ppd.ssh})
+Support for Adobe's PPD files.
+@end deftp
+
+@deftp {Style Sheet} {Pov-Ray} (@file{pov.ssh})
+Written by Jean-Baptiste Nivoit.
+Should handle Persistence Of Vision input files.
+@end deftp
+
+@deftp {Style Sheet} {PreScript} (@file{pre.ssh})
+This style defines commands in the canonic syntax of a2ps.
+It is meant to be used either as an input language, and to 
+highlight the table of contents etc.
+
+It can be a good choice of destination language for people who
+want to produce text to print (e.g. pretty-printing, automated
+documentation etc.) but who definitely do not want to learn
+PostScript, nor to require the use of LaTeX.
+@end deftp
+
+@deftp {Style Sheet} {PreTeX} (@file{pretex.ssh})
+This style sheets provides LaTeX-like commands to format text.
+It is an alternative to the PreScript style sheet, in which formating
+commands are specified in a more a2ps related syntax.
+
+It provides by the use of LaTeX like commands, a way to describe the 
+pages that this program should produce.
+@end deftp
+
+@deftp {Style Sheet} {Prolog} (@file{prolog.ssh})
+Help is needed on this sheet.
+@end deftp
+
+@deftp {Style Sheet} {Promela} (@file{promela.ssh})
+There is no way for this program to highlight send and receive primitives.
+@end deftp
+
+@deftp {Style Sheet} {Python} (@file{python.ssh})
+Python is an easy to learn, powerful programming language. It has
+efficient high-level data structures and a simple but effective
+approach to object-oriented programming. Python's elegant syntax and
+dynamic typing, together with its interpreted nature, make it an ideal
+language for scripting and rapid application development in many areas
+on most platforms.
+
+The Python interpreter and the extensive standard library are freely
+available in source or binary form for all major platforms from the
+@href{http://www.python.org,Python web site}, and can be freely distributed.
+
+The same site also contains distributions of and pointers to many free
+third party Python modules, programs and tools, and additional
+documentation.
+
+The Python interpreter is easily extended with new functions and data
+types implemented in C or C++ (or other languages callable from
+C). Python is also suitable as an extension language for customizable
+applications.
+@end deftp
+
+@deftp {Style Sheet} {Reference Card} (@file{card.ssh})
+This style sheet is meant to process help messages generated by
+Unix applications.  It highlights the options (-short or --long),
+and their arguments.
+Normal use of this style sheet is through the shell script card
+(part of the a2ps package), but a typical hand-driven use is:
+@example
+program --help | a2ps -Ecard
+@end example
+@end deftp
+
+@deftp {Style Sheet} {REXX} (@file{rexx.ssh})
+Written by Alexander Mai.
+This style sheet supports REXX.
+You can get information about REXX from the @href{http://www.rexxla.org,REXX Language Association}.
+@end deftp
+
+@deftp {Style Sheet} {Sather} (@file{sather.ssh})
+Sather is an object oriented language designed to be simple,
+efficient, safe, flexible and non-proprietary. One way of placing it
+in the `space of languages' is to say that it aims to be as efficient
+as C, C++, or Fortran, as elegant as and safer than Eiffel, and
+support higher-order functions and iteration abstraction as well as
+Common Lisp, CLU or Scheme.
+
+Implementation of the sheet based on the @href{http://www.icsi.berkeley.edu/~sather/index.html,Sather home page}.
+
+Heavy highlighting uses symbols for common mathematical operators.
+@end deftp
+
+@deftp {Style Sheet} {Scheme} (@file{scheme.ssh})
+This style sheet is looking for a maintainer and/or comments.
+@end deftp
+
+@deftp {Style Sheet} {SDL-88} (@file{sdl88.ssh})
+Written by Jean-Philippe Cottin.
+--strip-level=2 is very useful: it cancels the graphical information 
+left by graphic editors.  Only the pure specification is then printed.
+@end deftp
+
+@deftp {Style Sheet} {Sed} (@file{sed.ssh})
+Comments and labels are highlighted.  Other ideas are welcome!
+A lot of work is still needed.
+@end deftp
+
+@deftp {Style Sheet} {Shell} (@file{shell.ssh})
+This style sheet is not meant to be used directly, but rather an as
+ancestor for shell style sheets.
+@end deftp
+
+@deftp {Style Sheet} {SQL 92} (@file{sql92.ssh})
+Written by Pierre Mareschal.
+18-MAR-97
+This style is to be checked.
+@end deftp
+
+@deftp {Style Sheet} {Standard ML} (@file{sml.ssh})
+Written by Franklin Chen,  Daniel Wang.
+This style sheet takes advantage of the Symbol font to replace many
+ASCII operators with their natural graphical representation.  This
+is enabled only at heavy highlighting.
+@end deftp
+
+@deftp {Style Sheet} {Symbols} (@file{symbols.ssh})
+This style sheet should be a precursor for any style sheet which
+uses LaTeX like symbols.
+@end deftp
+
+@deftp {Style Sheet} {TC Shell} (@file{tcsh.ssh})
+Written by Jim Diamond.
+C shell with file name completion and command line editing.
+@end deftp
+
+@deftp {Style Sheet} {TeX} (@file{tex.ssh})
+Written by Denis Girou.
+This is the style for (La)TeX files.
+It's mainly useful for people who develop (La)TeX packages.
+With @samp{-g}, common mathematical symbols are represented graphically.
+@end deftp
+
+@deftp {Style Sheet} {Texinfo} (@file{texinfo.ssh})
+Heavy highlighting prints the nodes on separate pages
+which title is the name of the node.
+@end deftp
+
+@deftp {Style Sheet} {TeXScript} (@file{texscript.ssh})
+TeXScript is the new name of what used to be called PreScript.
+New PreScript has pure a2ps names, PreTeX has pure TeX names,
+and TeXScript mixes both.
+@end deftp
+
+@deftp {Style Sheet} {Tiger} (@file{tiger.ssh})
+Tiger is a toy language that serves as example of the book 
+@href{http://www.cs.princeton.edu/~appel/modern/,Modern Compiler Implementation}
+by Andrew W. Appel.
+@end deftp
+
+@deftp {Style Sheet} {tk} (@file{tk.ssh})
+Written by  Larry W. Virden.
+Since everything, or almost, is a string, what is printed is not
+always what you would like.
+@end deftp
+
+@deftp {Style Sheet} {Tool Command Language} (@file{tcl.ssh})
+Written by  Larry W. Virden.
+Since everything, or almost, is a string, what is printed is not
+always what you would like.
+@end deftp
+
+@deftp {Style Sheet} {Unified Diff} (@file{udiff.ssh})
+This style is meant to be used onto the output unidiffs, that is to say
+output from @samp{diff -u}.
+
+Typical use of this style is:
+@example
+diff -u old new | a2ps -Eudiff
+@end example
+
+The prologue @code{diff} helps to highlight the differences 
+(@samp{a2ps -Ewdiff --prologue=diff}).
+@end deftp
+
+@deftp {Style Sheet} {Unity} (@file{unity.ssh})
+Written by Jean-Philippe Cottin.
+The graphic conversion of the symbols (option @samp{-g}) is nice.
+@end deftp
+
+@deftp {Style Sheet} {VERILOG} (@file{verilog.ssh})
+Written by Edward Arthur.
+This style is devoted to the VERILOG hardware description language.
+@end deftp
+
+@deftp {Style Sheet} {VHDL} (@file{vhdl.ssh})
+Written by Thomas Parmelan.
+Non-textual operators are not highlighted.
+Some logical operators are printed as graphical symbols
+in the second level of pretty-printing.
+@end deftp
+
+@deftp {Style Sheet} {Visual Basic for Applications} (@file{vba.ssh})
+Written by Dirk Eddelbuettel.
+@end deftp
+
+@deftp {Style Sheet} {Visual Tcl} (@file{vtcl.ssh})
+Written by Phil Hollenback.
+All the Vtcl keywords that aren't in Tcl or TclX.
+@end deftp
+
+@deftp {Style Sheet} {VRML} (@file{vrml.ssh})
+Written by Nadine Richard.
+According to
+   @href{http://vag.vrml.org/VRML2.0/FINAL/spec/part1/grammar.html,Grammar Definition Version 2.0 ISO/IEC CD 14772}.
+@end deftp
+
+@deftp {Style Sheet} {wdiff} (@file{wdiff.ssh})
+This style is meant to be used onto the output of Franc,ois Pinard's
+program @code{wdiff}.  @code{wdiff} is a utility that underlines the differences
+of words between to files.  Where @code{diff} make only the difference between
+lines that have changed, @code{wdiff} reports words that have changed inside the lines.
+
+Typical use of this style is:
+@example
+wdiff old new | a2ps -Ewdiff
+@end example
+
+@code{wdiff} can be found in usual GNU repositories.  The prologue @code{diff}
+helps to highlight the differences (@samp{a2ps -Ewdiff --prologue=diff}).
+@end deftp
+
+@deftp {Style Sheet} {XS} (@file{xs.ssh})
+Written by Kestutis Kupciunas.
+This style covers Perl XS language.
+@end deftp
+
+@deftp {Style Sheet} {Yacc} (@file{yacc.ssh})
+Special tokens, and non terminal declarations are highlighted.
+@end deftp
+
+@deftp {Style Sheet} {Z Shell} (@file{zsh.ssh})
+Zsh is a UNIX command interpreter (shell) usable as an interactive
+login shell and as a shell script command processor.  Of the standard
+shells, zsh most closely resembles ksh but includes many enhancements.
+Zsh has comand line editing, builtin spelling correction, programmable
+command completion, shell functions (with autoloading), a history
+mechanism, and a host of other features.
+
+This style sheet highlights some classical program names and builtins
+in the second level of pretty-printing.
+@end deftp
+

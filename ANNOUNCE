@@ -1,0 +1,170 @@
+Description
+===========
+
+GNU a2ps is an Any to PostScript filter.  Of course it processes plain
+text files, but also pretty prints quite a few popular languages.
+
+Its slogan is precisely `` Do The Right Thing '', which means that
+though it is highly configurable, everything was made so that a novice
+user can do complicated PostScript manipulations.  For instance, it
+has the ability to delegate the processing of some files to other
+filters (such as groff, texi2dvi, dvips, gzip etc.), what allows a
+uniform treatment (n-up, page selection, duplex etc.) of heterogeneous
+files.
+
+As an example:
+
+| $ a2ps mill.1.ps.gz a2ps.gif NEWS a2ps.texi index.html -o demo.ps
+| [mill.1.ps.gz (compressed, delegated to Gzip-a2ps): 17 pages on 9 sheets]
+| [a2ps.gif (gif, delegated to ImageMagick): 3 pages on 2 sheets]
+| [NEWS (plain): 12 pages on 6 sheets]
+| [a2ps.texi (texinfo, delegated to texi2dvi): 89 pages on 45 sheets]
+| [index.html (html, delegated to Netscape): 13 pages on 7 sheets]
+| [Total: 132 pages on 66 sheets] saved into the file `demo.ps'
+
+Want to print a LaTeX file in Duplex?
+
+| $ a2ps paper.tex -s2 -P margot
+| [paper.tex (tex, delegated to texi2dvi): 33 pages on 9 sheets]
+| request id is margot-129 (standard input)
+| [Total: 34 pages on 9 sheets] sent to the printer `margot'
+
+(Bibtex, makeindex, and latex were run as many times as needed.)
+
+Or maybe you want to print the documentation as a booklet?
+
+| $ a2ps -P margot -=book doc/a2ps.texi
+| [doc/a2ps.texi (texinfo, delegated to texi2dvi): 109 pages on 109 sheets]
+| request id is margot-128 (standard input)
+| [Total: 109 pages on 109 sheets] sent to the printer `margot'
+
+It supports a wide number of encodings, and a very good handling of
+Latin 2-6 should be noted, thanks to Ogonkify (by Juliusz Chroboczek
+<jec@dcs.ed.ac.uk>).  Needed fonts are automatically downloaded.  The
+interface is internationalized, the output is customizable and there
+are as many options as users had wishes (table of content, headings,
+virtual page layout etc. etc.).
+
+The documentation has been carefully crafted for both novices and
+experts.  It is meant to bring light on most questions you have, and
+includes a glossary.
+
+Contributions
+=============
+
+Some goodies are provided in the package:
+ - card     pretty prints `--help' from programs
+ - fixnt    fixes Windows NT PostScript files (thanks to Holger Bauer)
+ - fixps    fixes most common problems in PostScript files
+ - pdiff    prints a comparison between two files
+ - psmandup eases Duplex printing on Simplex printers
+ - psset    inserts special PostScript requests (ManualFeed etc.)
+
+The full distribution of Ogonkify, by Juliusz Chroboczek, is also
+included.  Ogonkify let's you fix deficient Latin 2-6 support in
+popular applications' PostScript (Netscape, StarOffice...).
+
+
+Downloading
+===========
+
+GNU a2ps can be found on its web page:
+
+	http://www.inf.enst.fr/~demaille/a2ps/
+
+There is also a mailing list set up to discuss around a2ps.  To
+subscribe, send a mail to <a2ps-request@gnu.org> with `subscribe' in
+its body.  Contributions of any kind are most welcome!
+
+Please do *not* use this address to report bugs, use <bug-a2ps@gnu.org>.
+
+
+Version 4.13
+============
+
+ * Options:
+   - It can no longer happen that --version and --help fail.
+   - Fixed the reversed reading of the argument of --truncate.
+   - --which, reports the full file name of library files.
+   - --glob, globs in the library.
+ * Predefined User Options
+   - pdf
+     `a2ps -=pdf foo' creates foo.pdf.  Uses Adobe Distiller, or
+     Ghostscript's ps2pdf.  The fake printer `pdf' is also available.
+     Contributed by Manfred Schwarb.
+   - simplex and s1
+     Forces a2ps to issue a `Simplex' request.  `a2ps -s1' (currently)
+     only tells a2ps *not* to issue a Duplex request.
+   - display
+     Wrapper around the pseudo printer `display' requiring colored
+     output, one up.
+ * Encodings:
+   - ISO 8859-13.
+ * Contributions:
+   - Ogonkify supports ISO-8859-13 (thanks to Dariusz Ramanauskas).
+   - Ogonkify supports the Euro glyph.
+   - pdiff and card
+     a2ps options are now to be given after `--'.  For instance
+       pdiff old new -- -1 -P display
+   - fixps
+     stops smashing blank lines.
+ * Style sheets:
+   - asn1.ssh, thanks to Philippe Coucaud.
+   - autoconf.ssh
+   - awk.ssh, thanks to Edward Arthur.
+   - b.ssh, thanks to Philippe Coucaud.
+   - bc.ssh
+   - cidl.ssh, CORBA IDL, thanks to Bob Phillips.
+   - cxx.ssh is the new name for C++ (formerly cpp.ssh).
+   - cpp.ssh, CPP.
+   - haskell.ssh, thanks to Ilya Beylin.
+   - js.ssh, JavaScript, thanks to Scott Pakin.
+   - lout.ssh, thanks to Jean-Baptiste Nivoit.
+   - maple.ssh, thanks to Richard J Mathar.
+   - mly.ssh, CAML Yacc, thanks to Jean-Baptiste Nivoit.
+   - ocaml.ssh, thanks to Markus Mottl.
+   - pov.ssh, thanks to Jean-Baptiste Nivoit.
+   - sed.ssh
+   - sml.ssh, Standard ML, thanks to Franklin Chen.
+   - shell.ssh, ancestors for *sh.ssh.
+   - vba.ssh, Visual Basic for Applications, thanks to Dirk Eddelbuettel.
+   - tiger.ssh, related to the toy language of the books
+     "Modern Compiler Implementation", by Andrew W. Appel
+     http://www.cs.princeton.edu/~appel/modern/
+   - xs.ssh, Perl XS, thanks to Kestutis Kupciunas.
+ * The syntax of sheets.map is improved
+ * Regexp are now `egrep' and `Perl' like, and no longer `Emacs' like.
+   Before some characters had to be backslashed to denote the
+   operators.  Now, it is just the opposite.  For instance before
+   `\\(' and `\\)' used to be the grouping operator and `(' and `)'
+   were standing for the characters parentheses; while now it is the
+   converse.
+   Affected characters are `(', `)', `|', `{', and `}'.
+   Make sure to update your own style sheets.
+ * Error Signaling
+   - Failing compilations of regexp in style sheets now report the filename
+     and line where the error occured.
+ * Delegations
+   - File names with spaces are correctly processed.
+   - MetaFont and MetaPost thanks to Scott Pakin.
+   - The TeX delegations no longer remove the local DVI file.
+ * Number of wrapped lines
+   Is reported if the variable `cfg.wrapped' is set (which is the default).
+ * Prologues
+   - fixed.pro uses only fixed size fonts, in order to preserve the
+     indentation.
+   - ul.pro underlines where italics are expected.  Meant to print
+     formatted man pages.
+ * Wrapped lines
+   The number of lines which were wrapped is reported.
+   Contributed by Scott Pakin.
+
+
+Authors
+=======
+
+a2ps is written by akim@freefriends.org and Miguel.Santana@st.com.  We
+hope you'll enjoy it!
+
+--
+Akim & Miguel
